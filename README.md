@@ -39,7 +39,11 @@ VPL supplies the visible canonical scripture wording; USFM supplies only verifie
 
 ## Book export
 
-The homepage’s `export.md` action downloads all 22 chapters with 90 unique linked illuminations. Download its companion `red-letter reference` file when creating DOCX: it preserves the words of Jesus in crimson in Word and Google Docs. See [Convert the illuminated Markdown book](docs/book-export.md) for Pandoc commands that create red-letter DOCX, EPUB, and PDF files.
+The default public download is `REVELATION-master-v1.zip`. It contains the official 182-page PDF, fixed-layout and reflowable EPUBs, DOCX, all canonical artwork and content, portable IDML/INDD source, fonts and licences, publishing scripts, and rebuild instructions. After extracting it, every project path resolves inside the archive.
+
+See [Convert the illuminated Markdown book](docs/book-export.md) for the batteries-included workflow. The standalone `/export.md` endpoint remains available for compatibility, but it uses web artwork URLs and is no longer the recommended route for rebuilding the book.
+
+The collector&apos;s print edition can be previewed and purchased through the Blurb viewer embedded on the homepage.
 
 ## Build the artwork release
 
@@ -48,7 +52,14 @@ npm run assets:release
 npm run assets:validate
 ```
 
-This creates ignored files under `dist/releases/v1/`: 90 checksum-verified originals, 640px and 1920px WebP derivatives, 1920px-or-smaller book-safe JPEGs, the release manifest, checksums, and `revelations-artwork-v1.zip`.
+This creates ignored files under `dist/releases/v1/`: 90 checksum-verified originals, 640px and 1920px WebP derivatives, book-safe JPEGs, the legacy artwork-only ZIP, and the self-contained `REVELATION-master-v1.zip`.
+
+Validate both the public artwork tree and extracted publishing bundle:
+
+```bash
+npm run assets:validate
+npm run publishing:validate
+```
 
 Upload after setting the four R2 credentials shown in `.env.example`:
 
