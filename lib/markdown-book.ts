@@ -1,9 +1,13 @@
 import type { Scene, ScriptureChapter } from "./content";
 
+export type MarkdownImageSource =
+  | { kind: "web"; assetBaseUrl: string }
+  | { kind: "bundle"; imageRoot: string };
+
 export type MarkdownBookInput = {
   chapters: ScriptureChapter[];
   scenes: Scene[];
-  assetBaseUrl: string;
+  imageSource: MarkdownImageSource;
 };
 
 const romans = ["", "I", "II", "III", "IV", "V", "VI"];
@@ -21,6 +25,39 @@ function cleanOrigin(value: string) {
     throw new Error(`Book asset origin must be a clean absolute HTTP or HTTPS origin: ${value}`);
   }
   return url.origin;
+}
+
+function cleanRelativeImageRoot(value: string) {
+  const segments = value.split("/");
+  if (
+    !value ||
+    value.startsWith("/") ||
+    value.endsWith("/") ||
+    value.includes("\\") ||
+    value.includes(":") ||
+    value.includes("?") ||
+    value.includes("#") ||
+    segments.some(
+      (segment) =>
+        !segment ||
+        segment === "." ||
+        segment === ".." ||
+        !/^[A-Za-z0-9._-]+$/.test(segment),
+    )
+  ) {
+    throw new Error(`Book bundle requires a safe relative image root: ${value}`);
+  }
+  return segments.join("/");
+}
+
+function imageReference(source: MarkdownImageSource, sceneId: string) {
+  if (source.kind === "web") {
+    return new URL(
+      `releases/v1/book/images/${sceneId}.jpg`,
+      `${cleanOrigin(source.assetBaseUrl)}/`,
+    ).href;
+  }
+  return `${cleanRelativeImageRoot(source.imageRoot)}/${sceneId}.jpg`;
 }
 
 function escapeMarkdown(value: string) {
@@ -52,8 +89,7 @@ function renderVerseText(verse: ScriptureChapter["verses"][number]) {
   return parts.join("");
 }
 
-export function renderMarkdownBook({ chapters, scenes, assetBaseUrl }: MarkdownBookInput) {
-  const origin = cleanOrigin(assetBaseUrl);
+export function renderMarkdownBook({ chapters, scenes, imageSource }: MarkdownBookInput) {
   if (chapters.length !== 22 || chapters.some(({ chapter }, index) => chapter !== index + 1)) {
     throw new Error("Markdown book requires Revelation chapters 1 through 22 in order");
   }
@@ -87,7 +123,7 @@ export function renderMarkdownBook({ chapters, scenes, assetBaseUrl }: MarkdownB
     if (scene.images.reader !== `releases/v1/web/1920/${scene.id}.webp`) {
       throw new Error(`${scene.id}: reader image must be a canonical release key`);
     }
-    const imageUrl = new URL(`releases/v1/book/images/${scene.id}.jpg`, `${origin}/`).href;
+    const imageUrl = imageReference(imageSource, scene.id);
     imageUrls.add(imageUrl);
     scenesAt.set(anchorKey, [...(scenesAt.get(anchorKey) ?? []), { scene, imageUrl }]);
   }

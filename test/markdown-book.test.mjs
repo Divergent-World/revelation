@@ -12,7 +12,7 @@ const { scenes } = JSON.parse(await readFile(new URL("../content/tapestries.json
 const render = (overrides = {}) => renderMarkdownBook({
   chapters,
   scenes,
-  assetBaseUrl: "https://assets.example.test",
+  imageSource: { kind: "web", assetBaseUrl: "https://assets.example.test" },
   ...overrides,
 });
 
@@ -97,8 +97,42 @@ test("places shared and multi-span scenes once at their first verse", () => {
 });
 
 test("rejects a relative asset origin", () => {
-  assert.throws(() => render({ assetBaseUrl: "/assets" }), /absolute HTTP or HTTPS/);
+  assert.throws(
+    () => render({ imageSource: { kind: "web", assetBaseUrl: "/assets" } }),
+    /absolute HTTP or HTTPS/,
+  );
 });
+
+test("renders bundle images as safe relative paths", () => {
+  const markdown = render({
+    imageSource: { kind: "bundle", imageRoot: "artwork/book-images" },
+  });
+  const images = [...markdown.matchAll(/^!\[[^\n]+\]\(([^)]+)\)/gm)].map(
+    (match) => match[1],
+  );
+  assert.equal(images.length, 90);
+  assert.equal(images[0], "artwork/book-images/T1-00.jpg");
+  assert.ok(
+    images.every((image) => !image.includes("://") && !image.startsWith("/")),
+  );
+});
+
+for (const imageRoot of [
+  "../outside",
+  "/absolute",
+  "file:artwork",
+  "https://assets.test",
+  "artwork\\book-images",
+  "artwork/book-images?x=1",
+  "artwork/book-images#x",
+]) {
+  test(`rejects unsafe bundle image root ${imageRoot}`, () => {
+    assert.throws(
+      () => render({ imageSource: { kind: "bundle", imageRoot } }),
+      /safe relative image root/,
+    );
+  });
+}
 
 test("rejects duplicate scene IDs and duplicate image URLs", () => {
   const duplicateId = scenes.map((scene, index) => index === 1 ? { ...scene, id: scenes[0].id } : scene);
