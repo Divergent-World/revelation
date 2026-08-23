@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>REVELATION — sample spreads</title>
+<style>
+@page { size: 12in 9in; margin: 0; }
+:root{
+  --vellum:#EAE1CE;
+  --vellum-deep:#DED2B9;
+  --ink:#16120E;
+  --ink-soft:#3B322A;
+  --rubric:#8E2420;
+  --lapis:#1E3566;
+  --gold:#A8823C;
+  --rule:#C3B597;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#4a4a4a;}
+body{font-family:"EB Garamond",serif;-webkit-font-smoothing:antialiased;}
+.page{
+  width:12in;height:9in;position:relative;overflow:hidden;
+  background:var(--vellum);page-break-after:always;break-after:page;
+}
+.page:last-child{page-break-after:auto;}
+
+/* ---------- apparatus type ---------- */
+.app{font-family:"Space Grotesk",sans-serif;text-transform:uppercase;
+     font-size:6.2pt;letter-spacing:.16em;font-weight:500;color:var(--ink-soft);}
+.app-lg{font-family:"Space Grotesk",sans-serif;text-transform:uppercase;
+     font-size:7.6pt;letter-spacing:.22em;font-weight:500;}
+.folio{position:absolute;bottom:.42in;font-family:"Space Grotesk",sans-serif;
+     font-size:6.4pt;letter-spacing:.18em;color:var(--ink-soft);}
+.folio.l{left:.75in;} .folio.r{right:.75in;}
+.rt{position:absolute;top:.5in;font-family:"Space Grotesk",sans-serif;text-transform:uppercase;
+     font-size:6.2pt;letter-spacing:.24em;color:#8A7C66;}
+.rt.l{left:.75in;} .rt.r{right:.75in;}
+
+/* status chip */
+.chip{display:inline-block;border:.4pt solid currentColor;padding:1.6pt 4.5pt 1.2pt;
+      font-family:"Space Grotesk",sans-serif;font-size:5.6pt;letter-spacing:.18em;
+      text-transform:uppercase;font-weight:500;vertical-align:.5pt;}
+.chip.survives{color:var(--lapis);} .chip.frag{color:var(--gold);} .chip.lost{color:var(--rubric);}
+
+/* ---------- 1. COVER ---------- */
+.cover{background:#120D0B;}
+.cover .field{position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 50% 42%, #2A1C18 0%, #150F0C 55%, #0C0806 100%);}
+.cover .frame{position:absolute;inset:.62in;border:.6pt solid #6B5427;}
+.cover .frame2{position:absolute;inset:.72in;border:.4pt solid #3E301A;}
+.cover .stack{position:absolute;left:0;right:0;top:2.55in;text-align:center;color:#D9C48A;}
+.cover h1{font-family:"Cinzel",serif;font-weight:600;font-size:74pt;letter-spacing:.13em;
+  line-height:.95;color:#C9AE72;text-indent:.13em;}
+.cover .sub{margin-top:.30in;font-family:"Cinzel",serif;font-size:11.5pt;letter-spacing:.42em;
+  color:#8E7440;text-indent:.42em;}
+.cover .hair{width:2.4in;height:0;border-top:.5pt solid #6B5427;margin:.34in auto;}
+.cover .lede{font-family:"EB Garamond",serif;font-style:italic;font-size:13pt;color:#9A8659;letter-spacing:.02em;}
+.cover .base{position:absolute;left:0;right:0;bottom:1.02in;text-align:center;
+  font-family:"Space Grotesk",sans-serif;font-size:7pt;letter-spacing:.34em;color:#6E5A32;text-transform:uppercase;}
+.cover .spinecue{position:absolute;left:.62in;top:.62in;bottom:.62in;width:.9in;
+  border-right:.4pt solid #3E301A;}
+.cover .spinecue span{position:absolute;bottom:.28in;left:.30in;transform:rotate(-90deg);transform-origin:0 0;
+  white-space:nowrap;font-family:"Space Grotesk",sans-serif;font-size:6.2pt;letter-spacing:.3em;color:#6E5A32;text-transform:uppercase;}
+
+/* ---------- 2. TITLE ---------- */
+.title-l{position:absolute;inset:0;padding:1.15in .95in;}
+.title-l .colophon-note{position:absolute;bottom:1.05in;left:.95in;width:3.5in;
+  font-size:8.6pt;line-height:1.55;color:var(--ink-soft);}
+.title-r{position:absolute;inset:0;}
+.title-r .inner{position:absolute;left:1.1in;right:1.1in;top:2.15in;text-align:center;}
+.title-r h1{font-family:"Cinzel",serif;font-size:47pt;font-weight:600;letter-spacing:.10em;
+  color:var(--ink);text-indent:.10em;line-height:1.0;}
+.title-r .drop{font-family:"Cinzel",serif;font-size:9.5pt;letter-spacing:.40em;color:var(--rubric);
+  text-indent:.40em;margin-bottom:.34in;}
+.title-r .sub{margin-top:.30in;font-size:14.5pt;font-style:italic;color:var(--ink-soft);letter-spacing:.02em;}
+.title-r .rule{width:1.7in;height:0;border-top:.5pt solid var(--rule);margin:.36in auto;}
+.title-r .imprint{margin-top:.30in;font-family:"Space Grotesk",sans-serif;font-size:6.8pt;
+  letter-spacing:.30em;text-transform:uppercase;color:var(--ink-soft);}
+
+/* ---------- 3. MOVEMENT OPENER ---------- */
+.mv{display:grid;grid-template-columns:5.35in 6.65in;height:100%;}
+.mv .plate{background:#1A1410;position:relative;overflow:hidden;}
+.mv .plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.mv .plate .vign{position:absolute;inset:0;box-shadow:inset 0 0 1.6in rgba(20,14,10,.55);}
+.mv .txt{padding:1.15in .95in 1in 1in;position:relative;}
+.mv .numeral{font-family:"Cinzel",serif;font-size:15pt;letter-spacing:.5em;color:var(--rubric);text-indent:.5em;}
+.mv h2{font-family:"Cinzel",serif;font-size:33pt;font-weight:600;letter-spacing:.055em;
+  line-height:1.14;margin-top:.20in;color:var(--ink);}
+.mv .rangehair{width:1.25in;border-top:.6pt solid var(--rubric);margin:.30in 0;}
+.mv .range{font-family:"Space Grotesk",sans-serif;font-size:7.2pt;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.mv .arg{margin-top:.34in;font-size:11.6pt;line-height:1.72;color:var(--ink);max-width:4.4in;}
+.mv .arg .lead::first-letter{font-family:"Cinzel",serif;font-size:29pt;line-height:.82;float:left;
+  padding:.045in .075in 0 0;color:var(--rubric);}
+.mv-stat{position:absolute;left:1in;bottom:2.02in;display:flex;gap:.62in;
+  border-top:.5pt solid var(--rule);padding-top:.16in;width:4.4in;}
+.mv-stat div{display:flex;flex-direction:column;gap:.045in;}
+.mv-stat b{font-family:"Cinzel",serif;font-size:17pt;font-weight:600;color:var(--rubric);line-height:1;}
+.mv-stat span{font-family:"Space Grotesk",sans-serif;font-size:5.8pt;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.mv .tocstrip{position:absolute;left:1in;right:.95in;bottom:.95in;
+  border-top:.4pt solid var(--rule);padding-top:.13in;
+  display:flex;flex-wrap:wrap;gap:.055in .30in;}
+.mv .tocstrip span{font-family:"Space Grotesk",sans-serif;font-size:5.9pt;letter-spacing:.11em;
+  color:#7C6E58;text-transform:uppercase;}
+
+/* ---------- 4. FULL BLEED ---------- */
+.bleed{background:#0E0A08;}
+.bleed img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.bleed .scrim{position:absolute;left:0;right:0;bottom:0;height:2.5in;
+  background:linear-gradient(to top,rgba(10,7,5,.88) 0%,rgba(10,7,5,.55) 42%,rgba(10,7,5,0) 100%);}
+.bleed .cap{position:absolute;left:.85in;bottom:.78in;right:2.6in;color:#E4D9C0;}
+.bleed .cap .id{font-family:"Space Grotesk",sans-serif;font-size:6.4pt;letter-spacing:.28em;
+  text-transform:uppercase;color:#B3A184;}
+.bleed .cap h3{font-family:"Cinzel",serif;font-size:19pt;font-weight:500;letter-spacing:.055em;margin-top:.10in;}
+.bleed .cap .vs{margin-top:.13in;font-size:11.4pt;font-style:italic;line-height:1.5;color:#CFC2A5;max-width:5.2in;}
+.bleed .rt{color:#9C8D74;}
+
+/* ---------- 5. PLATE + SCRIPTURE ---------- */
+.ps{display:grid;grid-template-columns:7.05in 4.95in;height:100%;}
+.ps .imgcol{position:relative;background:#17110E;overflow:hidden;}
+.ps .imgcol img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ps .txtcol{padding:.85in .8in .8in .62in;position:relative;
+  border-left:.4pt solid var(--rule);background:var(--vellum);}
+.ps .hd .id{font-family:"Space Grotesk",sans-serif;font-size:6.3pt;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.ps .hd h3{font-family:"Cinzel",serif;font-size:16.5pt;font-weight:600;letter-spacing:.05em;
+  line-height:1.2;margin-top:.10in;color:var(--ink);}
+.ps .hd .anchor{margin-top:.09in;font-family:"Space Grotesk",sans-serif;font-size:6.6pt;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--rubric);}
+.ps .hr{border-top:.5pt solid var(--rule);margin:.24in 0;}
+.ps .scripture{font-size:10.6pt;line-height:1.76;color:var(--ink);text-align:justify;hyphens:auto;}
+.ps .scripture .v{font-family:"Space Grotesk",sans-serif;font-size:5.6pt;color:var(--rubric);
+  vertical-align:.42em;letter-spacing:.06em;margin-right:.032in;font-weight:500;}
+.ps .prov{position:absolute;left:.62in;right:.8in;bottom:2.26in;
+  border-top:.4pt solid var(--rule);padding-top:.14in;}
+.ps .prov .lbl{font-family:"Space Grotesk",sans-serif;font-size:5.9pt;letter-spacing:.22em;
+  text-transform:uppercase;color:#8A7C66;margin-bottom:.10in;}
+.ps .prov dl{display:grid;grid-template-columns:1.28in 1fr;row-gap:.055in;
+  font-family:"Space Grotesk",sans-serif;font-size:6.2pt;letter-spacing:.11em;color:var(--ink-soft);
+  text-transform:uppercase;}
+.ps .prov dt{color:#9A8B72;}
+.ps .note{position:absolute;left:.62in;right:.8in;bottom:.78in;border-top:.4pt solid var(--rule);padding-top:.15in;}
+.ps .note .lbl{font-family:"Space Grotesk",sans-serif;font-size:5.9pt;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.075in;}
+.ps .note p{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:10.4pt;
+  line-height:1.56;color:var(--ink-soft);}
+
+/* ---------- 6. DIPTYCH ---------- */
+.dip{padding:.72in .75in 1in;}
+.dip .hdr{display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:.5pt solid var(--rule);padding-bottom:.11in;margin-bottom:.30in;}
+.dip .hdr .t{font-family:"Cinzel",serif;font-size:11pt;letter-spacing:.16em;color:var(--ink);}
+.dip .grid{display:grid;grid-template-columns:1fr 1fr;gap:.42in;}
+.dip figure{margin:0;}
+.dip .fr{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#17110E;
+  border:.5pt solid #9E8F72;}
+.dip .fr img{width:100%;height:100%;object-fit:cover;}
+.dip figcaption{margin-top:.14in;}
+.dip figcaption .id{font-family:"Space Grotesk",sans-serif;font-size:6pt;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.dip figcaption h4{font-family:"Cinzel",serif;font-size:11.5pt;font-weight:600;letter-spacing:.04em;
+  margin-top:.07in;color:var(--ink);}
+.dip figcaption .vs{margin-top:.075in;font-size:9.7pt;font-style:italic;line-height:1.5;color:var(--ink-soft);}
+.dip .footnote{position:absolute;left:.75in;right:.75in;bottom:.62in;
+  border-top:.4pt solid var(--rule);padding-top:.12in;display:flex;gap:.5in;}
+.dip .footnote div{flex:1;font-size:8.4pt;line-height:1.5;color:var(--ink-soft);}
+.dip .footnote sup{color:var(--rubric);font-family:"Space Grotesk",sans-serif;font-size:5.6pt;}
+
+/* ---------- 7. APPARATUS / INDEX ---------- */
+.idx{padding:.72in .8in 1in;}
+.idx h2{font-family:"Cinzel",serif;font-size:15pt;letter-spacing:.14em;color:var(--ink);}
+.idx .sub{margin-top:.08in;font-family:"Space Grotesk",sans-serif;font-size:6.4pt;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);}
+.idx .lede{margin-top:.20in;font-size:10.2pt;line-height:1.66;color:var(--ink-soft);max-width:6.6in;
+  border-top:.5pt solid var(--rule);padding-top:.18in;}
+.idx table{width:100%;border-collapse:collapse;margin-top:.24in;}
+.idx th{font-family:"Space Grotesk",sans-serif;font-size:5.7pt;letter-spacing:.2em;text-transform:uppercase;
+  color:#8A7C66;text-align:left;padding:0 0 .07in;border-bottom:.5pt solid var(--rule);font-weight:500;}
+.idx td{font-size:9.1pt;padding:.055in 0;border-bottom:.25pt solid #D3C6AA;color:var(--ink);vertical-align:baseline;}
+.idx td.k{font-family:"Space Grotesk",sans-serif;font-size:6.3pt;letter-spacing:.14em;color:var(--ink-soft);}
+.idx td.st{font-family:"Space Grotesk",sans-serif;font-size:5.8pt;letter-spacing:.16em;text-transform:uppercase;}
+.idx .cols{column-count:2;column-gap:.55in;}
+.st-s{color:var(--lapis);} .st-f{color:var(--gold);} .st-l{color:var(--rubric);}
+
+/* ---------- 8. COLOPHON ---------- */
+.col{padding:1.3in 1in;display:grid;grid-template-columns:1fr 1fr;gap:1.1in;}
+.col h2{font-family:"Cinzel",serif;font-size:13pt;letter-spacing:.18em;margin-bottom:.24in;color:var(--ink);}
+.col p{font-size:9.9pt;line-height:1.68;color:var(--ink-soft);margin-bottom:.17in;}
+.col .spec{font-family:"Space Grotesk",sans-serif;font-size:6.6pt;letter-spacing:.12em;line-height:2.0;
+  text-transform:uppercase;color:var(--ink-soft);}
+.col .spec b{color:var(--ink);font-weight:500;display:inline-block;width:1.45in;}
+.col .mark{margin-top:.4in;font-family:"Cinzel",serif;font-size:8.5pt;letter-spacing:.4em;color:var(--rubric);}
+</style></head><body>
+
+<!-- 1 COVER -->
+<div class="page cover">
+  <div class="field"></div>
+  <div class="frame"></div><div class="frame2"></div>
+  <div class="spinecue"><span>Rahman · Divergent World</span></div>
+  <div class="stack">
+    <h1>REVELATION</h1>
+    <div class="sub">AN ILLUMINATED PROPHECY IN SIX MOVEMENTS</div>
+    <div class="hair"></div>
+    <div class="lede">Ninety plates, after the Apocalypse Tapestry of Angers</div>
+  </div>
+  <div class="base">Ali Rahman</div>
+</div>
+
+<!-- 2 TITLE (recto) -->
+<div class="page">
+  <div class="title-r">
+    <div class="inner">
+      <div class="drop">DIVERGENT WORLD</div>
+      <h1>REVELATION</h1>
+      <div class="sub">An Illuminated Prophecy in Six Movements</div>
+      <div class="rule"></div>
+      <div style="font-size:10.6pt;line-height:1.7;color:var(--ink-soft);max-width:5.1in;margin:0 auto;">
+        The complete text of the Apocalypse of John, with ninety plates
+        reconstructing the lost and surviving registers of the Angers cycle.
+      </div>
+      <div class="imprint">Plates and commentary by Ali Rahman</div>
+    </div>
+  </div>
+  <div class="folio r">i</div>
+</div>
+
+<!-- 3 MOVEMENT OPENER -->
+<div class="page">
+  <div class="mv">
+    <div class="plate"><img src="T1-00.jpg"><div class="vign"></div></div>
+    <div class="txt">
+      <div class="numeral">MOVEMENT I</div>
+      <h2>The Scroll<br>Opens</h2>
+      <div class="rangehair"></div>
+      <div class="range">Revelation 1 — 7 &nbsp;·&nbsp; Fifteen registers</div>
+      <div class="arg">
+        <p class="lead">History is not random. It is sealed, owned, and opened only
+        by one found worthy. The first movement begins on Patmos with a man receiving
+        a vision he did not ask for, and rises — within a dozen registers — into the
+        throne room where the fate of the world is disclosed. Awe turns into dread.
+        By the closing plate the Horsemen are already riding.</p>
+        <p style="margin-top:.20in">Three of these fifteen registers no longer exist.
+        The reader panel that opens the whole cycle is among them: the figure of John
+        that every subsequent movement answers to was lost, and has been rebuilt here
+        from the five that survive.</p>
+      </div>
+      <div class="mv-stat">
+        <div><b>12</b><span>Survive</span></div>
+        <div><b>—</b><span>Fragment</span></div>
+        <div><b>3</b><span>Reconstructed</span></div>
+      </div>
+      <div class="tocstrip">
+        <span>T1-00 Saint John reading</span><span>T01 Seven churches</span>
+        <span>T02 Seven candlesticks</span><span>T03 Christ in majesty</span>
+        <span>T04 The worthy named</span><span>T05 Elders cast crowns</span>
+        <span>T06 Adoration of the Lamb</span><span>T07 The Lamb takes the book</span>
+        <span>B01 First horseman</span><span>B02 Second horseman</span>
+        <span>B03 Third horseman</span><span>B04 Fourth horseman</span>
+        <span>B05 Souls of the martyrs</span><span>B06 The sixth seal</span>
+        <span>B07 The four winds</span>
+      </div>
+    </div>
+  </div>
+  <div class="rt r">Movement I · The Scroll Opens</div>
+</div>
+
+<!-- 4 FULL BLEED -->
+<div class="page bleed">
+  <img src="T6-T03.jpg">
+  <div class="scrim"></div>
+  <div class="rt r">Movement VI · The Holy City</div>
+  <div class="cap">
+    <div class="id">Plate T6-T03 &nbsp;·&nbsp; Revelation 19:11–16 &nbsp;·&nbsp;
+      <span class="chip survives" style="color:#8FA8D8">Survives at Angers</span></div>
+    <h3>Christ on the White Horse</h3>
+    <div class="vs">“He is clothed in a garment sprinkled with blood. His name is called
+      ‘The Word of God.’”</div>
+  </div>
+</div>
+
+<!-- 5 PLATE + SCRIPTURE -->
+<div class="page">
+  <div class="ps">
+    <div class="imgcol"><img src="T1-T03.jpg"></div>
+    <div class="txtcol">
+      <div class="hd">
+        <div class="id">Plate T1-T03 &nbsp;·&nbsp; Movement I &nbsp;·&nbsp;
+          <span class="chip survives">Survives</span></div>
+        <h3>Vision of Christ<br>in Majesty</h3>
+        <div class="anchor">Revelation 1 : 13–16</div>
+      </div>
+      <div class="hr"></div>
+      <div class="scripture">
+        <span class="v">13</span>And among the lamp stands was one like a son of man,
+        clothed with a robe reaching down to his feet, and with a golden sash around his chest.
+        <span class="v">14</span>His head and his hair were white as white wool, like snow.
+        His eyes were like a flame of fire.
+        <span class="v">15</span>His feet were like burnished brass, as if it had been refined
+        in a furnace. His voice was like the voice of many waters.
+        <span class="v">16</span>He had seven stars in his right hand. Out of his mouth proceeded
+        a sharp two-edged sword. His face was like the sun shining at its brightest.
+      </div>
+      <div class="prov">
+        <div class="lbl">Plate data</div>
+        <dl>
+          <dt>Register</dt><dd>Tapestry I, top row, position 3</dd>
+          <dt>Angers state</dt><dd>Survives · Musée de la Tapisserie</dd>
+          <dt>Palette</dt><dd>Carmin ground · Or · Bleu roi</dd>
+          <dt>Source</dt><dd>5056 × 3392 px · reproduced at 300 ppi</dd>
+        </dl>
+      </div>
+      <div class="note">
+        <div class="lbl">Note on the plate</div>
+        <p>The Angers weaver gave Christ a mandorla and left the sword floating free of the
+        mouth — a solution to an image the text makes almost unpaintable. I have kept the
+        floating sword. It is the one place in this movement where I let the medieval
+        reading overrule my own.</p>
+      </div>
+    </div>
+  </div>
+  <div class="folio l">14</div>
+</div>
+
+<!-- 6 DIPTYCH -->
+<div class="page dip">
+  <div class="hdr">
+    <div class="t">MOVEMENT V · BABYLON FALLS</div>
+    <div class="app">Registers B02 – B03 · Revelation 17 : 3 — 18 : 8</div>
+  </div>
+  <div class="grid">
+    <figure>
+      <div class="fr"><img src="T5-B02.jpg"></div>
+      <figcaption>
+        <div class="id">T5-B02 &nbsp;·&nbsp; <span class="chip survives">Survives</span></div>
+        <h4>Whore of Babylon Seated on the Beast</h4>
+        <div class="vs">“The woman was dressed in purple and scarlet, and decked with gold and
+          precious stones and pearls.” <sup style="color:var(--rubric);font-family:'Space Grotesk';font-size:5.4pt">1</sup></div>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="fr"><img src="T1-B04.jpg"></div>
+      <figcaption>
+        <div class="id">T1-B04 &nbsp;·&nbsp; <span class="chip survives">Survives</span></div>
+        <h4>The Fourth Horseman</h4>
+        <div class="vs">“Behold, a pale horse, and he who sat on it, his name was Death.
+          Hades followed with him.” <sup style="color:var(--rubric);font-family:'Space Grotesk';font-size:5.4pt">2</sup></div>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="footnote">
+    <div><sup>1</sup>&nbsp;The Angers panel dresses her in the French royal blue used elsewhere for
+      the reader’s canopy. The reversal is deliberate and I have preserved it.</div>
+    <div><sup>2</sup>&nbsp;Of the four horsemen only the first, third and fourth survive at Angers.
+      The second is reconstructed here from the flanking registers.</div>
+  </div>
+  <div class="folio r">96</div>
+</div>
+
+<!-- 7 APPARATUS -->
+<div class="page idx">
+  <h2>THE REGISTER OF LOSSES</h2>
+  <div class="sub">Concordance of the ninety slots · survival status after the 1782 dispersal</div>
+  <div class="lede">Of the ninety registers woven at Angers between 1377 and 1382, seventy-one survive
+    in some condition. The rest were cut up for horse blankets, used to lag orangery pipes, or simply
+    vanished. This book reconstructs all ninety. The status column records what was actually there
+    to work from — and therefore how much of each plate is evidence and how much is argument.</div>
+  <div class="cols">
+  <table>
+    <thead><tr><th style="width:.72in">Slot</th><th>Register</th><th style="width:.82in">Anchor</th><th style="width:.86in">Status</th></tr></thead>
+    <tbody>
+      <tr><td class="k">T1-00</td><td>Saint John reading the Apocalypse</td><td class="k">1:1–11</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T1-T01</td><td>Seven churches of Asia</td><td class="k">1:11</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T1-T02</td><td>Vision of the Seven Candlesticks</td><td class="k">1:12–20</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T1-T03</td><td>Vision of Christ in Majesty</td><td class="k">1:13–16</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T1-T07</td><td>Lamb taking the book</td><td class="k">5:7</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T1-B02</td><td>Second Horseman</td><td class="k">6:3–4</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T1-B06</td><td>Sixth seal</td><td class="k">6:12–17</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T2-T01</td><td>Sealing of the 144,000</td><td class="k">7:4–8</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T2-T06</td><td>First trumpet</td><td class="k">8:7</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T3-T07</td><td>Saint Michael and the dragon</td><td class="k">12:7–9</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T5-T04</td><td>Fourth vial on the sun</td><td class="k">16:8–9</td><td class="st st-f">Fragment</td></tr>
+      <tr><td class="k">T5-B04</td><td>Angel casting a millstone</td><td class="k">18:21</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T5-B06</td><td>The marriage of the Lamb</td><td class="k">19:7–9</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T5-B07</td><td>Saint John and angel</td><td class="k">19:9–10</td><td class="st st-f">Fragment</td></tr>
+      <tr><td class="k">T6-T01</td><td>Wrath of God</td><td class="k">19:11–16</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T6-T03</td><td>Christ on the White Horse</td><td class="k">19:11–16</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T6-B02</td><td>Last Judgment</td><td class="k">20:11–15</td><td class="st st-l">Lost</td></tr>
+      <tr><td class="k">T6-B03</td><td>New Jerusalem</td><td class="k">21:1–4</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T6-B05</td><td>River of life</td><td class="k">22:1–2</td><td class="st st-s">Survives</td></tr>
+      <tr><td class="k">T6-B06</td><td>Saint John and the angel</td><td class="k">22:8</td><td class="st st-f">Fragment</td></tr>
+      <tr><td class="k">T6-B07</td><td>Saint John before God</td><td class="k">22:9–13</td><td class="st st-f">Fragment</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="folio l">302</div>
+  <div class="rt l">Apparatus</div>
+</div>
+
+<!-- 8 COLOPHON -->
+<div class="page col">
+  <div>
+    <h2>COLOPHON</h2>
+    <p>This book was set in EB Garamond, cut after the sixteenth-century romans of
+      Claude Garamont; in Cinzel, after Roman inscriptional capitals; and in Space Grotesk,
+      which carries the apparatus — the slot numbers, the survival codes, the plate data.
+      The two families are not meant to reconcile. One belongs to the manuscript, the other
+      to the system that rebuilt it.</p>
+    <p>The plates were generated between March and August of 2026 and selected from
+      roughly one hundred and sixty candidates. Each was made against a fixed style
+      contract and a coordinate system for viewer space, so that ninety images made
+      across six months would read as one hand.</p>
+    <p>Scripture is the World English Bible, in the public domain.
+      Plates © Ali Rahman / Divergent World, released CC BY-SA 4.0.</p>
+    <div class="mark">✠</div>
+  </div>
+  <div>
+    <h2>SPECIFICATION</h2>
+    <div class="spec">
+      <b>Trim</b>12 × 9 in landscape<br>
+      <b>Extent</b>328 pages<br>
+      <b>Plates</b>90, of which 39 full-bleed<br>
+      <b>Text stock</b>150 gsm matt art, FSC<br>
+      <b>Endpapers</b>140 gsm uncoated, carmine<br>
+      <b>Binding</b>Section-sewn, exposed spine<br>
+      <b>Case</b>Cloth over 3 mm board<br>
+      <b>Blocking</b>Gold foil, front and spine<br>
+      <b>Colour</b>4/4 + spot varnish on plates<br>
+      <b>Edition</b>First, 2026<br>
+    </div>
+  </div>
+  <div class="folio r">328</div>
+</div>
+
+</body></html>

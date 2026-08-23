@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+/* Blurb Large Landscape ImageWrap cover, 164 pp.
+   Required page: 27.102 x 11.618 in (164 pp, spine 1.109 in)
+   wrap 35.748 pt per side · panels 900 pt · spine 74.016 pt              */
+@page { size: 1951.354pt 836.496pt; margin: 0; }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{ --gold:#C9AE72; --gold-dim:#8C7442; --cream:#E6DCC4; --ink:#0B0806; }
+html,body{width:1951.354pt;height:836.496pt;}
+body{position:relative;overflow:hidden;background:var(--ink);font-family:"EB Garamond",serif;}
+
+.art{position:absolute;inset:0;}
+.art img{position:absolute;inset:0;width:100%;height:100%;}
+
+/* panels — all content lives inside these, well clear of the wrap */
+.back  {position:absolute;left:35.748pt; top:35.748pt;width:900pt;   height:765pt;}
+.spine {position:absolute;left:935.748pt;top:35.748pt;width:79.858pt;height:765pt;}
+.front {position:absolute;left:1015.606pt;top:35.748pt;width:900pt;  height:765pt;}
+
+.frame {position:absolute;left:46pt;right:46pt;top:46pt;bottom:46pt;border:1.1pt solid var(--gold-dim);}
+.frame2{position:absolute;left:54pt;right:54pt;top:54pt;bottom:54pt;border:.5pt solid rgba(140,116,66,.5);}
+
+/* ---- front ---- */
+.front .stack{position:absolute;left:0;right:0;top:236pt;text-align:center;}
+.front h1{font-family:"Cinzel",serif;font-weight:600;font-size:78pt;letter-spacing:.145em;
+  text-indent:.145em;color:var(--gold);line-height:1;}
+.front .sub{margin-top:24pt;font-family:"Cinzel",serif;font-size:12pt;letter-spacing:.44em;
+  text-indent:.44em;color:#C0A468;}
+.front .hair{width:168pt;border-top:.8pt solid var(--gold-dim);margin:26pt auto;}
+.front .lede{font-style:italic;font-size:14.5pt;color:#C4B085;}
+.front .author{position:absolute;left:0;right:0;bottom:104pt;text-align:center;
+  font-family:"Space Grotesk",sans-serif;font-size:9pt;letter-spacing:.40em;
+  text-transform:uppercase;color:#B79C63;}
+
+/* ---- spine ---- */
+.spine .txt{position:absolute;bottom:96pt;left:50%;
+  transform:translateX(-50%) rotate(-90deg);transform-origin:50% 100%;white-space:nowrap;
+  font-family:"Cinzel",serif;font-size:13.5pt;letter-spacing:.30em;color:var(--gold);}
+.spine .rule{position:absolute;left:50%;transform:translateX(-50%);width:.5pt;
+  background:rgba(140,116,66,.5);}
+.spine .rule.t{top:60pt;height:120pt;} .spine .rule.b{bottom:60pt;height:120pt;}
+
+/* ---- back ---- */
+.back .body{position:absolute;left:104pt;right:130pt;top:170pt;}
+.back p{font-size:13.5pt;line-height:1.70;color:#B9AC90;margin-bottom:16pt;}
+.back p.first{font-size:16pt;color:#CFC0A0;line-height:1.60;}
+.back .marks{position:absolute;left:104pt;right:130pt;bottom:170pt;
+  border-top:.5pt solid rgba(140,116,66,.45);padding-top:18pt;display:flex;gap:52pt;}
+.back .marks div{display:flex;flex-direction:column;gap:4pt;}
+.back .marks b{font-family:"Cinzel",serif;font-size:20pt;color:var(--gold);line-height:1;}
+.back .marks span{font-family:"Space Grotesk",sans-serif;font-size:7pt;letter-spacing:.24em;
+  text-transform:uppercase;color:#8E8064;}
+.back .imprint{position:absolute;left:104pt;bottom:112pt;
+  font-family:"Space Grotesk",sans-serif;font-size:7.5pt;letter-spacing:.34em;
+  text-transform:uppercase;color:#8C7442;}
+.back .isbn{position:absolute;right:130pt;bottom:100pt;width:142pt;height:72pt;
+  border:.6pt solid rgba(140,116,66,.45);display:flex;align-items:center;justify-content:center;
+  font-family:"Space Grotesk",sans-serif;font-size:6pt;letter-spacing:.2em;color:#7A6C50;}
+</style></head><body>
+  <div class="art"><img src="cover_bg.jpg"></div>
+
+  <div class="back">
+    <div class="frame"></div><div class="frame2"></div>
+    <div class="body">
+      <p class="first">Ninety compartments were woven at Angers between 1377 and 1382 — the
+        whole of Revelation, rendered as a sequence you could walk alongside. Twenty of them
+        no longer exist.</p>
+      <p>This book rebuilds all ninety, in the original order, against the original anchors,
+        and marks on every plate whether what you are looking at survives, survives only in
+        fragments, or has been reconstructed. The complete text of the Revelation to John is
+        set alongside, with the words of Christ in red.</p>
+    </div>
+    <div class="marks">
+      <div><b>90</b><span>Compartments</span></div>
+      <div><b>6</b><span>Movements</span></div>
+      <div><b>22</b><span>Chapters</span></div>
+    </div>
+    <div class="imprint">Divergent World</div>
+    <div class="isbn">ISBN</div>
+  </div>
+
+  <div class="spine">
+    <div class="rule t"></div><div class="rule b"></div>
+    <div class="txt">REVELATION &nbsp;·&nbsp; RAHMAN</div>
+  </div>
+
+  <div class="front">
+    <div class="frame"></div><div class="frame2"></div>
+    <div class="stack">
+      <h1>REVELATION</h1>
+      <div class="sub">AN ILLUMINATED PROPHECY IN SIX MOVEMENTS</div>
+      <div class="hair"></div>
+      <div class="lede">After the Apocalypse Tapestry of Angers</div>
+    </div>
+    <div class="author">Ali Rahman</div>
+  </div>
+</body></html>

@@ -1,0 +1,91 @@
+slot_id,movement,register,pos,title,rev_anchor,historical_status,source_file,px_w,px_h,aspect,max_in_at_300dpi,print_grade,canonical_name
+T1-00,1,lead,0,Saint John reading the Apocalypse,Rev 1:1–11,missing_or_lost,I/1.png,1024,1536,0.667,3.41,SUB-RES,T1-00.png
+T1-T01,1,top,1,Seven churches of Asia,Rev 1:11; Rev 2–3,survives,I/01-1-v3.png,1536,1024,1.5,5.12,SUB-RES,T1-T01.png
+T1-T02,1,top,2,Vision of the Seven Candlesticks,Rev 1:12–20,survives,I/01-02-v8 1.png,1536,1024,1.5,5.12,SUB-RES,T1-T02.png
+T1-T03,1,top,3,Vision of Christ in Majesty by Saint John,Rev 1:13–16,survives,I/01-03-v4.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T1-T03.png
+T1-T04,1,top,4,Angel reads the names of the worthy,Rev 5:1–4,survives,I/01-04-v5.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T1-T04.png
+T1-T05,1,top,5,24 Elders of the Apocalypse casting their crowns,Rev 4:10,survives,I/01-05-v3 1.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T1-T05.png
+T1-T06,1,top,6,Adoration of the lamb,Rev 5:8–14,survives,I/01-06.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T1-T06.png
+T1-T07,1,top,7,Lamb taking the book,Rev 5:7,missing_or_lost,I/01-07-v3.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T1-T07.png
+T1-B01,1,bottom,1,First Horseman,Rev 6:1–2,survives,I/01-08-v4.png,1536,1024,1.5,5.12,SUB-RES,T1-B01.png
+T1-B02,1,bottom,2,Second Horseman,Rev 6:3–4,missing_or_lost,I/01-09-v2 1.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T1-B02.png
+T1-B03,1,bottom,3,Third Horseman,Rev 6:5–6,survives,I/01-10-v2.png,1536,1024,1.5,5.12,SUB-RES,T1-B03.png
+T1-B04,1,bottom,4,Fourth Horseman,Rev 6:7–8,survives,I/01-11.png,5056,3372,1.499,16.85,SPREAD-CAPABLE,T1-B04.png
+T1-B05,1,bottom,5,Fifth seal: Souls of martyrs,Rev 6:9–11,survives,I/01-12-v1.png,5056,3372,1.499,16.85,SPREAD-CAPABLE,T1-B05.png
+T1-B06,1,bottom,6,Sixth seal,Rev 6:12–17,missing_or_lost,I/01-13-v2.png,5056,3372,1.499,16.85,SPREAD-CAPABLE,T1-B06.png
+T1-B07,1,bottom,7,"Sealing of the 144,000",Rev 7:1–8,missing_or_lost,I/01-14-v3.png,5056,3372,1.499,16.85,SPREAD-CAPABLE,T1-B07.png
+T2-00,2,lead,0,Saint John reading the Apocalypse (Second Vision),Rev 7:9–12,missing_or_lost,II/2-v2.png,1024,1536,0.667,3.41,SUB-RES,T2-00.png
+T2-T01,2,top,1,Adoration of the Lamb by the 144-thousand,Rev 7:9–17,survives,II/02-01.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T2-T01.png
+T2-T02,2,top,2,Angels receiving seven trumpets,Rev 8:2,survives,II/02-02.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T2-T02.png
+T2-T03,2,top,3,Angel receiving the incense,Rev 8:3–4,survives,II/02-03-v4.png,5056,3392,1.491,16.85,SPREAD-CAPABLE,T2-T03.png
+T2-T04,2,top,4,Angel empty the incense,Rev 8:5,survives,II/II (Part I)_GPT Image 1.5 Edit_2026-04-05_19-36-46.png,1536,1024,1.5,5.12,SUB-RES,T2-T04.png
+T2-T05,2,top,5,First trumpet,Rev 8:7,missing_or_lost,II/II (Part I)_Gemini 3.1 Flash (Nano Banana 2)_2026-05-08_03-15-09.png,5464,3072,1.779,18.21,SPREAD-CAPABLE,T2-T05.png
+T2-T06,2,top,6,Second Trumpet: fire on the sea,Rev 8:8–9,survives,II/02-06-1.png,3840,2160,1.778,12.8,FULL-PAGE,T2-T06.png
+T2-T07,2,top,7,Third Trumpet: Star Wormwood,Rev 8:10–11,survives,II/II (Part II)_ChatGPT Images 2.0 Edit_2026-06-04_19-46-24.png,3840,2160,1.778,12.8,FULL-PAGE,T2-T07.png
+T2-B01,2,bottom,1,Fourth Trumpet: sun and moon are darkened,Rev 8:12,survives,II/II (Part II)_Gemini 3.1 Flash (Nano Banana 2)_2026-06-04_20-03-30.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T2-B01.png
+T2-B02,2,bottom,2,Fifth Trumpet: Locusts come up from the pit,Rev 9:1–11,survives,II/II (Part II)_ChatGPT Images 2.0 Edit_2026-06-04_20-15-44.png,3840,2160,1.778,12.8,FULL-PAGE,T2-B02.png
+T2-B03,2,bottom,3,Sixth Trumpet: Four angels are released,Rev 9:13–15,survives,II/II (Part II)_ChatGPT Images 2.0 Edit_2026-06-04_20-32-38.png,3840,2160,1.778,12.8,FULL-PAGE,T2-B03.png
+T2-B04,2,bottom,4,Horsemen on Fire-Breathing Horses,Rev 9:16–19,survives,II/II (Part II)_Gemini 3.1 Flash (Nano Banana 2)_2026-06-04_20-50-19.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T2-B04.png
+T2-B05,2,bottom,5,Angel with seven thunders,Rev 10:1–4,survives,II/II (Part II)_Gemini 3.1 Flash (Nano Banana 2)_2026-06-04_21-01-56.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T2-B05.png
+T2-B06,2,bottom,6,John eating the book,Rev 10:8–11,survives,II/II (Part II)_Gemini 3.1 Flash (Nano Banana 2)_2026-06-04_21-07-36.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T2-B06.png
+T2-B07,2,bottom,7,Measuring the Temple,Rev 11:1–2,missing_or_lost,II/II (Part II)_ChatGPT Images 2.0 Edit_2026-06-04_21-23-13.png,3840,2160,1.778,12.8,FULL-PAGE,T2-B07.png
+T3-00,3,lead,0,Saint John reading the Apocalypse (Third Vision),Rev 11:1–2,survives,III/3.png,1024,1536,0.667,3.41,SUB-RES,T3-00.png
+T3-T01,3,top,1,Two witnesses,Rev 11:3–6,survives,III/III (Part I)_Gemini 3 (Nano Banana Pro)_2026-06-24_20-30-29.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-T01.png
+T3-T02,3,top,2,Death of Two witnesses,Rev 11:7,survives,III/III (Part I)_Gemini 3 (Nano Banana Pro)_2026-06-29_00-35-54.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-T02.png
+T3-T03,3,top,3,Unburied Bodies of Two Witnesses,Rev 11:8–10,survives,III/III (Part I)_ChatGPT Images 2.0 Edit_2026-06-29_00-59-46.png,3840,2160,1.778,12.8,FULL-PAGE,T3-T03.png
+T3-T04,3,top,4,Ascension of Two witnesses,Rev 11:11–12,survives,III/III (Part I)_Gemini 3.1 Flash (Nano Banana 2)_2026-06-29_01-17-46.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-T04.png
+T3-T05,3,top,5,Seventh Trumpet: Adoration in heaven,Rev 11:15–19,survives,III/III (Part II)_Gemini 3.1 Flash (Nano Banana 2)_2026-07-10_20-45-55.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-T05.png
+T3-T06,3,top,6,Woman and the dragon,Rev 12:1–6,survives,III/III (Part II)_Gemini 3.1 Flash (Nano Banana 2)_2026-07-10_21-01-44.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-T06.png
+T3-T07,3,top,7,Saint Michael and the dragon,Rev 12:7–9,survives,III/III (Part II)_Gemini 3 (Nano Banana Pro)_2026-07-10_21-18-16.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-T07.png
+T3-B01,3,bottom,1,Woman receiving the wings,Rev 12:13–14,survives,III/III (Part II)_ChatGPT Images 2.0 Edit_2026-07-10_21-21-20.png,3840,2160,1.778,12.8,FULL-PAGE,T3-B01.png
+T3-B02,3,bottom,2,Dragon persecutes the woman,Rev 12:15–17,survives,III/III (Part II)_ChatGPT Images 2.0 Edit_2026-07-10_21-29-05.png,3840,2160,1.778,12.8,FULL-PAGE,T3-B02.png
+T3-B03,3,bottom,3,Servants of God fighting with the dragon,Rev 12:17,survives,III/III (Part III)_ChatGPT Images 2.0 Edit_2026-07-22_19-04-30.png,3840,2160,1.778,12.8,FULL-PAGE,T3-B03.png
+T3-B04,3,bottom,4,The dragon gives power to the beast,Rev 13:1–2,survives,III/III (Part III)_Gemini 3 (Nano Banana Pro)_2026-07-22_19-09-00.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T3-B04.png
+T3-B05,3,bottom,5,Adoration of the dragon,Rev 13:3–4,survives,III/III (Part III)_ChatGPT Images 2.0 Edit_2026-07-22_19-12-33.png,3840,2160,1.778,12.8,FULL-PAGE,T3-B05.png
+T3-B06,3,bottom,6,Adoration of the beast,Rev 13:4–8,survives,III/III (Part III)_ChatGPT Images 2.0 Edit_2026-07-22_19-33-31.png,3840,2160,1.778,12.8,FULL-PAGE,T3-B06.png
+T3-B07,3,bottom,7,Mark of the Beast,Rev 13:16–18,missing_or_lost,III/III (Part III)_ChatGPT Images 2.0 Edit_2026-07-22_19-25-44.png,3840,2160,1.778,12.8,FULL-PAGE,T3-B07.png
+T4-00,4,lead,0,Saint John reading the Apocalypse (Fourth Vision),Rev 13:11–18,unknown,IV/4.png,1024,1536,0.667,3.41,SUB-RES,T4-00.png
+T4-T01,4,top,1,Adoration of the beast,Rev 13:3–4,survives,IV/IV (Part I)_Gemini 3 (Nano Banana Pro)_2026-07-29_20-51-35.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T4-T01.png
+T4-T02,4,top,2,Beast from the Earth makes Fire,Rev 13:11–13,survives,IV/IV (Part I)_ChatGPT Images 2.0 Edit_2026-07-29_21-08-15.png,3840,2160,1.778,12.8,FULL-PAGE,T4-T02.png
+T4-T03,4,top,3,Adoration of the image of the beast,Rev 13:14–15,survives,IV/IV (Part I)_Gemini 3 (Nano Banana Pro)_2026-07-30_16-16-54.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T4-T03.png
+T4-T04,4,top,4,Number of the beast,Rev 13:16–18,survives,IV/IV (Part I)_ChatGPT Images 2.0 Edit_2026-07-30_19-51-51.png,3840,2160,1.778,12.8,FULL-PAGE,T4-T04.png
+T4-T05,4,top,5,Adoration of the Lamb on Mount Sion,Rev 14:1,survives,IV/IV (Part I)_ChatGPT Images 2.0 Edit_2026-07-30_20-18-00.png,3840,2160,1.778,12.8,FULL-PAGE,T4-T05.png
+T4-T06,4,top,6,New Song,Rev 14:2–3,survives,IV/IV (Part II)_ChatGPT Images 2.0 Edit_2026-07-31_21-50-08.png,3840,2160,1.778,12.8,FULL-PAGE,T4-T06.png
+T4-T07,4,top,7,Angel with the Eternal Gospel,Rev 14:6–7,survives,IV/IV (Part II)_Gemini 3 (Nano Banana Pro)_2026-07-31_21-43-47.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T4-T07.png
+T4-B01,4,bottom,1,Second angel predicts the fall of Babylon,Rev 14:8,survives,IV/IV (Part II)_Gemini 3 (Nano Banana Pro)_2026-07-31_21-46-56.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T4-B01.png
+T4-B02,4,bottom,2,Third angel and the Lamb,Rev 14:9–12,survives,IV/IV (Part II)_ChatGPT Images 2.0 Edit_2026-07-31_21-58-24.png,3840,2160,1.778,12.8,FULL-PAGE,T4-B02.png
+T4-B03,4,bottom,3,The dream of the justes,Rev 14:13,survives,IV/IV (Part II)_ChatGPT Images 2.0 Edit_2026-07-31_22-00-50.png,3840,2160,1.778,12.8,FULL-PAGE,T4-B03.png
+T4-B04,4,bottom,4,Last Harvest,Rev 14:14–16,survives,IV/IV (Part III)_ChatGPT Images 2.0 Edit_2026-08-03_19-06-54.png,3840,2160,1.778,12.8,FULL-PAGE,T4-B04.png
+T4-B05,4,bottom,5,Angel gathers the vine,Rev 14:17,survives,IV/IV (Part III)_Gemini 3 (Nano Banana Pro)_2026-08-03_19-08-21.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T4-B05.png
+T4-B06,4,bottom,6,The Harvest of Grapes,Rev 14:18–20,survives,IV/IV (Part III)_Gemini 3 (Nano Banana Pro)_2026-08-03_19-14-53.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T4-B06.png
+T4-B07,4,bottom,7,Seven vials,Rev 15:1; 15:7,survives,IV/IV (Part III)_ChatGPT Images 2.0 Edit_2026-08-03_19-36-26.png,3840,2160,1.778,12.8,FULL-PAGE,T4-B07.png
+T5-00,5,lead,0,Saint John reading the Apocalypse (Fifth Vision),Rev 15:1–4,survives,V/5-v2.png,1024,1536,0.667,3.41,SUB-RES,T5-00.png
+T5-T01,5,top,1,Angels receiving the vials,Rev 15:7,survives,V/V (Part I)_Gemini 3 (Nano Banana Pro)_2026-08-04_21-18-07.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T5-T01.png
+T5-T02,5,top,2,First vial on earth,Rev 16:2,survives,V/V (Part I)_Gemini 3 (Nano Banana Pro)_2026-08-05_02-06-17.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T5-T02.png
+T5-T03,5,top,3,Second vial on the sea,Rev 16:3,survives,V/V (Part I)_ChatGPT Images 2.0 Edit_2026-08-05_02-12-04 1.png,3840,2160,1.778,12.8,FULL-PAGE,T5-T03.png
+T5-T04,5,top,4,Fourth vial on the sun,Rev 16:8–9,fragmentary,V/V (Part I)_ChatGPT Images 2.0 Edit_2026-08-08_21-32-08.png,3840,2160,1.778,12.8,FULL-PAGE,T5-T04.png
+T5-T05,5,top,5,Fifth and Sixth vials,Rev 16:10–12,survives,V/V (Part I)_ChatGPT Images 2.0 Edit_2026-08-08_21-36-32.png,3840,2160,1.778,12.8,FULL-PAGE,T5-T05.png
+T5-T06,5,top,6,Unclean spirits,Rev 16:13–14,survives,V/V (Part II)_ChatGPT Images 2.0 Edit_2026-08-09_23-53-49.png,3840,2160,1.778,12.8,FULL-PAGE,T5-T06.png
+T5-T07,5,top,7,Seven vial on the air,Rev 16:17–21,survives,V/V (Part II)_Gemini 3 (Nano Banana Pro)_2026-08-10_00-04-24.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T5-T07.png
+T5-B01,5,bottom,1,Whore of Babylon seated on the waters,Rev 17:1–2,survives,V/V (Part II)_ChatGPT Images 2.0 Edit_2026-08-10_00-12-11.png,3840,2160,1.778,12.8,FULL-PAGE,T5-B01.png
+T5-B02,5,bottom,2,Whore of Babylon seated on the beast,Rev 17:3–6,survives,V/V (Part II)_ChatGPT Images 2.0 Edit_2026-08-10_00-33-35.png,3840,2160,1.778,12.8,FULL-PAGE,T5-B02.png
+T5-B03,5,bottom,3,Fall of Babylon,Rev 18:1–8,survives,V/V (Part II)_ChatGPT Images 2.0 Edit_2026-08-10_00-33-05.png,3840,2160,1.778,12.8,FULL-PAGE,T5-B03.png
+T5-B04,5,bottom,4,Angel casting a millstone,Rev 18:21,missing_or_lost,V/V (Part III)_Gemini 3 (Nano Banana Pro)_2026-08-10_01-20-56.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T5-B04.png
+T5-B05,5,bottom,5,Harlot is cast into the flames,Rev 18:8–10; 19:1–3,missing_or_lost,V/V (Part III)_ChatGPT Images 2.0 Edit_2026-08-10_01-23-00.png,3840,2160,1.778,12.8,FULL-PAGE,T5-B05.png
+T5-B06,5,bottom,6,The marriage of the Lamb,Rev 19:7–9,missing_or_lost,V/V (Part III)_ChatGPT Images 2.0 Edit_2026-08-10_02-11-02.png,3840,2160,1.778,12.8,FULL-PAGE,T5-B06.png
+T5-B07,5,bottom,7,Saint John and angel,Rev 19:9–10,fragmentary,V/V (Part III)_ChatGPT Images 2.0 Edit_2026-08-10_02-12-56.png,3840,2160,1.778,12.8,FULL-PAGE,T5-B07.png
+T6-00,6,lead,0,Saint John reading the Apocalypse (Sixth Vision),Rev 19:11–16,missing_or_lost,VI/6-v3.jpg,1024,1536,0.667,3.41,SUB-RES,T6-00.png
+T6-T01,6,top,1,Wrath of God,Rev 19:11–16,missing_or_lost,VI/VI (Part I)_Gemini 3 (Nano Banana Pro)_2026-08-11_02-16-52.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T6-T01.png
+T6-T02,6,top,2,The birds eating the flesh,Rev 19:17–18,missing_or_lost,VI/VI (Part I)_Gemini 3.1 Flash (Nano Banana 2)_2026-08-11_03-07-13.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T6-T02.png
+T6-T03,6,top,3,Christ on the White Horse,Rev 19:11–16,survives,VI/VI (Part I)_Gemini 3 (Nano Banana Pro)_2026-08-11_02-53-01.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T6-T03.png
+T6-T04,6,top,4,The defeated cast into the pool of fire,Rev 19:19–21,survives,VI/VI (Part I)_ChatGPT Images 2.0 Edit_2026-08-11_03-18-12.png,3840,2160,1.778,12.8,FULL-PAGE,T6-T04.png
+T6-T05,6,top,5,The Dragon enchained,Rev 20:1–3,missing_or_lost,VI/VI (Part I)_ChatGPT Images 2.0 Edit_2026-08-11_02-50-41.png,3840,2160,1.778,12.8,FULL-PAGE,T6-T05.png
+T6-T06,6,top,6,Judges,Rev 20:4–6,survives,VI/VI (Part II)_ChatGPT Images 2.0 Edit_2026-08-11_15-31-32.png,3840,2160,1.778,12.8,FULL-PAGE,T6-T06.png
+T6-T07,6,top,7,Satan attacks the Holy City,Rev 20:7–9,survives,VI/VI (Part II)_ChatGPT Images 2.0 Edit_2026-08-11_15-38-43.png,3840,2160,1.778,12.8,FULL-PAGE,T6-T07.png
+T6-B01,6,bottom,1,Devil cast into the pool of fire,Rev 20:10,missing_or_lost,VI/VI (Part II)_ChatGPT Images 2.0 Edit_2026-08-11_15-56-06.png,3840,2160,1.778,12.8,FULL-PAGE,T6-B01.png
+T6-B02,6,bottom,2,Last Judgment,Rev 20:11–15,missing_or_lost,VI/VI (Part II)_Gemini 3 (Nano Banana Pro)_2026-08-11_15-58-06.png,5504,3072,1.792,18.35,SPREAD-CAPABLE,T6-B02.png
+T6-B03,6,bottom,3,New Jerusalem,Rev 21:1–4,survives,VI/VI (Part II)_ChatGPT Images 2.0 Edit_2026-08-11_16-00-11.png,3840,2160,1.778,12.8,FULL-PAGE,T6-B03.png
+T6-B04,6,bottom,4,The angel measures the city,Rev 21:15–17,survives,VI/VI (Part III)_ChatGPT Images 2.0 Edit_2026-08-11_22-19-34.png,3840,2160,1.778,12.8,FULL-PAGE,T6-B04.png
+T6-B05,6,bottom,5,River of life,Rev 22:1–2,survives,VI/VI (Part III)_ChatGPT Images 2.0 Edit_2026-08-11_22-50-55.png,3840,2160,1.778,12.8,FULL-PAGE,T6-B05.png
+T6-B06,6,bottom,6,Saint John and the angel,Rev 22:8,fragmentary,VI/VI (Part III)_ChatGPT Images 2.0 Edit_2026-08-11_22-57-21.png,3840,2160,1.778,12.8,FULL-PAGE,T6-B06.png
+T6-B07,6,bottom,7,Saint John before God,Rev 22:9–13,fragmentary,VI/VI (Part III)_ChatGPT Images 2.0 Edit_2026-08-11_22-40-50.png,3840,2160,1.778,12.8,FULL-PAGE,T6-B07.png
