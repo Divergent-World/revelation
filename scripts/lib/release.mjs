@@ -13,20 +13,39 @@ export function releasePaths(sceneId, extension) {
 export function contentTypeFor(filePath) {
   return ({
     ".avif": "image/avif",
+    ".csv": "text/csv; charset=utf-8",
+    ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".epub": "application/epub+zip",
     ".gif": "image/gif",
+    ".html": "text/html; charset=utf-8",
+    ".idml": "application/vnd.adobe.indesign-idml-package",
+    ".indd": "application/x-indesign",
     ".jpeg": "image/jpeg",
     ".jpg": "image/jpeg",
+    ".js": "text/javascript; charset=utf-8",
     ".json": "application/json; charset=utf-8",
+    ".md": "text/markdown; charset=utf-8",
+    ".pdf": "application/pdf",
     ".png": "image/png",
+    ".py": "text/x-python; charset=utf-8",
     ".txt": "text/plain; charset=utf-8",
+    ".ttf": "font/ttf",
     ".webp": "image/webp",
+    ".woff2": "font/woff2",
     ".zip": "application/zip",
   })[path.extname(filePath).toLowerCase()] ?? "application/octet-stream";
 }
 
 export function contentDispositionFor(filePath) {
   const normalized = filePath.split(path.sep).join("/");
-  if (!normalized.includes("/originals/") && !normalized.endsWith(".zip")) return undefined;
+  const publishingBinary = /\.(?:docx|epub|idml|indd|pdf)$/i.test(normalized);
+  if (
+    !normalized.includes("/originals/") &&
+    !normalized.endsWith(".zip") &&
+    !publishingBinary
+  ) {
+    return undefined;
+  }
   return `attachment; filename="${path.basename(filePath)}"`;
 }
 

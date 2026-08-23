@@ -5,6 +5,7 @@ import { spawn } from "node:child_process";
 import sharp from "sharp";
 
 import { expectedReleaseFiles, validateReleaseInventory } from "./lib/release.mjs";
+import { validateMasterRelease } from "./validate-master-release.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const releaseRoot = path.join(root, "dist", "releases", "v1");
@@ -79,6 +80,7 @@ assertExactFiles(zipFiles, [
   ...expected.originals.map((file) => `originals/${file}`),
 ].sort(), "archive");
 assertExactFiles(await walk(releaseRoot), [
+  "REVELATION-master-v1.zip",
   "SHA256SUMS.txt",
   "manifest.json",
   "revelations-artwork-v1.zip",
@@ -152,4 +154,5 @@ for (const file of books) {
 }
 
 await run("unzip", ["-tq", archive]);
-console.log("Release validated: 90 originals, 180 WebP derivatives, 90 book JPEGs, matching checksums, and a complete ZIP archive.");
+await validateMasterRelease({ root, version: "v1" });
+console.log("Release validated: 90 originals, 180 WebP derivatives, 90 book JPEGs, matching checksums, artwork ZIP, and portable master ZIP.");

@@ -440,10 +440,9 @@ people. Once it has, the offset route is:
 3. **Tapestry VII.** There is a seventh folder in the vault with a cover image and a
    28 KB document, and nothing else. Is it a planned expansion, an appendix, or dead?
    It should not silently become a loose end at layout.
-4. **The localhost preview at :3000** — I could not reach it. My shell runs in a cloud
-   container and cannot see your machine's localhost, and the Claude Chrome extension is
-   not currently connected. If you install and connect it I can open it directly; otherwise
-   a screenshot works.
+4. **The historical web preview** — this was unavailable during the original planning
+   pass. The current publishing workflow uses archive-local files and does not depend on
+   that retired preview environment.
 
 ---
 

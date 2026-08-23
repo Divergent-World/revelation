@@ -17,12 +17,36 @@ test("contentTypeFor covers published release formats", () => {
   assert.equal(contentTypeFor("scene.jpg"), "image/jpeg");
   assert.equal(contentTypeFor("manifest.json"), "application/json; charset=utf-8");
   assert.equal(contentTypeFor("artwork.zip"), "application/zip");
+  assert.equal(contentTypeFor("edition.pdf"), "application/pdf");
+  assert.equal(contentTypeFor("edition.epub"), "application/epub+zip");
+  assert.equal(
+    contentTypeFor("edition.docx"),
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  );
+  assert.equal(
+    contentTypeFor("source.idml"),
+    "application/vnd.adobe.indesign-idml-package",
+  );
+  assert.equal(contentTypeFor("source.indd"), "application/x-indesign");
+  assert.equal(contentTypeFor("font.ttf"), "font/ttf");
+  assert.equal(contentTypeFor("instructions.md"), "text/markdown; charset=utf-8");
 });
 
 test("contentDispositionFor forces cross-origin originals and archives to download", () => {
   assert.equal(contentDispositionFor("releases/v1/originals/T1-T01.png"), 'attachment; filename="T1-T01.png"');
   assert.equal(contentDispositionFor("releases/v1/revelations-artwork-v1.zip"), 'attachment; filename="revelations-artwork-v1.zip"');
   assert.equal(contentDispositionFor("releases/v1/web/640/T1-T01.webp"), undefined);
+});
+
+test("publishing binaries and the master archive download as attachments", () => {
+  assert.equal(
+    contentDispositionFor("releases/v1/editions/REVELATION_web.pdf"),
+    'attachment; filename="REVELATION_web.pdf"',
+  );
+  assert.equal(
+    contentDispositionFor("releases/v1/REVELATION-master-v1.zip"),
+    'attachment; filename="REVELATION-master-v1.zip"',
+  );
 });
 
 test("expectedReleaseFiles produces exact stable filenames", () => {

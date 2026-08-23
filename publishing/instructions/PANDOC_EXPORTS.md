@@ -12,4 +12,4 @@ pandoc export.md \
   --output=editions/revelations.docx
 ```
 
-Prerequisite: Pandoc. No website, R2 bucket, localhost server, or external reference file is required.
+Prerequisite: Pandoc. No website, R2 bucket, web server, or external reference file is required.

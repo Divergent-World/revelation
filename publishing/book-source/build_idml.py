@@ -6,7 +6,7 @@ from idml_lib import Doc
 import build as B          # reuse content helpers (status_of, scenes, etc.)
 from prose import (FOREWORD, LOSSES, METHOD, MOVEMENT_CODAS, PLATE_NOTES,
                    COLOPHON_LEFT, AUTHOR)
-from paths import ARTWORK, BUILD, INDESIGN, ORIGINALS
+from paths import ARTWORK, BUILD, CONTENT, INDESIGN, ORIGINALS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = Path(os.environ.get("IDML_OUTPUT_DIR", BUILD)).resolve()
@@ -14,10 +14,19 @@ OUTPUT_DIR = Path(os.environ.get("IDML_OUTPUT_DIR", BUILD)).resolve()
 # LINK_SET=jpg  -> 3975 px JPEG q92, ~180 MB total, faster to work with
 LINK_SET = os.environ.get("LINK_SET", "png")
 if LINK_SET == "png":
-    LINK_ROOT, LINK_EXT, _DIMS = ORIGINALS, ".png", "linkdims_png.json"
+    LINK_ROOT, _DIMS = ORIGINALS, "linkdims_png.json"
 else:
-    LINK_ROOT, LINK_EXT, _DIMS = ARTWORK, ".jpg", "linkdims.json"
+    LINK_ROOT, _DIMS = ARTWORK, "linkdims.json"
 LINKS = Path(os.path.relpath(LINK_ROOT, OUTPUT_DIR))
+SOURCE_EXTENSIONS = {
+    source["id"]: source["originalExtension"]
+    for source in json.load(open(CONTENT / "source-map.json"))
+}
+
+
+def link_filename(scene_id):
+    extension = SOURCE_EXTENSIONS[scene_id] if LINK_SET == "png" else ".jpg"
+    return scene_id + extension
 T = B.T; REV = B.REV; SCENES = B.SCENES; TAPS = B.TAPS
 DIMS = json.load(open(INDESIGN / _DIMS))
 _sections = BUILD / "sections.json"
@@ -313,7 +322,7 @@ rule(p, W / 2 - 50, 392, 100)
 
 p = newpage(fol=False, bg="Color/Night")                 # frontispiece
 d = DIMS["T1-00"]
-p.image(MO, MT, W - MO - MI, H - MT - MB - 30, LINKS / ("T1-00" + LINK_EXT), d[0], d[1], fit="contain")
+p.image(MO, MT, W - MO - MI, H - MT - MB - 30, LINKS / link_filename("T1-00"), d[0], d[1], fit="contain")
 st = doc.story().para("FrontisCapLight", "Saint John reading the Apocalypse · Movement I · T1-00")
 p.text(cx(p), H - MB + 6, CW, 16, st.id)
 
@@ -412,7 +421,7 @@ for tp in TAPS:
     d = DIMS[lead["id"]]
     # reader panel shown whole on a night ground rather than cropped to the strip
     p.rect(-BLEED, -BLEED, IW + BLEED, H + 2 * BLEED, fill="Color/Night")
-    p.image(0, 40, IW, H - 80, LINKS / ("%s%s" % (lead["id"], LINK_EXT)),
+    p.image(0, 40, IW, H - 80, LINKS / link_filename(lead["id"]),
             d[0], d[1], fit="contain")
     tx = IW + 46
     tw = W - MO - tx
@@ -455,7 +464,7 @@ for tp in TAPS:
             bx, bw = (0.0, W + 9.0) if p.recto else (-9.0, W + 9.0)
             ih = bw * d[1] / d[0]
             p.image(bx, (H - ih) / 2.0 - 26, bw, ih,
-                    LINKS / ("%s%s" % (s["id"], LINK_EXT)), d[0], d[1], fit="contain")
+                    LINKS / link_filename(s["id"]), d[0], d[1], fit="contain")
             st = (doc.story().para("BleedId", "Plate %s  ·  %s  ·  %s"
                                    % (s["id"], s["displayReference"], B.status_of(s)[0]))
                   .para("BleedTitle", s["title"]))
@@ -486,7 +495,7 @@ for tp in TAPS:
             bh = min(bw * d[1] / d[0], 496.0)
             p.rect(bx, -9.0, bw, bh + 9.0, fill="Color/Night")
             p.image(bx, -9.0, bw, bh + 9.0,
-                    LINKS / ("%s%s" % (s["id"], LINK_EXT)), d[0], d[1], fit="contain")
+                    LINKS / link_filename(s["id"]), d[0], d[1], fit="contain")
             fy = bh + 30
             st = (doc.story().para("PlateId", chip_line(s, roman))
                   .para("PlateTitle", s["title"])
