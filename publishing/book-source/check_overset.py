@@ -9,9 +9,10 @@ so a small tolerance is applied; anything over is reported.
 import json, os, html, sys
 from playwright.sync_api import sync_playwright
 import pathlib
+from paths import BUILD, INDESIGN
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-D = json.load(open(os.path.join(HERE, "indesign", "layout.json")))
+D = json.load(open(INDESIGN / "layout.json"))
 STY, CST = D["styles"], D["cstyles"]
 STORIES = D["stories"]
 
@@ -76,12 +77,14 @@ body{background:#fff}
 .box p:first-child{margin-top:0}
 %s
 </style></head><body>%s</body></html>""" % ("\n".join(rules), "".join(blocks)))
-open(os.path.join(HERE, "overset.html"), "w").write(doc)
+BUILD.mkdir(parents=True, exist_ok=True)
+overset_html = BUILD / "overset.html"
+open(overset_html, "w").write(doc)
 
 with sync_playwright() as pw:
     b = pw.chromium.launch()
     pg = b.new_page(viewport={"width": 1400, "height": 1000})
-    pg.goto(pathlib.Path(os.path.join(HERE, "overset.html")).as_uri(), wait_until="load")
+    pg.goto(overset_html.as_uri(), wait_until="load")
     pg.wait_for_timeout(1500)
     heights = pg.evaluate(
         "Array.from(document.querySelectorAll('.box')).map(b=>b.getBoundingClientRect().height*72/96)")

@@ -5,18 +5,19 @@ Reads the repo's content JSON, emits one HTML document, renders to PDF via Chrom
 import json, os, html, re, sys
 from prose import (FOREWORD, LOSSES, METHOD, MOVEMENT_CODAS, PLATE_NOTES,
                    COLOPHON_LEFT, FOREWORD_AUTHOR)
+from paths import ARTWORK, BUILD, CONTENT, relative_from_build
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-T = json.load(open(os.path.join(HERE, "tapestries.json")))
-REV = json.load(open(os.path.join(HERE, "revelation.web.json")))
+T = json.load(open(CONTENT / "tapestries.json"))
+REV = json.load(open(CONTENT / "revelation.web.json"))
 
 SCENES = {s["id"]: s for s in T["scenes"]}
 TAPS = T["tapestries"]
 
 # ---- survival status, joined by TITLE (robust to the slot-ordering divergence) ----
 STATUS_BY_TITLE = {}
-vault_idx = os.path.join(HERE, "..", "build", "master_index.json")
-if os.path.exists(vault_idx):
+vault_idx = BUILD / "master_index.json"
+if vault_idx.exists():
     for s in json.load(open(vault_idx)):
         STATUS_BY_TITLE.setdefault(s["title"].strip().lower(), s["status"])
 
@@ -376,8 +377,10 @@ doc = """<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <title>REVELATION — An Illuminated Prophecy in Six Movements</title>
 <style>%s</style></head><body>%s
 <script>%s</script></body></html>""" % (CSS, "".join(body), PAGINATOR)
+doc = doc.replace('src="plates/', 'src="%s/' % relative_from_build(ARTWORK))
 
-out = os.path.join(HERE, "book.html")
+BUILD.mkdir(parents=True, exist_ok=True)
+out = BUILD / "book.html"
 open(out, "w").write(doc)
 print("wrote", out, "| fixed pages:", sum(1 for p in PAGES if not p.get("flow")),
       "| flow sections:", sum(1 for p in PAGES if p.get("flow")))

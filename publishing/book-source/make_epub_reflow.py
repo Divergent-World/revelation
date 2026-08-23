@@ -5,9 +5,11 @@ import os, re, zipfile, html
 import build as B
 from prose import (FOREWORD, LOSSES, METHOD, MOVEMENT_CODAS, PLATE_NOTES,
                    COLOPHON_LEFT, AUTHOR)
+from paths import ARTWORK, BUILD, INDESIGN
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT  = os.path.join(HERE, "REVELATION_reflowable.epub")
+OUT = BUILD / "REVELATION_reflowable.epub"
+BUILD.mkdir(parents=True, exist_ok=True)
 T, REV, SCENES, TAPS = B.T, B.REV, B.SCENES, B.TAPS
 esc = B.esc
 
@@ -207,7 +209,7 @@ add("backcover.xhtml", "Back Cover",
     cls="backcover", in_nav=False)
 
 # ---- package ----
-FONTS = os.path.join(HERE, "indesign", "Fonts")
+FONTS = INDESIGN / "Fonts"
 FF = ["EBGaramond-Regular.ttf","EBGaramond-Italic.ttf","EBGaramond-SemiBold.ttf",
       "Cinzel-SemiBold.ttf","SpaceGrotesk-Medium.ttf"]
 items = ['<item id="css" href="style.css" media-type="text/css"/>']
@@ -221,15 +223,15 @@ zf.writestr("META-INF/container.xml",
     '</rootfiles></container>')
 zf.writestr("OEBPS/style.css", CSS)
 for f in FF:
-    src = os.path.join(FONTS, f)
-    if os.path.exists(src):
+    src = FONTS / f
+    if src.exists():
         zf.write(src, "OEBPS/fonts/" + f)
         items.append('<item id="f%s" href="fonts/%s" media-type="font/ttf"/>'
                      % (re.sub(r"\W","",f), f))
 used = set()
 for _, body in files: used.update(re.findall(r'src="plates/([^"]+)"', body))
 for f in sorted(used):
-    zf.write(os.path.join(HERE, "plates", f), "OEBPS/plates/" + f)
+    zf.write(ARTWORK / f, "OEBPS/plates/" + f)
     items.append('<item id="i%s" href="plates/%s" media-type="image/jpeg"%s/>'
                  % (re.sub(r"\W","",f), f,
                     ' properties="cover-image"' if f == "ebook_front.jpg" else ''))
@@ -264,5 +266,5 @@ zf.writestr("OEBPS/content.opf",
     % ("".join(items),
        "".join('<itemref idref="x%s"/>' % re.sub(r"\W","",n) for n, _ in files)))
 zf.close()
-print("wrote", OUT, round(os.path.getsize(OUT)/1e6,1), "MB |",
+print("wrote", OUT, round(OUT.stat().st_size/1e6,1), "MB |",
       len(files), "documents |", len(nav), "nav entries")

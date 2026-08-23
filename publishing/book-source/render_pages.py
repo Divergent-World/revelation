@@ -1,14 +1,17 @@
 from playwright.sync_api import sync_playwright
 from PIL import Image
-import pathlib, os, io, time
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT  = os.path.join(HERE, "epub_pages")
-TARGET_W = 2048                      # 170 ppi across a 12 in page
+import io, os, sys, time
+from paths import BUILD
+
+OUT = BUILD / "epub_pages"
+TARGET_W = int(sys.argv[1]) if len(sys.argv) > 1 else 2048
+BUILD.mkdir(parents=True, exist_ok=True)
+OUT.mkdir(parents=True, exist_ok=True)
 t0 = time.time()
 with sync_playwright() as pw:
     b = pw.chromium.launch()
     pg = b.new_page(viewport={"width": 1200, "height": 900}, device_scale_factor=2)
-    pg.goto(pathlib.Path(os.path.join(HERE, "book.html")).as_uri(),
+    pg.goto((BUILD / "book.html").as_uri(),
             wait_until="load", timeout=240000)
     pg.wait_for_function("document.documentElement.getAttribute('data-ready')==='1'",
                          timeout=240000)
@@ -16,8 +19,8 @@ with sync_playwright() as pw:
     n = pg.evaluate("document.querySelectorAll('.page').length")
     els = pg.query_selector_all(".page")
     for i, el in enumerate(els, 1):
-        dst = os.path.join(OUT, "p%03d.jpg" % i)
-        if os.path.exists(dst): continue
+        dst = OUT / ("p%03d.jpg" % i)
+        if dst.exists(): continue
         raw = el.screenshot(type="png")
         im = Image.open(io.BytesIO(raw)).convert("RGB")
         if im.width != TARGET_W:
@@ -25,5 +28,5 @@ with sync_playwright() as pw:
         im.save(dst, "JPEG", quality=86, optimize=True, progressive=True)
         if i % 40 == 0: print("  %d/%d  %.0fs" % (i, n, time.time()-t0))
     b.close()
-tot = sum(os.path.getsize(os.path.join(OUT,f)) for f in os.listdir(OUT))
-print("rendered %d pages, %.1f MB, %.0fs" % (len(os.listdir(OUT)), tot/1e6, time.time()-t0))
+tot = sum(path.stat().st_size for path in OUT.iterdir())
+print("rendered %d pages, %.1f MB, %.0fs" % (len(list(OUT.iterdir())), tot/1e6, time.time()-t0))

@@ -1,39 +1,43 @@
-# book/ — REVELATION book build target
+# REVELATION designed-book builders
 
-Generates the complete ebook (PDF) from the repo's content JSON. One source, one command.
+These scripts read canonical content, artwork, fonts, and publishing sources from the root of the repository or extracted master archive. No copied JSON, local web server, R2 bucket, or machine-specific path is required.
 
-## Run
+## Build commands
+
+Run from the archive root:
 
 ```bash
-pip install playwright --break-system-packages && playwright install chromium
-python3 build.py     # content JSON -> book.html
-python3 render.py    # book.html -> REVELATION_complete_edition.pdf
+python3 publishing/book-source/build.py
+python3 publishing/book-source/render.py
+python3 publishing/book-source/render_pages.py 2048
+python3 publishing/book-source/make_epub_fixed.py build/epub_pages
+python3 publishing/book-source/make_epub_reflow.py
 ```
 
-## Inputs
+Outputs appear under `build/`:
 
-| File | Source |
-|---|---|
-| `tapestries.json`, `revelation.web.json` | copied from `content/` — symlink or copy at build time |
-| `plates/T*.jpg` | 90 plates. Currently 1500px previews. **For print, regenerate from the `print/` derivative track** (see BOOK_BUILD_PLAN §3) |
+- `book.html`
+- `REVELATION_web.pdf`
+- `epub_pages/*.jpg`
+- `REVELATION_iPad_fixed.epub`
+- `REVELATION_reflowable.epub`
 
-## Editing
+The scripts derive the archive root from their own location. `REVELATION_ROOT` is an optional development/testing override; normal archive use does not need it.
 
-| To change | Edit |
-|---|---|
-| Foreword, notes, plate notes, codas | `prose.py` — plain strings, no markup needed |
-| Typography, grid, colour, page treatments | `theme.css` |
-| Page order, plate pacing, what goes where | `build.py` |
-| How flowing text paginates | `paginate.js` |
+## Prerequisites
 
-Plate pacing is in `build.py`: even-indexed plates get a full-bleed page plus a facing
-text page; odd-indexed plates get a single page with a 16:9 band and a footer. Change the
-`if idx % 2 == 0` rule to change the rhythm of the whole book.
+- Python 3
+- Playwright for Python with Chromium installed
+- Pillow
 
-## Notes
+Install the Python packages in your preferred virtual environment, then install Playwright's Chromium browser. The builders intentionally do not vendor these general-purpose runtimes.
 
-- Survival status is joined **by title**, not by slot id, because the vault's
-  `Master Index.md` is shifted one position against `content/scene-metadata.json` for 29
-  slots. `content/` is canonical. See BOOK_BUILD_PLAN §0.
-- Red-letter words of Christ come from `wordsOfJesus` character ranges in the content JSON.
-- `plates/` is derived output. Do not commit it.
+## Source map
+
+- Canonical JSON: `content/`
+- Designed-book JPEGs: `artwork/book-images/`
+- Original artwork: `artwork/originals/`
+- Fonts and IDML: `publishing/indesign/`
+- Editorial prose and layout logic: this directory
+
+Plate pacing is controlled by `build.py`; typography and page treatments are in `theme.css`; flowing pagination is in `paginate.js`. Red-letter words of Christ come from the canonical `wordsOfJesus` ranges.

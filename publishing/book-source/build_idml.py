@@ -1,25 +1,29 @@
 # -*- coding: utf-8 -*-
 """REVELATION — 13 x 11 in collector's edition, emitted as an InDesign IDML package."""
 import json, os
+from pathlib import Path
 from idml_lib import Doc
 import build as B          # reuse content helpers (status_of, scenes, etc.)
 from prose import (FOREWORD, LOSSES, METHOD, MOVEMENT_CODAS, PLATE_NOTES,
                    COLOPHON_LEFT, AUTHOR)
+from paths import ARTWORK, BUILD, INDESIGN, ORIGINALS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 # LINK_SET=png  -> lossless originals, native resolution, 300 dpi tagged  (default)
 # LINK_SET=jpg  -> 3975 px JPEG q92, ~180 MB total, faster to work with
-_BASE = "/Users/alirahman/Desktop/test/revelations/book/indesign"
 LINK_SET = os.environ.get("LINK_SET", "png")
 if LINK_SET == "png":
-    LINKS, LINK_EXT, _DIMS = _BASE + "/Links_png", ".png", "linkdims_png.json"
+    LINKS, LINK_EXT, _DIMS = ORIGINALS, ".png", "linkdims_png.json"
 else:
-    LINKS, LINK_EXT, _DIMS = _BASE + "/Links", ".jpg", "linkdims.json"
+    LINKS, LINK_EXT, _DIMS = ARTWORK, ".jpg", "linkdims.json"
 T = B.T; REV = B.REV; SCENES = B.SCENES; TAPS = B.TAPS
-DIMS = json.load(open(os.path.join(HERE, "indesign", _DIMS)))
-SECT = json.load(open(os.path.join(HERE, "sections.json")))
-_ext = os.path.join(HERE, "indesign", "extent.txt")
-EXTENT = int(open(_ext).read().strip()) if os.path.exists(_ext) else 0
+DIMS = json.load(open(INDESIGN / _DIMS))
+_sections = BUILD / "sections.json"
+if not _sections.exists():
+    _sections = Path(HERE) / "sections.json"
+SECT = json.load(open(_sections))
+_ext = BUILD / "extent.txt"
+EXTENT = int(open(_ext).read().strip()) if _ext.exists() else 0
 
 # ---------------------------------------------------------------- geometry
 # Blurb Large Landscape (marketed 13 x 11): actual trim 12.5 x 10.625 in = 900 x 765 pt.
@@ -559,16 +563,17 @@ while doc.page_count % 4 != 0:
     b = doc.add_page()
     b.rect(-BLEED, -BLEED, W + 2 * BLEED, H + 2 * BLEED, fill="Color/Vellum")
 
-out = os.path.join(HERE, "indesign", "REVELATION_13x11.idml")
+BUILD.mkdir(parents=True, exist_ok=True)
+out = BUILD / "REVELATION_13x11.idml"
 print("link set:", LINK_SET, "->", LINKS)
 import json as _j
 _j.dump({"placements": doc.placements,
          "stories": {st.id: st.paras for st in doc.stories},
          "styles": {n: kw for n, kw in doc.pstyles},
          "cstyles": {n: kw for n, kw in doc.cstyles}},
-        open(os.path.join(HERE, "indesign", "layout.json"), "w"))
+        open(BUILD / "layout.json", "w"))
 parts = doc.write(out)
 print("pages:", doc.page_count, "| spreads:", len(doc.spreads),
       "| stories:", len(doc.stories), "| parts:", len(parts))
 open(_ext, "w").write(str(doc.page_count))
-print("wrote", out, os.path.getsize(out) // 1024, "KB")
+print("wrote", out, out.stat().st_size // 1024, "KB")

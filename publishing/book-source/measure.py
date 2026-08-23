@@ -3,10 +3,11 @@
 Emits sections.json: {section_key: n_pages}."""
 import json, os, html
 from prose import FOREWORD, LOSSES, METHOD
+from paths import BUILD, CONTENT
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-T = json.load(open(os.path.join(HERE, "tapestries.json")))
-REV = json.load(open(os.path.join(HERE, "revelation.web.json")))
+T = json.load(open(CONTENT / "tapestries.json"))
+REV = json.load(open(CONTENT / "revelation.web.json"))
 SCENES = {s["id"]: s for s in T["scenes"]}
 
 import build as B   # reuse verse_html / prose_blocks / status_of
@@ -127,7 +128,9 @@ document.documentElement.setAttribute('data-ready','1');
 
 body = "".join('<div class="flowsec" data-key="%s" data-first="%d"><div class="flow-src">%s</div></div>'
                % (s["key"], 1 if s["first"] else 0, s["src"]) for s in SECTIONS)
-open(os.path.join(HERE, "measure.html"), "w").write(
+BUILD.mkdir(parents=True, exist_ok=True)
+measure_html = BUILD / "measure.html"
+open(measure_html, "w").write(
     '<!DOCTYPE html><html><head><meta charset="utf-8"><style>%s</style></head><body>%s'
     '<script>%s</script></body></html>' % (CSS, body, JS))
 
@@ -136,10 +139,10 @@ import pathlib
 with sync_playwright() as pw:
     b = pw.chromium.launch()
     pg = b.new_page(viewport={"width": 1250, "height": 1063})
-    pg.goto(pathlib.Path(os.path.join(HERE, "measure.html")).as_uri(), wait_until="load")
+    pg.goto(measure_html.as_uri(), wait_until="load")
     pg.wait_for_function("document.documentElement.getAttribute('data-ready')==='1'", timeout=120000)
     res = pg.evaluate("window.RESULT")
     b.close()
-json.dump(res, open(os.path.join(HERE, "sections.json"), "w"), indent=1)
+json.dump(res, open(BUILD / "sections.json", "w"), indent=1)
 print(json.dumps(res, indent=1))
 print("total flow pages:", sum(res.values()))

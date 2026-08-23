@@ -6,23 +6,26 @@ The book's design depends on justification, hyphenation, multi-column boxes, tra
 layout drifts and clips. Rendering each page guarantees the EPUB is pixel-identical to the
 PDF. The reflowable edition is where the live text lives.
 """
-import os, re, zipfile, html, pathlib
+import os, re, sys, zipfile, html
 from playwright.sync_api import sync_playwright
 from PIL import Image
+from paths import BUILD
 
-HERE  = os.path.dirname(os.path.abspath(__file__))
-PAGES = os.path.join(HERE, "epub_pages")
-OUT   = os.path.join(HERE, "REVELATION_iPad_fixed.epub")
+PAGES = BUILD / "epub_pages"
+if len(sys.argv) > 1:
+    PAGES = (BUILD.parent / sys.argv[1]).resolve()
+OUT = BUILD / "REVELATION_iPad_fixed.epub"
+BUILD.mkdir(parents=True, exist_ok=True)
 
 files = sorted(f for f in os.listdir(PAGES) if f.endswith(".jpg"))
-W, H = Image.open(os.path.join(PAGES, files[0])).size
+W, H = Image.open(PAGES / files[0]).size
 print("%d pages at %d x %d" % (len(files), W, H))
 
 # landmark titles, read from the live DOM (cheap: no screenshots)
 with sync_playwright() as pw:
     b = pw.chromium.launch()
     pg = b.new_page(viewport={"width": 1200, "height": 900})
-    pg.goto(pathlib.Path(os.path.join(HERE, "book.html")).as_uri(),
+    pg.goto((BUILD / "book.html").as_uri(),
             wait_until="load", timeout=240000)
     pg.wait_for_function("document.documentElement.getAttribute('data-ready')==='1'",
                          timeout=240000)
@@ -79,7 +82,7 @@ zf.writestr("OEBPS/style.css", CSS)
 items.append('<item id="css" href="style.css" media-type="text/css"/>')
 
 for i, f in enumerate(files, 1):
-    zf.write(os.path.join(PAGES, f), "OEBPS/pages/" + f)
+    zf.write(PAGES / f, "OEBPS/pages/" + f)
     items.append('<item id="img%03d" href="pages/%s" media-type="image/jpeg"%s/>'
                  % (i, f, ' properties="cover-image"' if i == 1 else ''))
     name = "page-%03d.xhtml" % i
@@ -120,4 +123,4 @@ zf.writestr("OEBPS/content.opf",
     '<manifest>%s</manifest>\n<spine>%s</spine></package>'
     % ("".join(items), "".join(spine)))
 zf.close()
-print("wrote", OUT, round(os.path.getsize(OUT)/1e6, 1), "MB")
+print("wrote", OUT, round(OUT.stat().st_size/1e6, 1), "MB")
