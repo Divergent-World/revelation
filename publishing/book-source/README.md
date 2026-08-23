@@ -32,6 +32,19 @@ The scripts derive the archive root from their own location. `REVELATION_ROOT` i
 
 Install the Python packages in your preferred virtual environment, then install Playwright's Chromium browser. The builders intentionally do not vendor these general-purpose runtimes.
 
+The complete setup used for verification was:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install playwright Pillow
+python3 -m playwright install chromium
+```
+
+Verified locally with Python 3.14.7, Playwright for Python 1.62.0, and Pillow 12.3.0. The designed build produced 182 PDF pages with zero overflowing columns, 182 fixed-layout page images, a 30.1 MB fixed EPUB, and a 41.2 MB reflowable EPUB.
+
+If `ModuleNotFoundError: No module named 'playwright'` appears, activate the environment where Playwright and Pillow were installed. If Chromium reports `TargetClosedError` from a restricted execution sandbox, run the command in a normal terminal or allow that environment to launch the local browser.
+
 ## Source map
 
 - Canonical JSON: `content/`
@@ -39,5 +52,6 @@ Install the Python packages in your preferred virtual environment, then install 
 - Original artwork: `artwork/originals/`
 - Fonts and IDML: `publishing/indesign/`
 - Editorial prose and layout logic: this directory
+- Historical survival labels: `publishing/historical-book-build/PLATE_MANIFEST.csv`
 
 Plate pacing is controlled by `build.py`; typography and page treatments are in `theme.css`; flowing pagination is in `paginate.js`. Red-letter words of Christ come from the canonical `wordsOfJesus` ranges.

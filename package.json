@@ -14,6 +14,7 @@
     "assets:release": "node scripts/build-release.mjs",
     "assets:validate": "node scripts/validate-release.mjs",
     "publishing:validate": "node scripts/validate-master-release.mjs",
+    "publishing:verify": "node scripts/verify-master-rebuild.mjs",
     "assets:upload": "npm run assets:validate && node scripts/upload-r2.mjs"
   },
   "dependencies": {

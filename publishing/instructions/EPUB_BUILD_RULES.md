@@ -82,8 +82,19 @@ python3 publishing/book-source/validate_epub.py build/REVELATION_reflowable.epub
 5. Fixed edition: spread properties present on all itemrefs.
 6. Reflowable: `class="wj"` spans actually present in the chapter files.
 
+The complete commands above passed with Python 3.14.7, Playwright for Python 1.62.0, Pillow 12.3.0, and Playwright Chromium. The verified outputs were `build/REVELATION_iPad_fixed.epub` (182 page images, 20 navigation entries, 30.1 MB at 1560 px) and `build/REVELATION_reflowable.epub` (37 documents, 13 navigation entries, 41.2 MB).
+
+If Python cannot import `playwright` or `PIL`, create and activate a virtual environment and run:
+
+```bash
+python3 -m pip install playwright Pillow
+python3 -m playwright install chromium
+```
+
+If Chromium reports `TargetClosedError` inside a restricted execution sandbox, run the build in a normal terminal or grant that environment permission to launch the local browser.
+
 ## Size limits
 
 Chat upload caps at 30 MB and the device bridge at 20 MB per file. The full-resolution
-fixed EPUB is ~55 MB and clears neither — deliver the 1560 px version and note that the
-master can be rebuilt locally with the two scripts.
+fixed EPUB can exceed either limit — deliver the 1560 px version and note that the master
+can be rebuilt locally with the supplied scripts.

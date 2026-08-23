@@ -5,6 +5,7 @@ Reads the repo's content JSON, emits one HTML document, renders to PDF via Chrom
 import json, os, html, re, sys
 from prose import (FOREWORD, LOSSES, METHOD, MOVEMENT_CODAS, PLATE_NOTES,
                    COLOPHON_LEFT, FOREWORD_AUTHOR)
+from plate_status import load_statuses
 from paths import ARTWORK, BUILD, CONTENT, relative_from_build
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -14,19 +15,15 @@ REV = json.load(open(CONTENT / "revelation.web.json"))
 SCENES = {s["id"]: s for s in T["scenes"]}
 TAPS = T["tapestries"]
 
-# ---- survival status, joined by TITLE (robust to the slot-ordering divergence) ----
-STATUS_BY_TITLE = {}
-vault_idx = BUILD / "master_index.json"
-if vault_idx.exists():
-    for s in json.load(open(vault_idx)):
-        STATUS_BY_TITLE.setdefault(s["title"].strip().lower(), s["status"])
+# ---- survival status, sourced from the tracked publishing manifest ----
+STATUS_BY_ID = load_statuses()
 
 STATUS_LABEL = {"survives": ("Survives", "survives"),
                 "fragmentary": ("Fragment", "frag"),
                 "missing_or_lost": ("Reconstructed", "lost")}
 
 def status_of(scene):
-    raw = STATUS_BY_TITLE.get(scene["title"].strip().lower())
+    raw = STATUS_BY_ID.get(scene["id"])
     return STATUS_LABEL.get(raw, ("Reconstructed", "lost"))
 
 def esc(s): return html.escape(s, quote=False)

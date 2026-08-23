@@ -6,6 +6,10 @@ import {
   masterArchiveName,
   masterEntryPaths,
 } from "../scripts/lib/master-release.mjs";
+import {
+  assertPlateStatuses,
+  rebuildCommands,
+} from "../scripts/verify-master-rebuild.mjs";
 
 test("master archive uses the immutable release version", () => {
   assert.equal(masterArchiveName("v1"), "REVELATION-master-v1.zip");
@@ -29,6 +33,42 @@ test("master inventory names only the official editions", () => {
     !entries.some((entry) =>
       /MASTER ORIGINAL|180-page|artwork-v1\.zip/.test(entry),
     ),
+  );
+});
+
+test("offline rebuild commands stay inside the extracted archive", () => {
+  const commands = rebuildCommands("/tmp/extracted/REVELATION-master-v1");
+  assert.deepEqual(
+    commands.map(({ name }) => name),
+    [
+      "docx",
+      "pandoc-epub",
+      "pandoc-pdf",
+      "designed-pdf",
+      "idml",
+      "fixed-epub",
+      "reflowable-epub",
+    ],
+  );
+  assert.ok(
+    commands.every(
+      ({ cwd, args }) =>
+        cwd.startsWith("/tmp/extracted/REVELATION-master-v1") &&
+        !args.join(" ").includes("http"),
+    ),
+  );
+});
+
+test("offline rebuild requires all ninety tracked survival labels", () => {
+  const rows = Array.from({ length: 90 }, (_, index) => {
+    const id = index === 0 ? "T1-T01" : `plate-${index}`;
+    const status = index === 0 ? "survives" : "lost";
+    return `<div class="reg"><span class="k">${id}</span><span class="s ${status}">Label</span></div>`;
+  }).join("");
+  assert.doesNotThrow(() => assertPlateStatuses(rows));
+  assert.throws(
+    () => assertPlateStatuses(rows.replace("s survives", "s lost")),
+    /T1-T01 survival label/,
   );
 });
 

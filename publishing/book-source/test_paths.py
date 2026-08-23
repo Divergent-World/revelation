@@ -45,6 +45,15 @@ class PathsTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             link_uri(Path("/absolute/T1-00.png"))
 
+    def test_plate_statuses_come_from_tracked_manifest(self):
+        sys.path.insert(0, str(HERE))
+        from plate_status import load_statuses
+
+        statuses = load_statuses()
+        self.assertEqual(len(statuses), 90)
+        self.assertEqual(statuses["T1-T01"], "survives")
+        self.assertEqual(statuses["T1-00"], "missing_or_lost")
+
 
 if __name__ == "__main__":
     unittest.main()

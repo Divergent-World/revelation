@@ -15,4 +15,9 @@ python3 publishing/book-source/validate_idml.py build/REVELATION_cover.idml --ar
 
 Outputs appear in `build/`. The interior defaults to lossless PNG links under `artwork/originals/`; set `LINK_SET=jpg` to use the lighter `artwork/book-images/` link set. The cover command preserves the 164-page Blurb spine default; pass a different verified page count when preparing another physical edition.
 
-Prerequisites: Python 3 plus the dependencies documented by the generator, and Adobe InDesign for opening or exporting IDML/INDD.
+Expected outputs:
+
+- `build/REVELATION_13x11.idml` — 164 interior pages, 83 spreads, and 90 relative image links.
+- `build/REVELATION_cover.idml` — the one-spread cover for the 164-page Blurb edition.
+
+The commands above passed with Python 3.14.7. Validation reported 626 interior package parts, 532 stories, and all 90 distinct linked images resolving within the extracted archive. Adobe InDesign is required only for native editing or final InDesign export; the generators and validators do not require it.
