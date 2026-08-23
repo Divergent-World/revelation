@@ -6,6 +6,7 @@ Geometry is in points. Page-local coordinates are converted to spread space by t
 object's offset, so callers think in ordinary page coordinates.
 """
 import os, zipfile, html as _html
+from pathlib import Path
 
 DOM = "17.0"
 PKG = 'xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging"'
@@ -28,6 +29,22 @@ def rect_path(w, h):
 
 def xform(x, y, sx=1.0, sy=1.0):
     return "%s 0 0 %s %s %s" % (_num(sx), _num(sy), _num(x), _num(y))
+
+
+def link_uri(path):
+    value = Path(path)
+    portable = value.as_posix()
+    if (
+        value.is_absolute()
+        or not portable
+        or "\\" in portable
+        or ":" in portable
+        or "?" in portable
+        or "#" in portable
+        or any(part in ("", ".") for part in value.parts)
+    ):
+        raise ValueError("IDML image link must be a relative path into the archive")
+    return "file:" + portable
 
 
 class Story:
@@ -102,7 +119,7 @@ class Page:
         s = max(w / nw, h / nh) if fit == "cover" else min(w / nw, h / nh)
         ox, oy = (w - nw * s) / 2.0, (h - nh * s) / 2.0
         rid, iid = self.doc.uid("r"), self.doc.uid("img")
-        uri = "file:" + link_path
+        uri = link_uri(link_path)
         fmt = self.FORMATS.get(os.path.splitext(link_path)[1].lower(), "$ID/JPEG")
         self.spread.items.append(
             '<Rectangle Self="%s" ItemTransform="%s" AppliedObjectStyle="ObjectStyle/$ID/[None]" '

@@ -22,7 +22,14 @@ This was tried and it failed; do not retry it.
 
 ## Fixed-layout edition — page images
 
-Build: `python3 render_pages.py` then `python3 make_epub_fixed.py [pages_dir]`
+From the extracted archive root, build with:
+
+```bash
+python3 publishing/book-source/build.py
+python3 publishing/book-source/render_pages.py 2048
+python3 publishing/book-source/make_epub_fixed.py build/epub_pages
+python3 publishing/book-source/validate_epub.py build/REVELATION_iPad_fixed.epub fixed
+```
 
 - Render each `.page` element from `book.html` **after the paginator has run** — wait for
   `document.documentElement.getAttribute('data-ready') === '1'`.
@@ -41,7 +48,12 @@ Build: `python3 render_pages.py` then `python3 make_epub_fixed.py [pages_dir]`
 
 ## Reflowable edition — real text
 
-Build: `python3 make_epub_reflow.py`
+From the extracted archive root, build with:
+
+```bash
+python3 publishing/book-source/make_epub_reflow.py
+python3 publishing/book-source/validate_epub.py build/REVELATION_reflowable.epub reflowable
+```
 
 - Generate from `content/*.json` and `prose.py` directly. **Never** from the paginated DOM.
 - One XHTML per section: cover, title, copyright, foreword, the two notes, one per movement,

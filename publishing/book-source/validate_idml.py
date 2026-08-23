@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 """Structural validation of the generated IDML. Fails loudly on anything InDesign would reject."""
-import zipfile, sys, os, re
+import argparse, zipfile, sys, os, re
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
-PATH = sys.argv[1] if len(sys.argv) > 1 else "indesign/REVELATION_13x11.idml"
+parser = argparse.ArgumentParser()
+parser.add_argument("path", nargs="?", default="publishing/indesign/REVELATION_13x11.idml")
+parser.add_argument("--archive-root", type=Path)
+args = parser.parse_args()
+PATH = Path(args.path).resolve()
 zf = zipfile.ZipFile(PATH)
 names = zf.namelist()
 errs, warns = [], []
@@ -145,15 +150,39 @@ for n, t in trees.items():
         if w <= 0 or h <= 0:
             errs.append("%s: degenerate frame %s (%gx%g)" % (n, el.get("Self"), w, h))
 
-# 10. links exist
+# 10. links are portable; optionally require targets inside the extracted archive
 missing_links, links = [], set()
 for n, t in trees.items():
     for lk in t.iter("Link"):
         uri = lk.get("LinkResourceURI", "")
         if uri.startswith("file:"):
-            links.add(uri[5:])
+            value = uri[5:]
+            links.add(value)
+            link_path = Path(value)
+            if (
+                link_path.is_absolute()
+                or "\\" in value
+                or ":" in value
+                or "?" in value
+                or "#" in value
+                or not value
+            ):
+                errs.append("%s: unsafe or absolute image link %s" % (n, uri))
+                continue
+            if args.archive_root:
+                archive_root = args.archive_root.resolve()
+                target = (PATH.parent / link_path).resolve()
+                try:
+                    target.relative_to(archive_root)
+                except ValueError:
+                    errs.append("%s: image link escapes archive root: %s" % (n, uri))
+                    continue
+                if not target.is_file():
+                    missing_links.append(str(target))
+if missing_links:
+    errs.append("%d linked images are missing inside the archive" % len(missing_links))
 print("=" * 68)
-print("IDML VALIDATION —", os.path.basename(PATH))
+print("IDML VALIDATION —", PATH.name)
 print("=" * 68)
 print("parts: %d | spreads: %d | stories: %d | frames: %d | pages: %d"
       % (len(names), sum(1 for n in names if n.startswith("Spreads/")),

@@ -6,6 +6,7 @@ import build as B
 from prose import (FOREWORD, LOSSES, METHOD, MOVEMENT_CODAS, PLATE_NOTES,
                    COLOPHON_LEFT, AUTHOR)
 from paths import ARTWORK, BUILD, INDESIGN
+from validate_epub import validate_epub
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = BUILD / "REVELATION_reflowable.epub"
@@ -266,5 +267,6 @@ zf.writestr("OEBPS/content.opf",
     % ("".join(items),
        "".join('<itemref idref="x%s"/>' % re.sub(r"\W","",n) for n, _ in files)))
 zf.close()
+validate_epub(OUT, "reflowable")
 print("wrote", OUT, round(OUT.stat().st_size/1e6,1), "MB |",
       len(files), "documents |", len(nav), "nav entries")

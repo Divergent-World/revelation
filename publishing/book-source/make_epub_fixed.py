@@ -10,6 +10,7 @@ import os, re, sys, zipfile, html
 from playwright.sync_api import sync_playwright
 from PIL import Image
 from paths import BUILD
+from validate_epub import validate_epub
 
 PAGES = BUILD / "epub_pages"
 if len(sys.argv) > 1:
@@ -123,4 +124,5 @@ zf.writestr("OEBPS/content.opf",
     '<manifest>%s</manifest>\n<spine>%s</spine></package>'
     % ("".join(items), "".join(spine)))
 zf.close()
+validate_epub(OUT, "fixed")
 print("wrote", OUT, round(OUT.stat().st_size/1e6, 1), "MB")

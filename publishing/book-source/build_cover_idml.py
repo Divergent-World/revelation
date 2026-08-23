@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """REVELATION — Blurb ImageWrap cover as an editable InDesign document."""
 import json, os, sys
+from pathlib import Path
 from idml_lib import Doc
 from paths import BUILD, INDESIGN
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = Path(os.environ.get("IDML_OUTPUT_DIR", BUILD)).resolve()
 
 PAGES  = int(sys.argv[1]) if len(sys.argv) > 1 else 164
 TRIM_W, TRIM_H = 900.0, 765.0          # 12.5 x 10.625 in
@@ -56,7 +58,8 @@ P("IsbnLbl",   font=SG, FontStyle="Regular", PointSize=6, leading=10, Tracking=2
 p = doc.add_page()
 p.rect(0, 0, W, H, fill="Color/Night")
 dims = json.load(open(INDESIGN / "coverbg_dims.json"))
-p.image(0, 0, W, H, INDESIGN / "cover_bg.jpg", dims[0], dims[1], fit="cover")
+cover_link = Path(os.path.relpath(INDESIGN / "cover_bg.jpg", OUTPUT_DIR))
+p.image(0, 0, W, H, cover_link, dims[0], dims[1], fit="cover")
 
 BACK_X  = WRAP
 SPINE_X = WRAP + TRIM_W
@@ -120,7 +123,7 @@ p.rect(BACK_X + TRIM_W - 272, PY_ + TRIM_H - 172, 142, 72,
 st = doc.story().para("IsbnLbl", "ISBN")
 p.text(BACK_X + TRIM_W - 272, PY_ + TRIM_H - 142, 142, 14, st.id)
 
-BUILD.mkdir(parents=True, exist_ok=True)
-out = BUILD / "REVELATION_cover.idml"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+out = OUTPUT_DIR / "REVELATION_cover.idml"
 doc.write(out)
 print("wrote", out, out.stat().st_size//1024, "KB")

@@ -34,6 +34,17 @@ class PathsTest(unittest.TestCase):
 
         self.assertEqual(paths.ROOT, HERE.parent.parent)
 
+    def test_idml_uri_is_relative_and_portable(self):
+        sys.path.insert(0, str(HERE))
+        from idml_lib import link_uri
+
+        self.assertEqual(
+            link_uri(Path("../artwork/originals/T1-00.png")),
+            "file:../artwork/originals/T1-00.png",
+        )
+        with self.assertRaises(ValueError):
+            link_uri(Path("/absolute/T1-00.png"))
+
 
 if __name__ == "__main__":
     unittest.main()

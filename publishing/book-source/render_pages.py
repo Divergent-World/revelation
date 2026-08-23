@@ -21,11 +21,18 @@ with sync_playwright() as pw:
     for i, el in enumerate(els, 1):
         dst = OUT / ("p%03d.jpg" % i)
         if dst.exists(): continue
+        classes = set((el.get_attribute("class") or "").split())
+        image_led = bool(
+            classes.intersection(
+                {"ebookcover", "backcover", "bleed", "mvpage", "platepage"}
+            )
+        )
+        quality = 76 if image_led else 88
         raw = el.screenshot(type="png")
         im = Image.open(io.BytesIO(raw)).convert("RGB")
         if im.width != TARGET_W:
             im = im.resize((TARGET_W, round(im.height * TARGET_W / im.width)), Image.LANCZOS)
-        im.save(dst, "JPEG", quality=86, optimize=True, progressive=True)
+        im.save(dst, "JPEG", quality=quality, optimize=True, progressive=True)
         if i % 40 == 0: print("  %d/%d  %.0fs" % (i, n, time.time()-t0))
     b.close()
 tot = sum(path.stat().st_size for path in OUT.iterdir())
