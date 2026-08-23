@@ -13,6 +13,7 @@
     "content:validate": "node scripts/validate-content.mjs",
     "assets:release": "node scripts/build-release.mjs",
     "assets:validate": "node scripts/validate-release.mjs",
+    "publishing:validate": "node scripts/validate-master-release.mjs",
     "assets:upload": "npm run assets:validate && node scripts/upload-r2.mjs"
   },
   "dependencies": {
