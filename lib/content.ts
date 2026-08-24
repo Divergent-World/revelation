@@ -86,3 +86,8 @@ export function assetUrl(key: string) {
 }
 
 export const archiveUrl = assetUrl(`releases/${contentVersion}/revelations-artwork-${contentVersion}.zip`);
+export const masterArchiveUrl = assetUrl(
+  `releases/${contentVersion}/REVELATION-master-${contentVersion}.zip`,
+);
+export const blurbPreviewUrl =
+  "https://www.blurb.com/bookshare/app/index.html?bookId=12978394";

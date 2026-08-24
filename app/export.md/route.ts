@@ -7,7 +7,11 @@ export function GET() {
   const body = renderMarkdownBook({
     chapters: revelationChapters,
     scenes: allScenes,
-    assetBaseUrl: process.env.NEXT_PUBLIC_ASSET_BASE_URL ?? "http://127.0.0.1:3101",
+    imageSource: {
+      kind: "web",
+      assetBaseUrl:
+        process.env.NEXT_PUBLIC_ASSET_BASE_URL ?? "http://127.0.0.1:3101",
+    },
   });
   return new Response(body, {
     headers: {

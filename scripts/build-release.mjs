@@ -5,6 +5,7 @@ import { spawn } from "node:child_process";
 import sharp from "sharp";
 
 import { releasePaths } from "./lib/release.mjs";
+import { stageMasterRelease } from "./lib/master-release.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const vault = path.resolve(process.env.APOCALYPSE_VAULT ?? path.join(root, "..", "Apocalypse Tapestry"));
@@ -12,6 +13,9 @@ const releaseRoot = path.join(root, "dist", "releases", "v1");
 const archiveStage = path.join(releaseRoot, "archive");
 const sources = JSON.parse(await readFile(path.join(root, "content", "source-map.json"), "utf8"));
 const manifest = JSON.parse(await readFile(path.join(root, "content", "tapestries.json"), "utf8"));
+const { chapters } = JSON.parse(
+  await readFile(path.join(root, "content", "revelation.web.json"), "utf8"),
+);
 
 function sha256(buffer) { return createHash("sha256").update(buffer).digest("hex"); }
 
@@ -66,4 +70,14 @@ await Promise.all([
 
 await run("zip", ["-q", "-r", path.join(releaseRoot, "revelations-artwork-v1.zip"), "."], archiveStage);
 await rm(archiveStage, { recursive: true, force: true });
-console.log(`Release built at ${releaseRoot} with ${sources.length} originals, 180 WebP derivatives, and 90 book JPEGs.`);
+await stageMasterRelease({
+  root,
+  releaseRoot,
+  publishingRoot: path.join(root, "publishing"),
+  version: "v1",
+  sources,
+  manifest,
+  chapters,
+  scenes: manifest.scenes,
+});
+console.log(`Release built at ${releaseRoot} with ${sources.length} originals, 180 WebP derivatives, 90 book JPEGs, and REVELATION-master-v1.zip.`);

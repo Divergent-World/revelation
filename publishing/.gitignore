@@ -1,0 +1,9 @@
+editions/*
+!editions/README.md
+indesign/*.indd
+indesign/*.pdf
+book-source/book.html
+book-source/epub_pages/
+book-source/*.pdf
+book-source/*.epub
+book-source/__pycache__/

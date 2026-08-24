@@ -1,0 +1,271 @@
+@page { size: 12in 9in; margin: 0; }
+:root{
+  --vellum:#EAE1CE; --ink:#16120E; --ink-soft:#3B322A;
+  --rubric:#8E2420; --lapis:#1E3566; --gold:#A8823C; --rule:#C3B597;
+  --wj:#9B1C31;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#3f3f3f;}
+body{font-family:"EB Garamond",serif;-webkit-font-smoothing:antialiased;}
+.flowsec{display:none;}
+.page{width:12in;height:9in;position:relative;overflow:hidden;background:var(--vellum);
+  page-break-after:always;break-after:page;}
+.page:last-child{page-break-after:auto;break-after:auto;}
+
+.folio{position:absolute;bottom:.44in;font-family:"Space Grotesk",sans-serif;
+  font-size:6.4pt;letter-spacing:.18em;color:var(--ink-soft);}
+.page.verso .folio{left:.85in;} .page.recto .folio{right:.85in;}
+.rt{position:absolute;top:.52in;font-family:"Space Grotesk",sans-serif;text-transform:uppercase;
+  font-size:6.1pt;letter-spacing:.24em;color:#8A7C66;}
+.page.verso .rt{left:.85in;} .page.recto .rt{right:.85in;}
+.bleed .rt{color:#A2937A;} .bleed .folio{color:#BCA97F;}
+.nofolio .folio,.divider .folio,.halftitle .folio,.titlepage .folio,
+.copyrightpage .folio,.contents .folio,.colophon .folio,.mvpage .folio,.coda .folio{display:none;}
+
+.chip{display:inline-block;border:.4pt solid currentColor;padding:1.5pt 4.4pt 1.1pt;
+  font-family:"Space Grotesk",sans-serif;font-size:5.5pt;letter-spacing:.17em;
+  text-transform:uppercase;font-weight:500;}
+.chip.survives{color:var(--lapis);} .chip.frag{color:var(--gold);} .chip.lost{color:var(--rubric);}
+.wj{color:var(--wj);}
+
+/* ---------- half title ---------- */
+.halftitle .ht{position:absolute;left:0;right:0;top:3.5in;text-align:center;}
+.ht h1{font-family:"Cinzel",serif;font-size:30pt;font-weight:600;letter-spacing:.34em;
+  text-indent:.34em;color:var(--ink);}
+.ht-sub{margin-top:.16in;font-size:11.5pt;font-style:italic;color:var(--ink-soft);}
+.ht-rule{width:1.4in;border-top:.5pt solid var(--rule);margin:.30in auto;}
+
+/* ---------- frontispiece / bleed ---------- */
+.bleed{background:#0E0A08;}
+.fill-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.fill-contain{position:absolute;inset:.55in;width:calc(100% - 1.1in);height:calc(100% - 1.1in);
+  object-fit:contain;}
+.frontis-cap{position:absolute;left:0;right:0;bottom:.55in;text-align:center;
+  font-family:"Space Grotesk",sans-serif;font-size:5.9pt;letter-spacing:.26em;
+  text-transform:uppercase;color:#8A7A5E;}
+.bleed .scrim{position:absolute;left:0;right:0;bottom:0;height:2.6in;
+  background:linear-gradient(to top,rgba(8,5,4,.94) 0%,rgba(8,5,4,.72) 38%,rgba(8,5,4,0) 100%);}
+.bleed .cap{position:absolute;left:.9in;bottom:.85in;right:2.4in;color:#E4D9C0;}
+.bleed .cap .id{font-family:"Space Grotesk",sans-serif;font-size:6.2pt;letter-spacing:.26em;
+  text-transform:uppercase;color:#B3A184;}
+.bleed .cap .id .chip{}
+.bleed .cap h3{font-family:"Cinzel",serif;font-size:21pt;font-weight:500;letter-spacing:.05em;
+  margin-top:.12in;line-height:1.14;}
+
+/* ---------- title page ---------- */
+.tp{position:absolute;left:1.2in;right:1.2in;top:2.25in;text-align:center;}
+.tp-drop{font-family:"Cinzel",serif;font-size:9pt;letter-spacing:.40em;color:var(--rubric);
+  text-indent:.40em;margin-bottom:.32in;}
+.tp h1{font-family:"Cinzel",serif;font-size:47pt;font-weight:600;letter-spacing:.10em;
+  text-indent:.10em;color:var(--ink);line-height:1;}
+.tp-sub{margin-top:.28in;font-size:14.5pt;font-style:italic;color:var(--ink-soft);}
+.tp-rule{width:1.7in;border-top:.5pt solid var(--rule);margin:.34in auto;}
+.tp-desc{font-size:10.6pt;line-height:1.7;color:var(--ink-soft);max-width:5.1in;margin:0 auto;}
+.tp-imprint{margin-top:.30in;font-family:"Space Grotesk",sans-serif;font-size:6.7pt;
+  letter-spacing:.30em;text-transform:uppercase;color:var(--ink-soft);}
+
+/* ---------- copyright ---------- */
+.cp{position:absolute;left:.95in;bottom:.95in;width:4.6in;}
+.cp p{font-size:8.4pt;line-height:1.62;color:var(--ink-soft);margin-bottom:.13in;}
+.cp p b{color:var(--ink);}
+.cp-small{font-family:"Space Grotesk",sans-serif;font-size:5.9pt;letter-spacing:.16em;
+  text-transform:uppercase;color:#8A7C66;margin-top:.24in;}
+
+/* ---------- contents ---------- */
+.toc{position:absolute;left:1.5in;right:1.5in;top:1.15in;}
+.toc h2{font-family:"Cinzel",serif;font-size:14pt;letter-spacing:.28em;text-indent:.28em;
+  text-align:center;color:var(--ink);margin-bottom:.42in;}
+.toc-lbl{font-family:"Space Grotesk",sans-serif;font-size:5.8pt;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--gold);margin:.30in 0 .13in;
+  border-top:.4pt solid var(--rule);padding-top:.13in;}
+.toc-block{margin-bottom:.06in;}
+.toc-row{display:grid;grid-template-columns:.62in 1fr 2.1in;align-items:baseline;
+  padding:.075in 0;border-bottom:.25pt solid #D8CCB4;}
+.toc-num{font-family:"Cinzel",serif;font-size:11pt;color:var(--rubric);letter-spacing:.08em;}
+.toc-t{font-size:12.5pt;color:var(--ink);}
+.toc-row.minor .toc-t{font-size:11pt;color:var(--ink-soft);}
+.toc-d{font-family:"Space Grotesk",sans-serif;font-size:6pt;letter-spacing:.16em;
+  text-transform:uppercase;color:#8A7C66;text-align:right;}
+
+/* ---------- part divider ---------- */
+.divider{background:#171210;}
+.dv{position:absolute;left:0;right:0;top:3.15in;text-align:center;}
+.dv-k{font-family:"Space Grotesk",sans-serif;font-size:6.4pt;letter-spacing:.42em;
+  text-transform:uppercase;color:#8C7442;}
+.dv h1{font-family:"Cinzel",serif;font-size:40pt;font-weight:600;letter-spacing:.09em;
+  text-indent:.09em;color:#C9AE72;margin-top:.24in;line-height:1.06;}
+.dv-rule{width:1.5in;border-top:.5pt solid #6B5427;margin:.32in auto;}
+.dv-s{font-size:11.5pt;font-style:italic;color:#9A8659;}
+
+/* ---------- movement opener ---------- */
+.mv{display:grid;grid-template-columns:5.35in 6.65in;height:100%;}
+.mv .plate{background:#1A1410;position:relative;overflow:hidden;}
+.mv .plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.mv .plate .vign{position:absolute;inset:0;box-shadow:inset 0 0 1.6in rgba(20,14,10,.55);}
+.mv .txt{padding:1.15in .95in 1in 1in;position:relative;}
+.numeral{font-family:"Cinzel",serif;font-size:14pt;letter-spacing:.5em;color:var(--rubric);
+  text-indent:.5em;}
+.mv h2{font-family:"Cinzel",serif;font-size:33pt;font-weight:600;letter-spacing:.05em;
+  line-height:1.14;margin-top:.20in;color:var(--ink);}
+.rangehair{width:1.25in;border-top:.6pt solid var(--rubric);margin:.28in 0;}
+.range{font-family:"Space Grotesk",sans-serif;font-size:7pt;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.mv .arg{margin-top:.32in;font-size:11.6pt;line-height:1.72;color:var(--ink);max-width:4.5in;}
+.mv .arg .lead::first-letter{font-family:"Cinzel",serif;font-size:29pt;line-height:.82;float:left;
+  padding:.045in .075in 0 0;color:var(--rubric);}
+.mv-stat{position:absolute;left:1in;bottom:1.98in;display:flex;gap:.60in;
+  border-top:.5pt solid var(--rule);padding-top:.16in;width:4.5in;}
+.mv-stat div{display:flex;flex-direction:column;gap:.045in;}
+.mv-stat b{font-family:"Cinzel",serif;font-size:17pt;font-weight:600;color:var(--rubric);line-height:1;}
+.mv-stat span{font-family:"Space Grotesk",sans-serif;font-size:5.7pt;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.tocstrip{position:absolute;left:1in;right:.95in;bottom:.85in;border-top:.4pt solid var(--rule);
+  padding-top:.13in;display:flex;flex-wrap:wrap;gap:.05in .26in;}
+.tocstrip span{font-family:"Space Grotesk",sans-serif;font-size:5.6pt;letter-spacing:.10em;
+  color:#7C6E58;text-transform:uppercase;}
+
+/* ---------- plate + scripture (single page) ---------- */
+.ps{display:grid;grid-template-columns:7.05in 4.95in;height:100%;}
+.ps .imgcol{position:relative;background:#17110E;overflow:hidden;}
+.ps .imgcol img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ps .txtcol{padding:.92in .82in .95in .62in;position:relative;
+  border-left:.4pt solid var(--rule);}
+.hd .id{font-family:"Space Grotesk",sans-serif;font-size:6.1pt;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-soft);line-height:1.9;}
+.hd h3{font-family:"Cinzel",serif;font-size:16pt;font-weight:600;letter-spacing:.045em;
+  line-height:1.2;margin-top:.10in;color:var(--ink);}
+.hd .anchor{margin-top:.09in;font-family:"Space Grotesk",sans-serif;font-size:6.5pt;
+  letter-spacing:.19em;text-transform:uppercase;color:var(--rubric);}
+.hr{border-top:.5pt solid var(--rule);margin:.22in 0;}
+.scripture{font-size:10.4pt;line-height:1.74;color:var(--ink);text-align:justify;hyphens:auto;}
+.scripture.wide{font-size:11pt;line-height:1.78;}
+.scripture .v{font-family:"Space Grotesk",sans-serif;font-size:5.5pt;color:var(--rubric);
+  vertical-align:.42em;letter-spacing:.05em;margin-right:.03in;font-weight:500;}
+.scripture .cont{font-style:italic;color:#8A7C66;font-size:9.4pt;}
+.note{margin-top:.26in;border-top:.4pt solid var(--rule);padding-top:.15in;}
+.note .lbl,.prov .lbl{font-family:"Space Grotesk",sans-serif;font-size:5.8pt;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:.08in;}
+.note p{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:10.4pt;
+  line-height:1.56;color:var(--ink-soft);}
+
+/* ---------- facing text page (after full bleed) ---------- */
+.textpage .tx{position:absolute;left:2.55in;right:2.55in;top:1.45in;bottom:1.05in;}
+.prov{margin-top:.30in;border-top:.4pt solid var(--rule);padding-top:.15in;}
+.textpage .prov{position:absolute;left:0;right:0;bottom:0;margin-top:0;}
+.prov .lbl{color:#8A7C66;}
+.prov dl{display:grid;grid-template-columns:1.3in 1fr;row-gap:.055in;
+  font-family:"Space Grotesk",sans-serif;font-size:6.1pt;letter-spacing:.11em;
+  color:var(--ink-soft);text-transform:uppercase;}
+.prov dt{color:#9A8B72;}
+
+/* ---------- coda ---------- */
+.cd{position:absolute;left:3.1in;right:3.1in;top:3.0in;text-align:center;}
+.cd-k{font-family:"Space Grotesk",sans-serif;font-size:6pt;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--gold);}
+.cd h2{font-family:"Cinzel",serif;font-size:17pt;font-weight:600;letter-spacing:.05em;
+  margin-top:.20in;color:var(--ink);line-height:1.25;}
+.cd-rule{width:1.1in;border-top:.5pt solid var(--rubric);margin:.28in auto;}
+.cd p{font-size:12pt;line-height:1.74;color:var(--ink-soft);font-style:italic;}
+
+/* ---------- flowed prose pages ---------- */
+.page.prose{padding:.78in .95in .95in;}
+.sechd{margin-bottom:.30in;border-bottom:.5pt solid var(--rule);padding-bottom:.16in;}
+.sechd h2{font-family:"Cinzel",serif;font-size:20pt;font-weight:600;letter-spacing:.09em;
+  color:var(--ink);}
+.seck{margin-top:.08in;font-family:"Space Grotesk",sans-serif;font-size:6.2pt;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--gold);}
+.pagebody{display:grid;gap:.46in;height:6.55in;}
+.page.prose.first .pagebody{height:5.42in;}
+.col{overflow:hidden;}
+.col > *{break-inside:avoid;}
+.col p{font-size:10.3pt;line-height:1.70;color:var(--ink);text-align:justify;hyphens:auto;
+  margin-bottom:.13in;}
+.col p.drop::first-letter{font-family:"Cinzel",serif;font-size:26pt;line-height:.84;float:left;
+  padding:.04in .07in 0 0;color:var(--rubric);}
+.col p.sig{font-family:"Space Grotesk",sans-serif;font-size:6.2pt;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-soft);margin-top:.18in;text-align:left;}
+.col h3{font-family:"Cinzel",serif;font-size:10.5pt;font-weight:600;letter-spacing:.07em;
+  color:var(--ink);margin:.20in 0 .10in;}
+.col h3 .mnum{display:inline-block;width:.24in;color:var(--rubric);}
+.col h3.chap{font-family:"Cinzel",serif;font-size:13pt;color:var(--rubric);letter-spacing:.10em;
+  margin:.26in 0 .12in;border-top:.5pt solid var(--rule);padding-top:.14in;}
+.col h3.chap span{font-family:"Space Grotesk",sans-serif;font-size:5.6pt;letter-spacing:.26em;
+  color:#8A7C66;display:block;margin-bottom:.05in;}
+.col p.sc{font-size:9.9pt;line-height:1.66;margin-bottom:.10in;}
+.col p.sc .v{font-family:"Space Grotesk",sans-serif;font-size:5.3pt;color:var(--rubric);
+  vertical-align:.42em;margin-right:.028in;font-weight:500;}
+
+/* register of losses rows */
+.reg-h{font-family:"Space Grotesk",sans-serif;font-size:5.9pt;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);margin:.22in 0 .09in;
+  border-top:.5pt solid var(--rule);padding-top:.11in;}
+.reg{display:grid;grid-template-columns:.58in 1fr .62in .70in;gap:.06in;align-items:baseline;
+  padding:.042in 0;border-bottom:.25pt solid #D8CCB4;}
+.reg .k{font-family:"Space Grotesk",sans-serif;font-size:5.8pt;letter-spacing:.10em;color:var(--ink-soft);}
+.reg .t{font-size:8.6pt;color:var(--ink);line-height:1.28;}
+.reg .a{font-family:"Space Grotesk",sans-serif;font-size:5.5pt;color:#8A7C66;letter-spacing:.05em;}
+.reg .s{font-family:"Space Grotesk",sans-serif;font-size:5.2pt;letter-spacing:.13em;
+  text-transform:uppercase;text-align:right;}
+.reg .s.survives{color:var(--lapis);} .reg .s.frag{color:var(--gold);} .reg .s.lost{color:var(--rubric);}
+
+/* ---------- colophon ---------- */
+.colophon .colo{}
+.colophon .colo{position:absolute;inset:1.3in 1in;display:grid;grid-template-columns:1fr 1fr;
+  gap:1.1in;overflow:visible;}
+.colophon h2{font-family:"Cinzel",serif;font-size:13pt;letter-spacing:.18em;margin-bottom:.24in;
+  color:var(--ink);}
+.colophon p{font-size:9.7pt;line-height:1.68;color:var(--ink-soft);margin-bottom:.16in;text-align:left;}
+.colophon .spec{font-family:"Space Grotesk",sans-serif;font-size:6.5pt;letter-spacing:.12em;
+  line-height:2.0;text-transform:uppercase;color:var(--ink-soft);}
+.colophon .spec b{color:var(--ink);font-weight:500;display:inline-block;width:1.5in;}
+.colophon .spec-note{margin-top:.30in;font-size:9.2pt;line-height:1.6;color:var(--ink-soft);
+  border-top:.4pt solid var(--rule);padding-top:.15in;font-style:italic;}
+.colophon .mark{margin-top:.36in;font-family:"Cinzel",serif;font-size:8.5pt;letter-spacing:.4em;
+  color:var(--rubric);}
+
+
+/* ---------- single-page plate: full-width 16:9 band + footer ---------- */
+.platepage{background:var(--vellum);}
+.pp-band{position:absolute;left:0;right:0;top:0;height:6.75in;background:#17110E;overflow:hidden;}
+.pp-band img{width:100%;height:100%;object-fit:cover;display:block;}
+.pp-foot{position:absolute;left:.85in;right:.85in;top:7.05in;bottom:.72in;
+  display:grid;grid-template-columns:3.3in 1fr;gap:.42in;}
+.pp-hd .id{font-family:"Space Grotesk",sans-serif;font-size:6pt;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-soft);line-height:1.9;}
+.pp-hd h3{font-family:"Cinzel",serif;font-size:13.5pt;font-weight:600;letter-spacing:.04em;
+  line-height:1.18;margin-top:.06in;color:var(--ink);}
+.pp-hd .anchor{margin-top:.06in;font-family:"Space Grotesk",sans-serif;font-size:6.2pt;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--rubric);}
+.pp-sc{font-size:9.5pt;line-height:1.62;color:var(--ink);text-align:justify;hyphens:auto;
+  columns:2;column-gap:.42in;border-left:.4pt solid var(--rule);padding-left:.42in;}
+.pp-sc .v{font-family:"Space Grotesk",sans-serif;font-size:5.2pt;color:var(--rubric);
+  vertical-align:.42em;margin-right:.028in;font-weight:500;}
+.pp-sc .cont{font-style:italic;color:#8A7C66;font-size:8.8pt;}
+.pp-note{position:absolute;left:.85in;right:.85in;bottom:.30in;}
+.pp-note span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:8.6pt;
+  line-height:1.45;color:#6E6155;}
+
+
+/* ---------- ebook covers ---------- */
+.ebookcover,.backcover{background:#0E0A08;}
+.ec{position:absolute;left:0;right:0;top:2.55in;text-align:center;}
+.ec h1{font-family:"Cinzel",serif;font-weight:600;font-size:64pt;letter-spacing:.145em;
+  text-indent:.145em;color:#C9AE72;line-height:1;}
+.ec-sub{margin-top:.24in;font-family:"Cinzel",serif;font-size:10.5pt;letter-spacing:.44em;
+  text-indent:.44em;color:#C0A468;}
+.ec-hair{width:1.9in;border-top:.8pt solid #8C7442;margin:.3in auto;}
+.ec-lede{font-family:"EB Garamond",serif;font-style:italic;font-size:13pt;color:#C4B085;}
+.ec-author{position:absolute;left:0;right:0;bottom:1.05in;text-align:center;
+  font-family:"Space Grotesk",sans-serif;font-size:8.5pt;letter-spacing:.40em;
+  text-transform:uppercase;color:#B79C63;}
+.bc{position:absolute;left:1.5in;right:1.5in;top:1.9in;}
+.bc p{font-size:12pt;line-height:1.72;color:#B9AC90;margin-bottom:.18in;}
+.bc p.bc-lead{font-size:14pt;color:#CFC0A0;line-height:1.62;}
+.bc-marks{margin-top:.5in;border-top:.5pt solid rgba(140,116,66,.45);padding-top:.2in;
+  display:flex;gap:.6in;}
+.bc-marks div{display:flex;flex-direction:column;gap:.04in;}
+.bc-marks b{font-family:"Cinzel",serif;font-size:19pt;color:#C9AE72;line-height:1;}
+.bc-marks span{font-family:"Space Grotesk",sans-serif;font-size:6.5pt;letter-spacing:.24em;
+  text-transform:uppercase;color:#8E8064;}
+.bc-imprint{position:absolute;left:0;bottom:-1.6in;font-family:"Space Grotesk",sans-serif;
+  font-size:7pt;letter-spacing:.34em;text-transform:uppercase;color:#8C7442;}

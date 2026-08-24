@@ -1,58 +1,66 @@
-# Convert the illuminated Markdown book
+# Rebuild the illuminated book from the master archive
 
-## Download the source
+## Default workflow
 
-Choose both `export.md` and `red-letter reference` in the homepage’s Open archive section, and keep them in the same folder. The reference document makes the exact words of Jesus render in crimson (`#9B1C31`) in Word and Google Docs. A production export uses public R2 image URLs. A local export uses `http://127.0.0.1:3101`, so keep the local asset server running while Pandoc converts it.
+Download `REVELATION-master-v1.zip` from the homepage and extract it. The archive already contains the official finished editions under `editions/`, including the 182-page PDF, fixed-layout and reflowable EPUBs, and DOCX.
 
-## Install Pandoc on macOS
+It also contains everything project-specific needed to rebuild them: `export.md`, all 90 book JPEGs, canonical JSON, the red-letter reference DOCX, fonts, publishing scripts, portable IDML/INDD source, and detailed instructions. General-purpose tools such as Pandoc, WeasyPrint, Python, Playwright/Chromium, Pillow, and Adobe InDesign remain external prerequisites where relevant.
+
+Run commands from the extracted `REVELATION-master-v1/` root. No site, R2 bucket, local asset server, or separate reference download is required.
+
+## Pandoc exports
+
+Install Pandoc and create the output directory:
 
 ```bash
 brew install pandoc
+mkdir -p build
 ```
 
-## Convert a local export
-
-From the repository, keep this running in one terminal:
+### Microsoft Word / Google Docs
 
 ```bash
-npm run dev:local
+pandoc export.md \
+  --from=markdown+yaml_metadata_block+bracketed_spans+link_attributes \
+  --standalone \
+  --toc \
+  --reference-doc=publishing/reference/red-letter-reference.docx \
+  --resource-path=. \
+  --output=build/revelations.docx
 ```
 
-In another terminal, change to the folder containing `export.md`.
+The 90 relative images are embedded, and the `Words of Jesus` character style preserves crimson text in Word and Google Docs.
 
-### Microsoft Word / Google Docs (red-letter edition)
+### Conventional reflowable EPUB
 
 ```bash
-pandoc export.md --from=markdown+yaml_metadata_block+bracketed_spans+link_attributes --standalone --toc --reference-doc=red-letter-reference.docx -o revelations.docx
+pandoc export.md \
+  --from=markdown+yaml_metadata_block+bracketed_spans+link_attributes \
+  --standalone \
+  --toc \
+  --split-level=2 \
+  --resource-path=. \
+  --output=build/revelations-pandoc.epub
 ```
 
-Upload `revelations.docx` to Google Drive, right-click it, and choose **Open with → Google Docs**. The 90 JPEG illuminations and red-letter formatting are retained; edit normally. To make a PDF there, choose **File → Download → PDF Document (.pdf)**.
+The finished fixed-layout and purpose-built reflowable EPUBs in `editions/` follow stricter rules than this conventional Pandoc export. Rebuild those with `publishing/instructions/EPUB_BUILD_RULES.md`.
 
-### EPUB
-
-```bash
-pandoc export.md --from=markdown+yaml_metadata_block+bracketed_spans+link_attributes --standalone --toc --split-level=2 -o revelations.epub
-```
-
-Pandoc downloads the linked images during conversion and includes them in the EPUB.
-
-### PDF
-
-Install WeasyPrint once. It avoids the `pdflatex not found` error and preserves the red-letter HTML styling:
+### Conventional PDF
 
 ```bash
 brew install weasyprint
+pandoc export.md \
+  --from=markdown+yaml_metadata_block+bracketed_spans+link_attributes \
+  --to=html5 \
+  --standalone \
+  --toc \
+  --resource-path=. \
+  --pdf-engine=weasyprint \
+  --output=build/revelations-pandoc.pdf
 ```
 
-```bash
-pandoc export.md --from=markdown+yaml_metadata_block+bracketed_spans+link_attributes --to=html5 --standalone --toc --pdf-engine=weasyprint -o revelations.pdf
-```
+For the designed 182-page book and editable InDesign layouts, follow `publishing/book-source/README.md` and `publishing/instructions/INDESIGN_BUILD.md` inside the archive.
 
-If you do not want to install WeasyPrint, use the DOCX → Google Docs → Download as PDF path above.
+## Standalone compatibility export
 
-## Troubleshooting missing images
-
-- Local export: confirm `npm run dev:local` is still running and `http://127.0.0.1:3101/releases/v1/book/images/T1-00.jpg` opens.
-- Production export: confirm the R2 custom domain is reachable from the machine running Pandoc.
-- Re-download `export.md` after changing `NEXT_PUBLIC_ASSET_BASE_URL`; the URLs are generated at build time.
-- For red lettering in Word or Google Docs, ensure `red-letter-reference.docx` is beside `export.md` when running the DOCX command.
+`/export.md` remains available for lightweight use. That route intentionally contains web artwork URLs, so conversions require those published URLs to remain reachable. The master archive is the reproducible offline workflow.

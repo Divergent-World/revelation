@@ -1,11 +1,22 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage downloads the complete illuminated Markdown edition", async ({ page }) => {
+test("offers the master archive, Blurb edition, and source", async ({ page }) => {
   await page.goto("/");
-  const exportLink = page.getByRole("link", { name: "export.md" });
-  await expect(exportLink).toHaveAttribute("href", "/export.md");
-  await expect(exportLink).toHaveAttribute("download", "");
+  const master = page.getByRole("link", { name: "Download the master archive" });
+  await expect(master).toHaveAttribute(
+    "href",
+    /releases\/v1\/REVELATION-master-v1\.zip$/,
+  );
+  await expect(page.getByTitle("Preview Revelation on Blurb")).toHaveAttribute(
+    "src",
+    "https://www.blurb.com/bookshare/app/index.html?bookId=12978394",
+  );
+  await expect(
+    page.getByRole("link", { name: "View the source on GitHub" }),
+  ).toHaveAttribute("href", "https://github.com/Divergent-World/revelations");
+});
 
+test("keeps the standalone Markdown export available", async ({ page }) => {
   const response = await page.request.get("/export.md");
   expect(response.ok()).toBe(true);
   expect(response.headers()["content-type"]).toContain("text/markdown");

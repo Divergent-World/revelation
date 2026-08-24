@@ -1,7 +1,13 @@
 import Link from "next/link";
 
 import { ArtworkImage } from "@/components/ArtworkImage";
-import { allTapestries, archiveUrl, getScene, type Scene } from "@/lib/content";
+import {
+  allTapestries,
+  blurbPreviewUrl,
+  getScene,
+  masterArchiveUrl,
+  type Scene,
+} from "@/lib/content";
 import styles from "./page.module.css";
 
 function requiredScene(id: string): Scene {
@@ -60,16 +66,30 @@ export default function HomePage() {
       </section>
 
       <section className={styles.archive} aria-labelledby="archive-title">
-        <p className="eyebrow">Open archive · Edition v1</p>
-        <h2 id="archive-title">The whole prophecy, in your hands.</h2>
-        <p className={styles.archiveIntro}>Export all 22 chapters and 90 unique illuminations as an editable Markdown book, or keep the complete archival artwork release.</p>
-        <div className={styles.actions}>
-          <a className="button button-primary" href="/export.md" download>export.md</a>
-          <a className="button" href="/red-letter-reference.docx" download>red-letter reference</a>
-          <a className="button" href={archiveUrl}>Download artwork v1</a>
-          <a className="button" href="https://github.com/Divergent-World/revelations">Fork the source</a>
+        <div className={styles.archiveGrid}>
+          <div className={styles.archiveCopy}>
+            <p className="eyebrow">Complete archive · Edition v1</p>
+            <h2 id="archive-title">The whole prophecy, in your hands.</h2>
+            <p className={styles.archiveIntro}>One self-contained download brings together the official 182-page book, both EPUB editions, editable DOCX, all ninety artworks, canonical content, portable InDesign sources, fonts, and rebuild instructions.</p>
+            <div className={styles.actions}>
+              <a className="button button-primary" href={masterArchiveUrl}>Download the master archive</a>
+              <a className="button" href={blurbPreviewUrl}>Preview / buy the print edition</a>
+              <a className="button" href="https://github.com/Divergent-World/revelations">View the source on GitHub</a>
+            </div>
+            <p className={styles.exportNote}>1.6 GB · 182-page PDF · fixed and reflowable EPUB · editable publishing source</p>
+            <p className={styles.compatibilityNote}>Need only the scripture manuscript? The standalone <a href="/export.md" download>export.md</a> remains available for compatibility.</p>
+          </div>
+          <div className={styles.blurbFrame}>
+            <p>Collector&apos;s print edition</p>
+            <iframe
+              className={styles.blurbPreview}
+              title="Preview Revelation on Blurb"
+              src={blurbPreviewUrl}
+              loading="lazy"
+              allowFullScreen
+            />
+          </div>
         </div>
-        <p className={styles.exportNote}>Pandoc-ready · 22 chapters · 90 linked images · DOCX, EPUB, or PDF</p>
       </section>
     </div>
   );
