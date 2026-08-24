@@ -77,7 +77,7 @@ Only the timer, pause state, and active slide require a client component. The ho
 
 5. **Blurb preview**
    - Keep the existing Blurb preview capability on this page.
-   - Constrain the iframe to a responsive 4:3 frame with a sensible maximum width so it does not dominate the page.
+   - Constrain the iframe to a responsive 16:9 frame with a 50rem maximum width so it does not dominate the page.
    - Give it an accessible title and lazy loading.
 
 6. **Closing action**

@@ -44,6 +44,7 @@ export default function PrintEditionPage() {
         <div className={styles.heroCopy}>
           <p className="eyebrow">Collector&apos;s print edition · 182 pages</p>
           <h1 id="edition-title">Revelation: An Illuminated Prophecy</h1>
+          <p className={styles.byline}>By Ali Rahman</p>
           <p>
             Ninety illuminated compartments, restored to their original order
             and gathered into a large-format landscape volume.
@@ -67,7 +68,7 @@ export default function PrintEditionPage() {
         {gallery.map((scene) => <EditionArtwork key={scene.id} scene={scene} />)}
       </section>
 
-      <section className={styles.details} aria-labelledby="edition-details">
+      <section className={styles.details} aria-labelledby="edition-details" data-edition-details>
         <div>
           <p className="eyebrow">Edition details</p>
           <h2 id="edition-details">The physical edition</h2>
@@ -77,6 +78,7 @@ export default function PrintEditionPage() {
           <div><dt>Binding</dt><dd>Hardcover, ImageWrap</dd></div>
           <div><dt>Format</dt><dd>Large-format landscape</dd></div>
           <div><dt>Dimensions</dt><dd>13 × 11 in / 33 × 28 cm</dd></div>
+          <div><dt>Contents</dt><dd>Ninety illuminated compartments · six movements · twenty-two chapters</dd></div>
         </dl>
       </section>
 

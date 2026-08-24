@@ -64,11 +64,6 @@ export function HomeHeroCarousel({ scenes }: { scenes: Scene[] }) {
           </div>
         ))}
       </div>
-      <figcaption>
-        <span>Movement {current.tapestry} · {current.id}</span>
-        <strong>{current.title}</strong>
-        <small>{current.displayReference}</small>
-      </figcaption>
       <div className={styles.controls}>
         <button type="button" onClick={() => show(active - 1)} aria-label="Previous artwork">←</button>
         <div className={styles.dots} aria-label="Choose featured artwork">
@@ -84,6 +79,11 @@ export function HomeHeroCarousel({ scenes }: { scenes: Scene[] }) {
         </div>
         <button type="button" onClick={() => show(active + 1)} aria-label="Next artwork">→</button>
       </div>
+      <figcaption>
+        <span>Movement {current.tapestry} · {current.id}</span>
+        <strong>{current.title}</strong>
+        <small>{current.displayReference}</small>
+      </figcaption>
     </figure>
   );
 }

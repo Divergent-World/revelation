@@ -436,8 +436,8 @@ test("keeps the Print Edition preview proportional and on-screen", async ({ page
     };
   });
   expect(geometry.overflow).toBeLessThanOrEqual(1);
-  expect(geometry.width).toBeLessThanOrEqual(960);
-  expect(geometry.ratio).toBeCloseTo(4 / 3, 1);
+  expect(geometry.width).toBeLessThanOrEqual(800);
+  expect(geometry.ratio).toBeCloseTo(16 / 9, 1);
 });
 ```
 
@@ -637,12 +637,12 @@ Create `app/print-edition/page.module.css` with these concrete layout invariants
 }
 .blurbFrame {
   width: 100%;
-  max-width: 60rem;
+  max-width: 50rem;
   padding: clamp(.55rem, 1vw, .85rem);
   border: 1px solid rgba(214, 187, 120, .32);
   background: rgba(7, 9, 12, .72);
 }
-.blurbFrame iframe { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; background: #f4f1ea; }
+.blurbFrame iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #0b0e12; }
 @media (max-width: 760px) {
   .hero, .details, .preview { grid-template-columns: 1fr; min-height: auto; }
   .gallery { grid-template-columns: 1fr; }
@@ -1032,7 +1032,7 @@ Using the in-app browser, verify:
 
 - Homepage at desktop and mobile widths: six-scene carousel, readable caption, working arrows/dots, no archive block, no horizontal overflow.
 - Reduced-motion emulation: no auto-advance and no fade transition.
-- `/print-edition/`: source artwork is presented as artwork, the 182-page details are legible, buttons wrap cleanly, iframe remains approximately 4:3 and no wider than 60rem.
+- `/print-edition/`: source artwork is presented as artwork, the 182-page details are legible, buttons wrap cleanly, iframe remains approximately 16:9 and no wider than 50rem.
 - `/remix/`: two distinct equal-height actions, archive contents, manuscript link, and no email form.
 - Header at desktop and mobile widths: **Movements**, **Read**, **Print Edition**, **Remix** all remain reachable.
 - Page titles and visible brand text use **Revelation** only.

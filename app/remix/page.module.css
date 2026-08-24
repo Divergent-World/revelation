@@ -1,29 +1,33 @@
 .page { overflow: clip; }
 .hero, .archive, .manuscript {
-  width: min(100%, 92rem);
+  width: min(100%, 80rem);
   margin: auto;
-  padding-inline: clamp(1rem, 7vw, 7rem);
+  padding-inline: clamp(1rem, 6vw, 5rem);
 }
-.hero { padding-block: clamp(6rem, 12vw, 11rem); }
-.hero h1 { max-width: 12ch; }
+.page h2 { font-size: clamp(2.1rem, 4vw, 3.5rem); line-height: 1; }
+.hero { padding-block: clamp(5.5rem, 9vw, 8rem); }
+.hero h1 { max-width: 13ch; margin-bottom: 1.75rem; font-size: clamp(3.1rem, 6.5vw, 6rem); line-height: .91; }
 .hero > p:last-child, .archive p, .manuscript p {
-  max-width: 48rem;
+  max-width: 44rem;
   color: var(--muted);
-  font: 1.15rem/1.7 var(--font-display), serif;
+  font: 1.05rem/1.72 var(--font-display), serif;
 }
 .archive {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
-  gap: clamp(3rem, 7vw, 7rem);
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
-  padding-block: clamp(5rem, 10vw, 9rem);
-  border-block: 1px solid var(--line);
+  width: min(calc(100% - 2rem), 76rem);
+  padding: clamp(2.25rem, 5vw, 4rem);
+  background: linear-gradient(135deg, rgba(20, 25, 32, .92), rgba(10, 13, 17, .96));
+  border: 1px solid var(--line);
 }
 .actions { display: grid; gap: .8rem; }
 .actions a { width: 100%; padding-inline: 1rem; }
 .note { font-size: .67rem !important; letter-spacing: .1em; text-transform: uppercase; }
-.manuscript { padding-block: clamp(5rem, 9vw, 8rem); }
+.manuscript { max-width: 68rem; padding-block: clamp(5rem, 8vw, 7rem); }
 .manuscript a { color: var(--gold); text-decoration: underline; text-underline-offset: .25em; }
 @media (max-width: 760px) {
   .archive { grid-template-columns: 1fr; }
+  .hero h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
 }

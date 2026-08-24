@@ -1,22 +1,29 @@
 .page { overflow: clip; }
 .hero, .story, .gallery, .details, .preview {
-  width: min(100%, 100rem);
+  width: min(100%, 88rem);
   margin: auto;
   padding-inline: clamp(1rem, 7vw, 8rem);
 }
+.page h2 { font-size: clamp(2.15rem, 4vw, 3.75rem); line-height: 1; }
 .hero {
   display: grid;
-  grid-template-columns: minmax(18rem, .8fr) minmax(0, 1.2fr);
-  gap: clamp(3rem, 7vw, 8rem);
+  grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr);
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
-  min-height: calc(100svh - 5.5rem);
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(5rem, 8vw, 7.5rem);
 }
-.heroCopy h1 { max-width: 11ch; }
+.heroCopy h1 { max-width: 11ch; margin-bottom: 1.5rem; font-size: clamp(3.2rem, 6vw, 6rem); line-height: .91; }
 .heroCopy > p:not(.eyebrow), .story > p:last-child, .preview p {
-  max-width: 46rem;
+  max-width: 42rem;
   color: var(--muted);
-  font: 1.15rem/1.7 var(--font-display), serif;
+  font: 1.05rem/1.72 var(--font-display), serif;
+}
+.heroCopy > p.byline {
+  margin-bottom: 1.25rem;
+  color: var(--gold);
+  font: 600 .67rem/1.4 var(--font-sans), sans-serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
 }
 .heroCopy .button { margin-top: 1.5rem; }
 .artwork { margin: 0; min-width: 0; }
@@ -38,7 +45,7 @@
 .artwork figcaption span { grid-row: 1 / 3; color: var(--gold); font-size: .62rem; }
 .artwork figcaption strong { font: 1.15rem/1.1 var(--font-display), serif; }
 .artwork figcaption small { color: var(--muted); }
-.story { max-width: 74rem; padding-block: clamp(6rem, 11vw, 10rem); }
+.story { max-width: 66rem; padding-block: clamp(5.5rem, 9vw, 8rem); }
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -49,35 +56,52 @@
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: clamp(2rem, 6vw, 6rem);
-  padding-block: clamp(5rem, 9vw, 8rem);
-  color: #17130d;
-  background: #eee7d8;
+  width: min(calc(100% - 2rem), 78rem);
+  padding: clamp(2.25rem, 5vw, 4rem);
+  color: var(--ink);
+  background: linear-gradient(135deg, rgba(24, 29, 36, .96), rgba(11, 14, 19, .98));
+  border: 1px solid rgba(214, 187, 120, .28);
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, .22);
 }
-.details dl { margin: 0; border-top: 1px solid rgba(23, 19, 13, .25); }
+.details h2 { margin-bottom: 0; }
+.details dl { margin: 0; border-top: 1px solid var(--line); }
 .details dl div {
   display: grid;
   grid-template-columns: 10rem 1fr;
   padding-block: 1rem;
-  border-bottom: 1px solid rgba(23, 19, 13, .25);
+  border-bottom: 1px solid var(--line);
 }
-.details dd { margin: 0; font-family: var(--font-display), serif; }
+.details dt { color: var(--muted); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+.details dd { margin: 0; color: #d8d4ca; font-family: var(--font-display), serif; }
 .preview {
   display: grid;
-  grid-template-columns: minmax(16rem, .6fr) minmax(0, 1fr);
-  gap: clamp(3rem, 7vw, 7rem);
+  grid-template-columns: minmax(15rem, .55fr) minmax(0, 1.45fr);
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
-  padding-block: clamp(6rem, 12vw, 11rem);
+  padding-block: clamp(5.5rem, 10vw, 8.5rem);
 }
 .blurbFrame {
+  position: relative;
   width: 100%;
-  max-width: 60rem;
+  max-width: 50rem;
   padding: clamp(.55rem, 1vw, .85rem);
+  overflow: hidden;
   border: 1px solid rgba(214, 187, 120, .32);
-  background: rgba(7, 9, 12, .72);
+  background: #07090c;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, .36);
 }
-.blurbFrame iframe { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; background: #f4f1ea; }
+.blurbFrame::after {
+  position: absolute;
+  inset: clamp(.55rem, 1vw, .85rem);
+  content: "";
+  box-shadow: inset 0 0 2.25rem rgba(7, 9, 12, .35);
+  pointer-events: none;
+}
+.blurbFrame iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #0b0e12; }
 @media (max-width: 760px) {
   .hero, .details, .preview { grid-template-columns: 1fr; min-height: auto; }
+  .heroCopy h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
   .gallery { grid-template-columns: 1fr; }
+  .details { width: calc(100% - 2rem); }
   .details dl div { grid-template-columns: 7rem 1fr; }
 }

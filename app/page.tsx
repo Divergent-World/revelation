@@ -33,8 +33,8 @@ export default function HomePage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.heroCopy}>
+      <section className={styles.hero} aria-labelledby="home-title" data-home-hero>
+        <div className={styles.heroCopy} data-home-hero-copy>
           <p className="eyebrow">The Revelation to John</p>
           <h1 id="home-title">A prophecy in six movements</h1>
           <p className={styles.intro}>Ninety illuminations follow John from Patmos through throne, judgment, dragon, Babylon, and the radiant city at the end of the world.</p>
