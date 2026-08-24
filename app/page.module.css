@@ -1,8 +1,8 @@
 .page { overflow: clip; background: linear-gradient(180deg, transparent, rgba(4, 5, 7, .45)); }
-.hero { position: relative; isolation: isolate; display: grid; align-items: center; width: 100%; min-height: calc(100svh - 5.5rem); padding: clamp(5rem, 10vw, 9rem) clamp(1rem, 7vw, 8rem) clamp(10rem, 15vw, 13rem); overflow: hidden; }
-.heroCopy { position: relative; z-index: 3; width: min(46rem, 68vw); text-shadow: 0 2px 2rem rgba(0, 0, 0, .8); }
-.hero h1 { max-width: 10ch; margin-bottom: 2rem; }
-.intro { max-width: 41rem; color: #d2d0ca; font: clamp(1.1rem, 1.8vw, 1.45rem)/1.58 var(--font-display), serif; }
+.hero { position: relative; isolation: isolate; display: grid; align-items: center; width: 100%; min-height: calc(100svh - 5.5rem); padding: clamp(4.5rem, 6vw, 5rem) clamp(1rem, 7vw, 8rem) clamp(7rem, 9vw, 9rem); overflow: hidden; }
+.heroCopy { position: relative; z-index: 3; width: min(38rem, 62vw); text-shadow: 0 2px 2rem rgba(0, 0, 0, .8); }
+.hero h1 { max-width: 12ch; margin-bottom: 1.5rem; font-size: clamp(3rem, 4.6vw, 3.8rem); line-height: .96; }
+.intro { max-width: 34rem; color: #d2d0ca; font: clamp(1rem, 1.45vw, 1.22rem)/1.62 var(--font-display), serif; }
 .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 34rem; margin: 3.25rem 0 0; border-block: 1px solid rgba(223, 194, 123, .3); }
 .facts div { display: flex; flex-direction: column-reverse; gap: .3rem; padding: 1rem 1rem 1rem 0; }
@@ -27,14 +27,14 @@
 .movementList a:hover .movementCopy strong, .movementList a:focus-visible .movementCopy strong { color: var(--gold); }
 @media (max-width: 900px) {
   .hero { min-height: clamp(46rem, calc(100svh - 4.5rem), 58rem); }
-  .heroCopy { width: min(42rem, 88vw); }
+  .heroCopy { width: min(36rem, 82vw); }
   .movementList a { grid-template-columns: 3.5rem 1fr minmax(8rem, 12rem); }
   .enter { display: none; }
 }
 @media (max-width: 640px) {
-  .hero { align-items: start; min-height: 50rem; padding: 4rem 1rem 11.5rem; }
+  .hero { align-items: start; min-height: calc(100svh - 6.55rem); padding: 3rem 1rem 9rem; }
   .heroCopy { width: 100%; }
-  .hero h1 { font-size: clamp(3rem, 15vw, 4.6rem); }
+  .hero h1 { font-size: clamp(2.05rem, 8.5vw, 2.8rem); }
   .movements { padding-inline: 1rem; }
   .facts { margin-top: 2.5rem; }
   .facts div { padding-inline: .6rem; }

@@ -50,13 +50,17 @@ test("keeps Remix actions aligned without overflow", async ({ page }) => {
   expect(geometry.overflow).toBeLessThanOrEqual(1);
 });
 
-test("presents the 182-page Print Edition without a local price", async ({ page }) => {
+test("presents the 182-page Print Edition as the primary collector object", async ({ page }) => {
   await page.goto("/print-edition/");
   await expect(
     page.getByRole("heading", { name: "Revelation: An Illuminated Prophecy" }),
   ).toBeVisible();
   await expect(page.getByText("By Ali Rahman", { exact: true })).toBeVisible();
-  await expect(page.getByText("182 pages", { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole("region", { name: "Revelation: An Illuminated Prophecy" })
+      .getByText("182 pages", { exact: true }),
+  ).toBeVisible();
   await expect(
     page.getByText(
       "Ninety illuminated compartments · six movements · twenty-two chapters",
@@ -70,8 +74,13 @@ test("presents the 182-page Print Edition without a local price", async ({ page 
     "src",
     "https://www.blurb.com/bookshare/app/index.html?bookId=12978394",
   );
-  await expect(page.getByText(/\$310|US \$/)).toHaveCount(0);
-  await expect(page.locator("[data-edition-artwork]")).toHaveCount(5);
+  await expect(page.getByText("$310", { exact: true })).toBeVisible();
+  await expect(page.getByText("Hardcover ImageWrap", { exact: true })).toBeVisible();
+  await expect(page.locator("[data-edition-cover] img")).toHaveAttribute(
+    "src",
+    /cover_bg/,
+  );
+  await expect(page.locator("[data-edition-artwork]")).toHaveCount(4);
 });
 
 test("keeps the Print Edition preview proportional and on-screen", async ({ page }) => {
@@ -95,18 +104,108 @@ test("uses restrained editorial scale on Print Edition and Remix", async ({ page
   await page.goto("/print-edition/");
   const print = await page.locator("h1").evaluate((heading) => ({
     fontSize: Number.parseFloat(getComputedStyle(heading).fontSize),
+    sectionTitleSize: Number.parseFloat(
+      getComputedStyle(document.querySelector("h2")!).fontSize,
+    ),
     detailsBackground: getComputedStyle(
       document.querySelector<HTMLElement>("[data-edition-details]")!,
     ).backgroundColor,
   }));
-  expect(print.fontSize).toBeLessThanOrEqual(96);
+  expect(print.fontSize).toBeLessThanOrEqual(58);
+  expect(print.sectionTitleSize).toBeLessThanOrEqual(48);
   expect(print.detailsBackground).not.toBe("rgb(238, 231, 216)");
 
   await page.goto("/remix/");
-  const remixSize = await page.locator("h1").evaluate(
-    (heading) => Number.parseFloat(getComputedStyle(heading).fontSize),
-  );
-  expect(remixSize).toBeLessThanOrEqual(96);
+  const remix = await page.locator("h1").evaluate((heading) => ({
+    fontSize: Number.parseFloat(getComputedStyle(heading).fontSize),
+    sectionTitleSize: Number.parseFloat(
+      getComputedStyle(document.querySelector("h2")!).fontSize,
+    ),
+  }));
+  expect(remix.fontSize).toBeLessThanOrEqual(58);
+  expect(remix.sectionTitleSize).toBeLessThanOrEqual(48);
+});
+
+test("keeps the homepage title compact without obscuring carousel controls", async ({ page }, testInfo) => {
+  await page.goto("/");
+  const controls = page.locator("[data-carousel-controls]");
+  await expect(controls).toBeVisible();
+  const geometry = await page.locator("[data-home-hero]").evaluate((hero) => {
+    const title = hero.querySelector("h1")!;
+    const controls = hero.querySelector<HTMLElement>("[data-carousel-controls]")!;
+    const heroBox = hero.getBoundingClientRect();
+    const controlsBox = controls.getBoundingClientRect();
+    return {
+      fontSize: Number.parseFloat(getComputedStyle(title).fontSize),
+      controlsBox: {
+        top: controlsBox.top,
+        right: controlsBox.right,
+        bottom: controlsBox.bottom,
+        left: controlsBox.left,
+      },
+      heroBox: { top: heroBox.top, bottom: heroBox.bottom },
+      viewport: { width: window.innerWidth, height: window.innerHeight },
+      controlsVisible:
+        controlsBox.top >= heroBox.top &&
+        controlsBox.bottom <= Math.min(heroBox.bottom, window.innerHeight) &&
+        controlsBox.left >= 0 &&
+        controlsBox.right <= window.innerWidth,
+    };
+  });
+  if (testInfo.project.name === "mobile") {
+    expect(geometry.fontSize).toBeGreaterThanOrEqual(33);
+    expect(geometry.fontSize).toBeLessThanOrEqual(37);
+  } else {
+    expect(geometry.fontSize).toBeGreaterThanOrEqual(55);
+    expect(geometry.fontSize).toBeLessThanOrEqual(61);
+  }
+  expect(geometry.controlsVisible, JSON.stringify(geometry)).toBe(true);
+});
+
+test("orders the primary journey from movements through reading", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link")).toHaveText([
+    "Movements",
+    "Print Edition",
+    "Remix",
+    "Read",
+  ]);
+});
+
+test("frames Remix as a companion and maps the Master Archive", async ({ page }) => {
+  await page.goto("/remix/");
+  await expect(page.getByText("A companion to the Print Edition", { exact: true })).toBeVisible();
+  const tree = page.getByRole("region", { name: "Master Archive contents" });
+  await expect(tree.locator("code")).toHaveText(`REVELATION-master-v1/
+├── README.md
+├── export.md
+├── manifest.json
+├── SHA256SUMS.txt
+├── artwork/
+│   ├── originals/
+│   ├── book-images/
+│   └── web/
+│       ├── 640/
+│       └── 1920/
+├── content/
+│   ├── revelation.web.json
+│   ├── scene-metadata.json
+│   ├── source-map.json
+│   └── tapestries.json
+├── editions/
+│   ├── REVELATION_web.pdf
+│   ├── REVELATION_iPad_fixed.epub
+│   ├── REVELATION_reflowable.epub
+│   └── revelation.docx
+└── publishing/
+    ├── README.md
+    ├── book-source/
+    ├── editions/
+    ├── historical-book-build/
+    ├── indesign/
+    ├── instructions/
+    └── reference/`);
+  await expect(page.getByText(/generative AI/i)).toBeVisible();
 });
 
 test("rotates the six-scene homepage carousel every eight seconds", async ({ page }) => {

@@ -64,7 +64,7 @@ export function HomeHeroCarousel({ scenes }: { scenes: Scene[] }) {
           </div>
         ))}
       </div>
-      <div className={styles.controls}>
+      <div className={styles.controls} data-carousel-controls>
         <button type="button" onClick={() => show(active - 1)} aria-label="Previous artwork">←</button>
         <div className={styles.dots} aria-label="Choose featured artwork">
           {scenes.map((scene, index) => (

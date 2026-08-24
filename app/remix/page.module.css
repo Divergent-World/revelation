@@ -1,13 +1,13 @@
 .page { overflow: clip; }
-.hero, .archive, .manuscript {
+.hero, .archive, .contents, .manuscript {
   width: min(100%, 80rem);
   margin: auto;
   padding-inline: clamp(1rem, 6vw, 5rem);
 }
-.page h2 { font-size: clamp(2.1rem, 4vw, 3.5rem); line-height: 1; }
+.page h2 { font-size: clamp(1.9rem, 3vw, 3rem); line-height: 1; }
 .hero { padding-block: clamp(5.5rem, 9vw, 8rem); }
-.hero h1 { max-width: 13ch; margin-bottom: 1.75rem; font-size: clamp(3.1rem, 6.5vw, 6rem); line-height: .91; }
-.hero > p:last-child, .archive p, .manuscript p {
+.hero h1 { max-width: 15ch; margin-bottom: 1.5rem; font-size: clamp(2.45rem, 3.8vw, 3.6rem); line-height: .96; }
+.hero > p:last-child, .archive p, .contents p, .manuscript p {
   max-width: 44rem;
   color: var(--muted);
   font: 1.05rem/1.72 var(--font-display), serif;
@@ -25,9 +25,20 @@
 .actions { display: grid; gap: .8rem; }
 .actions a { width: 100%; padding-inline: 1rem; }
 .note { font-size: .67rem !important; letter-spacing: .1em; text-transform: uppercase; }
+.contents {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(22rem, 1.2fr);
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: start;
+  padding-block: clamp(6rem, 10vw, 9rem);
+}
+.tree { min-width: 0; padding: clamp(1.25rem, 3vw, 2rem); background: #080b0f; border: 1px solid rgba(214, 187, 120, .25); box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, .24); }
+.tree pre { margin: 0; overflow-x: auto; color: #c8c4b9; font: .76rem/1.72 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.tree code { font: inherit; }
 .manuscript { max-width: 68rem; padding-block: clamp(5rem, 8vw, 7rem); }
 .manuscript a { color: var(--gold); text-decoration: underline; text-underline-offset: .25em; }
 @media (max-width: 760px) {
-  .archive { grid-template-columns: 1fr; }
-  .hero h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
+  .archive, .contents { grid-template-columns: 1fr; }
+  .hero h1 { font-size: clamp(2.5rem, 10vw, 3.25rem); }
+  .tree { margin-inline: -1rem; }
 }
