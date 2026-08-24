@@ -5,7 +5,7 @@ Stage these ignored binaries at the exact paths below before building `REVELATIO
 - `publishing/editions/REVELATION_web.pdf` — official 182-page PDF.
 - `publishing/editions/REVELATION_iPad_fixed_web.epub` — fixed-layout page-image EPUB.
 - `publishing/editions/REVELATION_reflowable.epub` — live-text reflowable EPUB.
-- `publishing/editions/revelations.docx` — finished DOCX reference output.
+- `publishing/editions/revelation.docx` — finished DOCX reference output.
 - `publishing/indesign/REVELATION_13x11.indd` — editable interior convenience file.
 - `publishing/indesign/REVELATION_cover.indd` — editable cover convenience file.
 - `publishing/indesign/REVELATION_cover.pdf` — finished cover PDF.

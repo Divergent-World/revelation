@@ -131,7 +131,7 @@ Apply these exact visible labels:
 
 ```tsx
 // app/layout.tsx
-title: { default: "Revelations — A Prophecy in Six Movements", template: "%s — Revelations" },
+title: { default: "Revelation — A Prophecy in Six Movements", template: "%s — Revelation" },
 description: "An illuminated reading of the Book of Revelation as a prophecy in six movements by Ali Rahman / Divergent World.",
 
 // components/SiteHeader.tsx
@@ -765,7 +765,7 @@ export default function HomePage() {
         <div className={styles.actions}>
           <a className="button button-primary" href="/export.md" download>export.md</a>
           <a className="button" href={archiveUrl}>Download artwork v1</a>
-          <a className="button" href="https://github.com/Divergent-World/revelations">Fork the source</a>
+          <a className="button" href="https://github.com/Divergent-World/Revelation">Fork the source</a>
         </div>
         <p className={styles.exportNote}>Pandoc-ready · 22 chapters · 90 linked images · DOCX, EPUB, or PDF</p>
       </section>
@@ -923,15 +923,15 @@ In another terminal, change to the folder containing `export.md`.
 ### Microsoft Word / Google Docs
 
 ```bash
-pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelations.docx
+pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelation.docx
 ```
 
-Upload `revelations.docx` to Google Drive, right-click it, and choose **Open with → Google Docs**. Edit normally. To make a PDF, choose **File → Download → PDF Document (.pdf)** in Google Docs.
+Upload `revelation.docx` to Google Drive, right-click it, and choose **Open with → Google Docs**. Edit normally. To make a PDF, choose **File → Download → PDF Document (.pdf)** in Google Docs.
 
 ### EPUB
 
 ```bash
-pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc --split-level=2 -o revelations.epub
+pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc --split-level=2 -o revelation.epub
 ```
 
 Pandoc downloads the linked images during conversion and includes them in the EPUB.
@@ -941,7 +941,7 @@ Pandoc downloads the linked images during conversion and includes them in the EP
 If Pandoc already has access to a compatible PDF engine:
 
 ```bash
-pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelations.pdf
+pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelation.pdf
 ```
 
 If no PDF engine is configured, use the DOCX → Google Docs → Download as PDF path above.
@@ -992,8 +992,8 @@ Expected: HTTP 200 and `Content-Type: image/webp`.
 - [ ] **Step 5: Convert and inspect a real DOCX**
 
 ```bash
-rtk pandoc out/export.md --from=gfm+yaml_metadata_block --standalone --toc -o /private/tmp/revelations.docx
-rtk unzip -Z1 /private/tmp/revelations.docx | rtk rg '^word/media/' | rtk wc -l
+rtk pandoc out/export.md --from=gfm+yaml_metadata_block --standalone --toc -o /private/tmp/revelation.docx
+rtk unzip -Z1 /private/tmp/revelation.docx | rtk rg '^word/media/' | rtk wc -l
 ```
 
 Expected: Pandoc exits 0 and the DOCX contains 90 media files.
@@ -1001,8 +1001,8 @@ Expected: Pandoc exits 0 and the DOCX contains 90 media files.
 - [ ] **Step 6: Convert and inspect a real EPUB**
 
 ```bash
-rtk pandoc out/export.md --from=gfm+yaml_metadata_block --standalone --toc --split-level=2 -o /private/tmp/revelations.epub
-rtk unzip -Z1 /private/tmp/revelations.epub | rtk rg '\.(webp|png|jpe?g)$' | rtk wc -l
+rtk pandoc out/export.md --from=gfm+yaml_metadata_block --standalone --toc --split-level=2 -o /private/tmp/revelation.epub
+rtk unzip -Z1 /private/tmp/revelation.epub | rtk rg '\.(webp|png|jpe?g)$' | rtk wc -l
 ```
 
 Expected: Pandoc exits 0 and the EPUB contains 90 image files. Stop the temporary asset server after both conversions.

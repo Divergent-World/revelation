@@ -1,4 +1,4 @@
-# Graph Report - /Users/alirahman/Desktop/test/revelations  (2026-08-13)
+# Graph Report - /Users/alirahman/Desktop/test/Revelation  (2026-08-13)
 
 ## Corpus Check
 - 53 files · ~61,086 words
@@ -57,7 +57,7 @@
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Canonical Content Release Flow** — readme_revelations_exhibition, docs_deployment_r2_vercel_deployment, readme_append_only_artwork_releases [INFERRED 0.85]
+- **Canonical Content Release Flow** — readme_revelation_exhibition, docs_deployment_r2_vercel_deployment, readme_append_only_artwork_releases [INFERRED 0.85]
 - **Reader Refinement System** — specs_2026_08_12_artwork_layout_design_non_distorting_artwork_layout, specs_2026_08_12_tapestry_reader_refinements_design_words_of_jesus_ranges, specs_2026_08_12_tapestry_reader_refinements_design_dependency_free_artwork_zoom [INFERRED 0.85]
 
 ## Communities (22 total, 4 thin omitted)
@@ -112,7 +112,7 @@ Nodes (4): Contribution Policy, Corrected Scene Metadata Plan, Compact Canonical
 
 ### Community 12 - "Deployment and Licensing"
 Cohesion: 0.50
-Nodes (4): R2 and Vercel Deployment, Artwork License, Append-Only Artwork Releases, Revelations Exhibition
+Nodes (4): R2 and Vercel Deployment, Artwork License, Append-Only Artwork Releases, Revelation Exhibition
 
 ### Community 13 - "Movement Narratives"
 Cohesion: 0.67

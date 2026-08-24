@@ -803,7 +803,7 @@ test("homepage opens as an illuminated movement ledger", async ({ page }, testIn
   await page.goto("/");
   const hero = page.getByRole("region", { name: "A prophecy in six movements" });
   const feature = hero.locator("figure");
-  await expect(feature.getByRole("img", { name: /New Jerusalem/ })).toBeVisible();
+  await expect(feature.getByRole("img", { name: /Fourth Horseman/ })).toBeVisible();
   await expect(hero.locator("dl dd")).toHaveText(["06", "22", "90"]);
 
   const movementIndex = page.getByRole("region", { name: "The six movements" });
@@ -817,7 +817,10 @@ test("homepage opens as an illuminated movement ledger", async ({ page }, testIn
   expect(headingBox).not.toBeNull();
   expect(featureBox).not.toBeNull();
   expect(featureBox!.x).toBeGreaterThan(headingBox!.x + headingBox!.width);
-  await expect(feature.locator("img")).toHaveCSS("object-fit", "contain");
+  await expect(feature.locator('[data-active="true"] img')).toHaveCSS(
+    "object-fit",
+    "contain",
+  );
 });
 
 test("homepage illuminated ledger stacks cleanly on mobile", async ({ page }, testInfo) => {

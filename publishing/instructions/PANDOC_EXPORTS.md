@@ -13,7 +13,7 @@ pandoc export.md \
   --toc \
   --reference-doc=publishing/reference/red-letter-reference.docx \
   --resource-path=. \
-  --output=build/revelations.docx
+  --output=build/revelation.docx
 ```
 
 To rebuild a conventional reflowable Pandoc EPUB:
@@ -25,7 +25,7 @@ pandoc export.md \
   --toc \
   --split-level=2 \
   --resource-path=. \
-  --output=build/revelations-pandoc.epub
+  --output=build/revelation-pandoc.epub
 ```
 
 To rebuild a conventional PDF with WeasyPrint:
@@ -38,14 +38,14 @@ pandoc export.md \
   --toc \
   --resource-path=. \
   --pdf-engine=weasyprint \
-  --output=build/revelations-pandoc.pdf
+  --output=build/revelation-pandoc.pdf
 ```
 
 Expected outputs:
 
-- `build/revelations.docx` — 90 embedded JPEG plates plus the supplied `Words of Jesus` character style.
-- `build/revelations-pandoc.epub` — a conventional reflowable Pandoc EPUB.
-- `build/revelations-pandoc.pdf` — a conventional PDF rendered through WeasyPrint.
+- `build/revelation.docx` — 90 embedded JPEG plates plus the supplied `Words of Jesus` character style.
+- `build/revelation-pandoc.epub` — a conventional reflowable Pandoc EPUB.
+- `build/revelation-pandoc.pdf` — a conventional PDF rendered through WeasyPrint.
 
 Verified locally with Pandoc 3.10.1, WeasyPrint 69.0, Python 3.14.7, and Poppler `pdfinfo` 26.05.0. No website, R2 bucket, web server, source vault, or external reference file is required.
 

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping develop the Revelations exhibition.
+Thanks for helping develop the Revelation exhibition.
 
 1. Fork and clone the repository.
 2. Run `npm install`, copy `.env.example` to `.env.local`, and set `NEXT_PUBLIC_ASSET_BASE_URL` to a compatible public release host.

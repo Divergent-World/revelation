@@ -7,7 +7,7 @@
         "id": "canonical_content_release_flow",
         "label": "Canonical Content Release Flow",
         "nodes": [
-          "readme_revelations_exhibition",
+          "readme_revelation_exhibition",
           "docs_deployment_r2_vercel_deployment",
           "readme_append_only_artwork_releases"
         ],
@@ -2225,7 +2225,7 @@
       "norm_label": "artwork license"
     },
     {
-      "label": "Revelations Exhibition",
+      "label": "Revelation Exhibition",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": null,
@@ -2233,9 +2233,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_revelations_exhibition",
+      "id": "readme_revelation_exhibition",
       "community": 12,
-      "norm_label": "revelations exhibition"
+      "norm_label": "revelation exhibition"
     },
     {
       "label": "R2 and Vercel Deployment",
@@ -5292,7 +5292,7 @@
       "source_file": "README.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_revelations_exhibition",
+      "source": "readme_revelation_exhibition",
       "target": "license_artwork_artwork_license"
     },
     {
@@ -5302,7 +5302,7 @@
       "source_file": "README.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_revelations_exhibition",
+      "source": "readme_revelation_exhibition",
       "target": "readme_append_only_artwork_releases"
     },
     {
@@ -5431,7 +5431,7 @@
       "id": "canonical_content_release_flow",
       "label": "Canonical Content Release Flow",
       "nodes": [
-        "readme_revelations_exhibition",
+        "readme_revelation_exhibition",
         "docs_deployment_r2_vercel_deployment",
         "readme_append_only_artwork_releases"
       ],

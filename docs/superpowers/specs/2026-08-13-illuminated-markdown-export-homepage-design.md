@@ -121,22 +121,22 @@ Hover and focus states use subtle rule, color, and transform changes. All meanin
 3. Create DOCX:
 
    ```bash
-   pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelations.docx
+   pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelation.docx
    ```
 
 4. Create EPUB:
 
    ```bash
-   pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc --split-level=2 -o revelations.epub
+   pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc --split-level=2 -o revelation.epub
    ```
 
 5. Create PDF when a Pandoc-compatible PDF engine is installed:
 
    ```bash
-   pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelations.pdf
+   pandoc export.md --from=gfm+yaml_metadata_block --standalone --toc -o revelation.pdf
    ```
 
-6. For the dependable Google Docs path, upload `revelations.docx` to Google Drive and open it with Google Docs. From Google Docs, edit normally or choose File → Download → PDF Document. Direct Markdown import remains documented as a text-focused convenience rather than the reliable image-preserving route.
+6. For the dependable Google Docs path, upload `revelation.docx` to Google Drive and open it with Google Docs. From Google Docs, edit normally or choose File → Download → PDF Document. Direct Markdown import remains documented as a text-focused convenience rather than the reliable image-preserving route.
 
 The guide notes that a production/R2 export can be converted without running the local asset server, as long as the converter can access the public image URLs.
 
