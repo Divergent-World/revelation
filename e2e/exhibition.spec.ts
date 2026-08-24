@@ -82,6 +82,41 @@ test("keeps the Print Edition preview proportional and on-screen", async ({ page
   expect(geometry.ratio).toBeCloseTo(4 / 3, 1);
 });
 
+test("rotates the six-scene homepage carousel every eight seconds", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Featured Revelation artwork" });
+  await expect(carousel.locator("[data-scene-id]")).toHaveCount(6);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+  await page.clock.fastForward(8_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T2-B03");
+  await page.getByRole("button", { name: "Previous artwork" }).click();
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+});
+
+test("pauses carousel rotation during interaction", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Featured Revelation artwork" });
+  await carousel.hover();
+  await page.clock.fastForward(16_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+  await page.mouse.move(0, 0);
+  await page.clock.fastForward(8_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T2-B03");
+});
+
+test("disables automatic carousel motion for reduced motion", async ({ page }) => {
+  await page.clock.install();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Featured Revelation artwork" });
+  await page.clock.fastForward(16_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+  await page.getByRole("button", { name: /Show artwork 6:/ }).click();
+  await expect(carousel).toHaveAttribute("data-active-scene", "T6-B03");
+});
+
 test("keeps the standalone Markdown export available", async ({ page }) => {
   const response = await page.request.get("/export.md");
   expect(response.ok()).toBe(true);

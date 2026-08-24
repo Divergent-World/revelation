@@ -1,12 +1,22 @@
 import Link from "next/link";
 
 import { ArtworkImage } from "@/components/ArtworkImage";
+import { HomeHeroCarousel } from "@/components/HomeHeroCarousel";
 import {
   allTapestries,
   getScene,
   type Scene,
 } from "@/lib/content";
 import styles from "./page.module.css";
+
+const homeHeroSceneIds = [
+  "T1-B04",
+  "T2-B03",
+  "T3-T07",
+  "T4-B04",
+  "T5-B02",
+  "T6-B03",
+] as const;
 
 function requiredScene(id: string): Scene {
   const scene = getScene(id);
@@ -15,7 +25,7 @@ function requiredScene(id: string): Scene {
 }
 
 export default function HomePage() {
-  const feature = requiredScene("T6-B03");
+  const features = homeHeroSceneIds.map(requiredScene);
   const movements = allTapestries.map((tapestry) => ({
     tapestry,
     lead: requiredScene(tapestry.leadSceneId),
@@ -38,10 +48,7 @@ export default function HomePage() {
             <div><dt>Illuminations</dt><dd>90</dd></div>
           </dl>
         </div>
-        <figure className={styles.feature}>
-          <div className={styles.featureFrame}><ArtworkImage scene={feature} size="reader" eager /></div>
-          <figcaption><span>Movement VI · {feature.id}</span><strong>{feature.title}</strong><small>{feature.displayReference}</small></figcaption>
-        </figure>
+        <HomeHeroCarousel scenes={features} />
       </section>
 
       <section className={styles.movements} aria-labelledby="six-movements">

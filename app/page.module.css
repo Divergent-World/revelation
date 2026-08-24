@@ -11,16 +11,6 @@
 .facts div + div { padding-left: 1rem; border-left: 1px solid var(--line); }
 .facts dt { color: var(--muted); font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; }
 .facts dd { margin: 0; color: var(--gold); font: 1.7rem/1 var(--font-display), serif; font-variant-numeric: tabular-nums; }
-.feature { position: relative; width: min(100%, 34rem); margin: 0 auto; padding: clamp(.7rem, 1.5vw, 1rem); border: 1px solid rgba(214, 187, 120, .4); box-shadow: 0 2rem 7rem rgba(0, 0, 0, .5); }
-.feature::before, .feature::after { position: absolute; content: ""; pointer-events: none; }
-.feature::before { inset: .45rem; border: 1px solid rgba(214, 187, 120, .14); }
-.feature::after { inset: -1rem 1rem 1rem -1rem; z-index: -1; border: 1px solid rgba(117, 138, 166, .2); }
-.featureFrame { display: grid; aspect-ratio: 16 / 9; place-items: center; overflow: hidden; background: #07090c; }
-.featureFrame img, .featureFrame > div { width: 100%; height: 100%; object-fit: contain; }
-.feature figcaption { display: grid; grid-template-columns: auto 1fr; gap: .25rem 1rem; padding: 1rem .25rem .2rem; }
-.feature figcaption span { grid-row: 1 / 3; color: var(--gold); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; }
-.feature figcaption strong { font: 1.2rem/1 var(--font-display), serif; }
-.feature figcaption small { color: var(--muted); }
 .movements { padding-block: clamp(6rem, 11vw, 10rem); }
 .sectionHeading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
 .sectionHeading h2 { margin-bottom: 0; }
@@ -39,7 +29,6 @@
 .movementList a:hover .movementCopy strong, .movementList a:focus-visible .movementCopy strong { color: var(--gold); }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
-  .feature { width: min(100%, 42rem); }
   .movementList a { grid-template-columns: 3.5rem 1fr minmax(8rem, 12rem); }
   .enter { display: none; }
 }
