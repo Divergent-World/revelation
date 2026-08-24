@@ -41,20 +41,23 @@
 .archive::after { position: absolute; right: clamp(1rem, 7vw, 8rem); bottom: 3rem; color: rgba(214, 187, 120, .14); content: "Ω"; font: clamp(7rem, 18vw, 18rem)/1 var(--font-display), serif; pointer-events: none; }
 .archive h2 { max-width: 11ch; }
 .archiveIntro { max-width: 48rem; color: var(--muted); font: 1.2rem/1.7 var(--font-display), serif; }
+.archiveActions { display: grid; width: min(100%, 28rem); }
+.archiveActions a { width: 100%; padding-inline: 1rem; }
 .exportNote { margin: 1.5rem 0 0; color: var(--muted); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
-.archiveGrid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(18rem, .78fr) minmax(24rem, 1.22fr); gap: clamp(3rem, 7vw, 8rem); align-items: center; }
+.archiveGrid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(18rem, 1fr) minmax(20rem, 30rem); gap: clamp(3rem, 6vw, 6rem); align-items: center; }
 .archiveCopy { min-width: 0; }
 .compatibilityNote { max-width: 40rem; margin: 1.25rem 0 0; color: var(--muted); font-size: .78rem; line-height: 1.65; }
 .compatibilityNote a { color: var(--gold); text-decoration: underline; text-underline-offset: .2em; }
-.blurbFrame { min-width: 0; padding: clamp(.55rem, 1vw, .85rem); border: 1px solid rgba(214, 187, 120, .32); background: rgba(7, 9, 12, .72); box-shadow: 0 2rem 6rem rgba(0, 0, 0, .38); }
+.blurbFrame { justify-self: end; width: 100%; min-width: 0; max-width: 30rem; padding: clamp(.55rem, 1vw, .85rem); border: 1px solid rgba(214, 187, 120, .32); background: rgba(7, 9, 12, .72); box-shadow: 0 2rem 6rem rgba(0, 0, 0, .38); }
 .blurbFrame > p { margin: 0; padding: .35rem .35rem .9rem; color: var(--gold); font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; }
-.blurbPreview { display: block; width: 100%; min-height: 32rem; aspect-ratio: 4 / 3; border: 0; background: #f4f1ea; }
+.blurbPreview { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; background: #f4f1ea; }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .feature { width: min(100%, 42rem); }
   .movementList a { grid-template-columns: 3.5rem 1fr minmax(8rem, 12rem); }
   .enter { display: none; }
   .archiveGrid { grid-template-columns: 1fr; }
+  .blurbFrame { justify-self: start; }
 }
 @media (max-width: 640px) {
   .hero, .movements, .archive { padding-inline: 1rem; }
@@ -64,7 +67,6 @@
   .movementArt { grid-column: 2; width: 100%; height: 12rem; }
   .sectionHeading { display: block; }
   .archive::after { opacity: .45; }
-  .blurbPreview { min-height: 27rem; aspect-ratio: 3 / 4; }
 }
 @media (prefers-reduced-motion: reduce) {
   .movementArt img { transition: none; transform: none !important; }

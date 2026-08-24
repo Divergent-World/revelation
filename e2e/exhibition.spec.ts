@@ -16,6 +16,35 @@ test("offers the master archive, Blurb edition, and source", async ({ page }) =>
   ).toHaveAttribute("href", "https://github.com/Divergent-World/revelations");
 });
 
+test("keeps archive actions uniform and the Blurb preview compact", async ({ page }, testInfo) => {
+  await page.goto("/");
+  const archive = page.locator("section[aria-labelledby='archive-title']");
+  const geometry = await archive.evaluate((section) => {
+    const buttons = [...section.querySelectorAll<HTMLElement>("a.button")]
+      .map((button) => {
+        const { x, y, width, height, bottom } = button.getBoundingClientRect();
+        return { x, y, width, height, bottom };
+      });
+    const preview = section.querySelector("iframe")!.getBoundingClientRect();
+    return {
+      buttons,
+      overflow: section.scrollWidth - section.clientWidth,
+      previewWidth: preview.width,
+      previewRatio: preview.width / preview.height,
+    };
+  });
+
+  expect(geometry.buttons).toHaveLength(3);
+  expect(Math.max(...geometry.buttons.map(({ width }) => width)) - Math.min(...geometry.buttons.map(({ width }) => width))).toBeLessThanOrEqual(1);
+  expect(Math.max(...geometry.buttons.map(({ width }) => width))).toBeLessThanOrEqual(448);
+  expect(Math.max(...geometry.buttons.map(({ x }) => x)) - Math.min(...geometry.buttons.map(({ x }) => x))).toBeLessThanOrEqual(1);
+  expect(geometry.buttons.every((button, index) => index === 0 || button.y > geometry.buttons[index - 1].bottom)).toBe(true);
+  expect(geometry.overflow).toBeLessThanOrEqual(1);
+  expect(geometry.previewWidth).toBeLessThanOrEqual(480);
+  if (testInfo.project.name === "chromium") expect(geometry.previewWidth).toBeGreaterThanOrEqual(400);
+  expect(geometry.previewRatio).toBeCloseTo(4 / 3, 1);
+});
+
 test("keeps the standalone Markdown export available", async ({ page }) => {
   const response = await page.request.get("/export.md");
   expect(response.ok()).toBe(true);

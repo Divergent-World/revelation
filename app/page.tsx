@@ -71,7 +71,7 @@ export default function HomePage() {
             <p className="eyebrow">Complete archive · Edition v1</p>
             <h2 id="archive-title">The whole prophecy, in your hands.</h2>
             <p className={styles.archiveIntro}>One self-contained download brings together the official 182-page book, both EPUB editions, editable DOCX, all ninety artworks, canonical content, portable InDesign sources, fonts, and rebuild instructions.</p>
-            <div className={styles.actions}>
+            <div className={`${styles.actions} ${styles.archiveActions}`}>
               <a className="button button-primary" href={masterArchiveUrl}>Download the master archive</a>
               <a className="button" href={blurbPreviewUrl}>Preview / buy the print edition</a>
               <a className="button" href="https://github.com/Divergent-World/revelations">View the source on GitHub</a>
