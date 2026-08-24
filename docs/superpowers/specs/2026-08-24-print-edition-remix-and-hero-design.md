@@ -51,8 +51,8 @@ Only the timer, pause state, and active slide require a client component. The ho
 
 ### Page sequence
 
-1. **Cover hero**
-   - Present the black-and-gold cover treatment from the official edition.
+1. **Edition hero**
+   - Lead with a canonical source artwork in the site's black-and-gold presentation.
    - Identify the work as *Revelation: An Illuminated Prophecy* by Ali Rahman.
    - State that this is the 182-page collector's print edition.
    - Include a restrained **View on Blurb** outbound action.
@@ -62,10 +62,11 @@ Only the timer, pause state, and active slide require a client component. The ho
    - Preserve the existing factual distinction among surviving, fragmentary, and reconstructed scenes.
    - Describe the print edition without conventional urgency, scarcity, testimonials, or sales language.
 
-3. **Interior sequence**
-   - Show a small curated set of web-optimized derivatives from the official `publishing/editions/REVELATION_web.pdf`.
-   - Use the book's visual language: monumental landscape images, warm ivory space, serif captions, and restrained gold/red accents.
-   - Commit only the web-sized cover and representative spreads needed by the page, not another copy of the source PDF.
+3. **Artwork sequence**
+   - Show a small curated set of canonical source artworks using the existing scene data and artwork delivery system.
+   - Use the book's visual language around them: monumental landscape images, warm ivory space, serif captions, and restrained gold/red accents.
+   - Caption them as artworks from the project and edition rather than implying they are photographs of the physical book.
+   - Keep the layout ready for future book photography to replace or supplement the artwork without restructuring the page.
 
 4. **Edition details**
    - 182 pages
@@ -83,7 +84,7 @@ Only the timer, pause state, and active slide require a client component. The ho
    - Repeat a quiet **View on Blurb** link.
    - Do not mention Amazon until a real listing URL exists.
 
-The page uses black and gold around the cover, warm ivory editorial sections for the interior sequence, and the site's existing type and button system. It should resemble a museum catalogue or art-book colophon, not a generic ecommerce product page.
+The page uses black and gold around the edition hero, warm ivory editorial sections for the artwork sequence, and the site's existing type and button system. It should resemble a museum catalogue or art-book colophon, not a generic ecommerce product page.
 
 ## Remix page
 
@@ -126,7 +127,7 @@ There will be no runtime fallback to plural storage keys. Before production depl
 
 ## Data and implementation boundaries
 
-- Reuse the existing content module for scene lookup, Blurb URLs, repository URL, edition facts, and archive URL.
+- Reuse the existing content module and artwork delivery for scene lookup, Print Edition imagery, Blurb URLs, repository URL, edition facts, and archive URL.
 - Keep the carousel's six scene IDs in one explicit ordered constant rather than introducing a new content schema.
 - Use one small client carousel component; the new pages otherwise remain server components.
 - Use existing CSS modules and global tokens. Add no UI, animation, or carousel dependency.
@@ -164,7 +165,7 @@ There will be no runtime fallback to plural storage keys. Before production depl
 - Desktop and narrow mobile homepage carousel geometry.
 - Visible carousel focus states and manual controls.
 - Reduced-motion behavior.
-- Print Edition cover, spread gallery, specifications, iframe proportions, and outbound actions.
+- Print Edition hero artwork, artwork gallery, specifications, iframe proportions, and outbound actions.
 - Remix archive copy, button sizing, and mobile wrapping.
 - Global navigation at desktop and mobile widths.
 
