@@ -50,6 +50,38 @@ test("keeps Remix actions aligned without overflow", async ({ page }) => {
   expect(geometry.overflow).toBeLessThanOrEqual(1);
 });
 
+test("presents the 182-page Print Edition without a local price", async ({ page }) => {
+  await page.goto("/print-edition/");
+  await expect(
+    page.getByRole("heading", { name: "Revelation: An Illuminated Prophecy" }),
+  ).toBeVisible();
+  await expect(page.getByText("182 pages", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "View on Blurb" }).first(),
+  ).toHaveAttribute("href", "https://www.blurb.com/b/12978394-revelation");
+  await expect(page.getByTitle("Preview Revelation on Blurb")).toHaveAttribute(
+    "src",
+    "https://www.blurb.com/bookshare/app/index.html?bookId=12978394",
+  );
+  await expect(page.getByText(/\$310|US \$/)).toHaveCount(0);
+  await expect(page.locator("[data-edition-artwork]")).toHaveCount(5);
+});
+
+test("keeps the Print Edition preview proportional and on-screen", async ({ page }) => {
+  await page.goto("/print-edition/");
+  const geometry = await page.locator("[data-blurb-frame]").evaluate((frame) => {
+    const preview = frame.querySelector("iframe")!.getBoundingClientRect();
+    return {
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
+      width: preview.width,
+      ratio: preview.width / preview.height,
+    };
+  });
+  expect(geometry.overflow).toBeLessThanOrEqual(1);
+  expect(geometry.width).toBeLessThanOrEqual(960);
+  expect(geometry.ratio).toBeCloseTo(4 / 3, 1);
+});
+
 test("keeps the standalone Markdown export available", async ({ page }) => {
   const response = await page.request.get("/export.md");
   expect(response.ok()).toBe(true);
