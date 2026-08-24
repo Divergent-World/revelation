@@ -1,0 +1,29 @@
+.page { overflow: clip; }
+.hero, .archive, .manuscript {
+  width: min(100%, 92rem);
+  margin: auto;
+  padding-inline: clamp(1rem, 7vw, 7rem);
+}
+.hero { padding-block: clamp(6rem, 12vw, 11rem); }
+.hero h1 { max-width: 12ch; }
+.hero > p:last-child, .archive p, .manuscript p {
+  max-width: 48rem;
+  color: var(--muted);
+  font: 1.15rem/1.7 var(--font-display), serif;
+}
+.archive {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: center;
+  padding-block: clamp(5rem, 10vw, 9rem);
+  border-block: 1px solid var(--line);
+}
+.actions { display: grid; gap: .8rem; }
+.actions a { width: 100%; padding-inline: 1rem; }
+.note { font-size: .67rem !important; letter-spacing: .1em; text-transform: uppercase; }
+.manuscript { padding-block: clamp(5rem, 9vw, 8rem); }
+.manuscript a { color: var(--gold); text-decoration: underline; text-underline-offset: .25em; }
+@media (max-width: 760px) {
+  .archive { grid-template-columns: 1fr; }
+}

@@ -1,48 +1,53 @@
 import { expect, test } from "@playwright/test";
 
-test("offers the master archive, Blurb edition, and source", async ({ page }) => {
+test("moves archive and source access to Remix", async ({ page }) => {
   await page.goto("/");
-  const master = page.getByRole("link", { name: "Download the master archive" });
-  await expect(master).toHaveAttribute(
+  await expect(
+    page.getByRole("link", { name: "Download Master Archive" }),
+  ).toHaveCount(0);
+  await expect(page.getByTitle("Preview Revelation on Blurb")).toHaveCount(0);
+  await expect(
+    page.locator("section[aria-labelledby='archive-title']"),
+  ).toHaveCount(0);
+
+  await page.getByRole("link", { name: "Remix" }).click();
+  await expect(page).toHaveURL(/\/remix\/$/);
+  await expect(
+    page.getByRole("link", { name: "Download Master Archive" }),
+  ).toHaveAttribute(
     "href",
     /releases\/v1\/REVELATION-master-v1\.zip$/,
   );
-  await expect(page.getByTitle("Preview Revelation on Blurb")).toHaveAttribute(
-    "src",
-    "https://www.blurb.com/bookshare/app/index.html?bookId=12978394",
-  );
   await expect(
-    page.getByRole("link", { name: "View the source on GitHub" }),
-  ).toHaveAttribute("href", "https://github.com/Divergent-World/revelations");
+    page.getByRole("link", { name: "View Source on GitHub" }),
+  ).toHaveAttribute("href", "https://github.com/Divergent-World/Revelation");
+  await expect(
+    page.getByRole("link", { name: "Download the scripture manuscript" }),
+  ).toHaveAttribute("href", "/export.md");
 });
 
-test("keeps archive actions uniform and the Blurb preview compact", async ({ page }, testInfo) => {
-  await page.goto("/");
-  const archive = page.locator("section[aria-labelledby='archive-title']");
-  const geometry = await archive.evaluate((section) => {
-    const buttons = [...section.querySelectorAll<HTMLElement>("a.button")]
-      .map((button) => {
-        const { x, y, width, height, bottom } = button.getBoundingClientRect();
-        return { x, y, width, height, bottom };
-      });
-    const preview = section.querySelector("iframe")!.getBoundingClientRect();
+test("keeps Remix actions aligned without overflow", async ({ page }) => {
+  await page.goto("/remix/");
+  const actions = page.locator("[data-remix-actions]");
+  const geometry = await actions.evaluate((node) => {
+    const buttons = [...node.querySelectorAll<HTMLElement>("a.button")].map(
+      (button) => {
+        const { width, height } = button.getBoundingClientRect();
+        return { width, height };
+      },
+    );
     return {
       buttons,
-      overflow: section.scrollWidth - section.clientWidth,
-      previewWidth: preview.width,
-      previewRatio: preview.width / preview.height,
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
     };
   });
 
-  expect(geometry.buttons).toHaveLength(3);
-  expect(Math.max(...geometry.buttons.map(({ width }) => width)) - Math.min(...geometry.buttons.map(({ width }) => width))).toBeLessThanOrEqual(1);
-  expect(Math.max(...geometry.buttons.map(({ width }) => width))).toBeLessThanOrEqual(448);
-  expect(Math.max(...geometry.buttons.map(({ x }) => x)) - Math.min(...geometry.buttons.map(({ x }) => x))).toBeLessThanOrEqual(1);
-  expect(geometry.buttons.every((button, index) => index === 0 || button.y > geometry.buttons[index - 1].bottom)).toBe(true);
+  expect(geometry.buttons).toHaveLength(2);
+  expect(
+    Math.max(...geometry.buttons.map(({ height }) => height)) -
+      Math.min(...geometry.buttons.map(({ height }) => height)),
+  ).toBeLessThanOrEqual(1);
   expect(geometry.overflow).toBeLessThanOrEqual(1);
-  expect(geometry.previewWidth).toBeLessThanOrEqual(480);
-  if (testInfo.project.name === "chromium") expect(geometry.previewWidth).toBeGreaterThanOrEqual(400);
-  expect(geometry.previewRatio).toBeCloseTo(4 / 3, 1);
 });
 
 test("keeps the standalone Markdown export available", async ({ page }) => {

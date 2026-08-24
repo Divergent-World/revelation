@@ -147,6 +147,11 @@ body:has(.embed-frame) main { min-height: 100vh; }
   .tapestry-pagination, .chapter-nav { font-size: .62rem; }
 }
 
+@media (max-width: 640px) {
+  .site-header { align-items: flex-start; flex-direction: column; gap: 1rem; }
+  .site-header nav { width: 100%; gap: .7rem 1.2rem; flex-wrap: wrap; }
+}
+
 @media (max-width: 760px), (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
   .scene-dialog { width: 100vw; height: 100svh; border: 0; }
   .scene-dialog[open] { display: block; overflow-y: auto; }

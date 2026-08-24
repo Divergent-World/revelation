@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { repositoryUrl } from "@/lib/content";
-
 export function SiteHeader() {
   return (
     <header className="site-header">
@@ -12,7 +10,8 @@ export function SiteHeader() {
       <nav aria-label="Primary navigation">
         <Link href="/tapestries/1/">Movements</Link>
         <Link href="/revelation/">Read</Link>
-        <a href={repositoryUrl}>Source</a>
+        <Link href="/print-edition/">Print Edition</Link>
+        <Link href="/remix/">Remix</Link>
       </nav>
     </header>
   );
