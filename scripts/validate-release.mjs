@@ -4,12 +4,16 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import sharp from "sharp";
 
-import { expectedReleaseFiles, validateReleaseInventory } from "./lib/release.mjs";
+import {
+  artworkArchiveName,
+  expectedReleaseFiles,
+  validateReleaseInventory,
+} from "./lib/release.mjs";
 import { validateMasterRelease } from "./validate-master-release.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const releaseRoot = path.join(root, "dist", "releases", "v1");
-const archive = path.join(releaseRoot, "revelations-artwork-v1.zip");
+const archive = path.join(releaseRoot, artworkArchiveName("v1"));
 const sourceMap = JSON.parse(await readFile(path.join(root, "content", "source-map.json"), "utf8"));
 
 function run(command, args) {
@@ -83,7 +87,7 @@ assertExactFiles(await walk(releaseRoot), [
   "REVELATION-master-v1.zip",
   "SHA256SUMS.txt",
   "manifest.json",
-  "revelations-artwork-v1.zip",
+  artworkArchiveName("v1"),
   ...expected.originals.map((file) => `originals/${file}`),
   ...expected.previews.map((file) => `web/640/${file}`),
   ...expected.readers.map((file) => `web/1920/${file}`),

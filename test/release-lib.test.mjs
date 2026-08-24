@@ -3,6 +3,12 @@ import test from "node:test";
 
 import { contentDispositionFor, contentTypeFor, expectedReleaseFiles, releasePaths, validateReleaseInventory } from "../scripts/lib/release.mjs";
 
+test("artwork archive uses the singular project name", async () => {
+  const release = await import("../scripts/lib/release.mjs");
+  assert.equal(typeof release.artworkArchiveName, "function");
+  assert.equal(release.artworkArchiveName("v1"), "revelation-artwork-v1.zip");
+});
+
 test("releasePaths uses stable scene IDs and preserves original extension", () => {
   assert.deepEqual(releasePaths("T2-B07", ".PNG"), {
     original: "releases/v1/originals/T2-B07.png",
@@ -34,7 +40,10 @@ test("contentTypeFor covers published release formats", () => {
 
 test("contentDispositionFor forces cross-origin originals and archives to download", () => {
   assert.equal(contentDispositionFor("releases/v1/originals/T1-T01.png"), 'attachment; filename="T1-T01.png"');
-  assert.equal(contentDispositionFor("releases/v1/revelations-artwork-v1.zip"), 'attachment; filename="revelations-artwork-v1.zip"');
+  assert.equal(
+    contentDispositionFor("releases/v1/revelation-artwork-v1.zip"),
+    'attachment; filename="revelation-artwork-v1.zip"',
+  );
   assert.equal(contentDispositionFor("releases/v1/web/640/T1-T01.webp"), undefined);
 });
 

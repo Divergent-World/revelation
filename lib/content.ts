@@ -85,9 +85,15 @@ export function assetUrl(key: string) {
   return `${base}/${key}`;
 }
 
-export const archiveUrl = assetUrl(`releases/${contentVersion}/revelations-artwork-${contentVersion}.zip`);
+export const archiveUrl = assetUrl(
+  `releases/${contentVersion}/revelation-artwork-${contentVersion}.zip`,
+);
 export const masterArchiveUrl = assetUrl(
   `releases/${contentVersion}/REVELATION-master-${contentVersion}.zip`,
 );
 export const blurbPreviewUrl =
   "https://www.blurb.com/bookshare/app/index.html?bookId=12978394";
+export const blurbBookUrl =
+  "https://www.blurb.com/b/12978394-revelation";
+export const repositoryUrl =
+  "https://github.com/Divergent-World/Revelation";
