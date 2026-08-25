@@ -1,0 +1,61 @@
+.page { overflow: clip; }
+.hero, .archive, .contents, .manuscript {
+  width: min(100%, 80rem);
+  margin: auto;
+  padding-inline: clamp(1rem, 6vw, 5rem);
+}
+.page h2 { font-size: var(--type-section); }
+.hero {
+  display: grid;
+  grid-template-columns: minmax(18rem, .82fr) minmax(28rem, 1.18fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+  width: min(100%, 88rem);
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+}
+.hero h1 { max-width: 15ch; margin-bottom: 1.5rem; }
+.heroCopy > p:not(.eyebrow, .note), .archive p, .contents p, .manuscript p {
+  max-width: 44rem;
+  color: var(--muted);
+  font: 1.05rem/1.72 var(--font-display), serif;
+}
+.heroCopy .actions { margin-top: 1.75rem; }
+.archive {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, .72fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+  width: min(calc(100% - 2rem), 76rem);
+  padding: clamp(2.25rem, 5vw, 4rem);
+  background: linear-gradient(135deg, rgba(20, 25, 32, .92), rgba(10, 13, 17, .96));
+  border: 1px solid var(--line);
+}
+.actions { display: grid; gap: .8rem; }
+.actions a { width: 100%; padding-inline: 1rem; }
+.note { font-size: .67rem !important; letter-spacing: .1em; text-transform: uppercase; }
+.heroCopy .note { margin: 1rem 0 0; color: var(--muted); line-height: 1.6; }
+.archiveAside { margin: 0; padding-left: clamp(1.5rem, 3vw, 2.5rem); border-left: 1px solid var(--line); }
+.contents {
+  padding-block: clamp(6rem, 10vw, 9rem);
+}
+.contentsIntro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .7fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+.contentsIntro .eyebrow { grid-column: 1 / -1; margin-bottom: -1rem; }
+.contentsIntro h2, .contentsIntro p { margin-bottom: 0; }
+.workflow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: clamp(3rem, 6vw, 5rem); padding: 1px; background: var(--line); }
+.workflow article { min-width: 0; padding: clamp(1.5rem, 3vw, 2.4rem); background: var(--night); }
+.workflow article > span { display: block; margin-bottom: 3.5rem; color: var(--gold); font-size: .65rem; letter-spacing: .14em; }
+.workflow h3 { margin-bottom: 1rem; }
+.workflow p { margin-bottom: 0; font-size: .95rem; }
+.tree { min-width: 0; padding: clamp(1.25rem, 3vw, 2rem); background: #080b0f; border: 1px solid rgba(214, 187, 120, .25); box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, .24); }
+.tree pre { margin: 0; overflow-x: auto; color: #c8c4b9; font: .76rem/1.72 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.tree code { font: inherit; }
+.manuscript { max-width: 68rem; padding-block: clamp(5rem, 8vw, 7rem); }
+.manuscript a { color: var(--gold); text-decoration: underline; text-underline-offset: .25em; }
+@media (max-width: 900px) {
+  .hero, .archive, .contentsIntro, .workflow { grid-template-columns: 1fr; }
+  .hero { padding-top: 4rem; }
+  .archiveAside { padding-top: 1.5rem; padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+  .contentsIntro .eyebrow { grid-column: auto; margin-bottom: -1rem; }
+  .workflow article > span { margin-bottom: 2rem; }
+  .tree { margin-inline: -1rem; }
+}

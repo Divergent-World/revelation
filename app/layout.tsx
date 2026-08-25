@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "Revelations — A Prophecy in Six Movements", template: "%s — Revelations" },
+  title: { default: "Revelation — A Prophecy in Six Movements", template: "%s — Revelation" },
   description: "An illuminated reading of the Book of Revelation as a prophecy in six movements by Ali Rahman / Divergent World.",
 };
 

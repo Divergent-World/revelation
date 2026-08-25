@@ -1,4 +1,4 @@
-# Revelations
+# Revelation
 
 An open-source, static exhibition of the Book of Revelation as a prophecy in six movements by Ali Rahman / Divergent World. The Next.js portal presents 90 canonical scenes beside the public-domain World English Bible text of Revelation.
 
@@ -73,7 +73,7 @@ Connect a custom domain to the bucket, enable HTTPS and Cloudflare caching, then
 
 ## Deployment
 
-1. Import `Divergent-World/revelations` into Vercel.
+1. Import `Divergent-World/Revelation` into Vercel.
 2. Set `NEXT_PUBLIC_ASSET_BASE_URL` to the production R2 custom domain.
 3. Keep the default build command (`npm run build`) and static `out/` output.
 4. Smoke-test `/`, `/tapestries/1/`, `/embed/tapestries/1/`, and `/revelation/1/`.

@@ -26,7 +26,7 @@ pandoc export.md \
   --toc \
   --reference-doc=publishing/reference/red-letter-reference.docx \
   --resource-path=. \
-  --output=build/revelations.docx
+  --output=build/revelation.docx
 ```
 
 The 90 relative images are embedded, and the `Words of Jesus` character style preserves crimson text in Word and Google Docs.
@@ -40,7 +40,7 @@ pandoc export.md \
   --toc \
   --split-level=2 \
   --resource-path=. \
-  --output=build/revelations-pandoc.epub
+  --output=build/revelation-pandoc.epub
 ```
 
 The finished fixed-layout and purpose-built reflowable EPUBs in `editions/` follow stricter rules than this conventional Pandoc export. Rebuild those with `publishing/instructions/EPUB_BUILD_RULES.md`.
@@ -56,7 +56,7 @@ pandoc export.md \
   --toc \
   --resource-path=. \
   --pdf-engine=weasyprint \
-  --output=build/revelations-pandoc.pdf
+  --output=build/revelation-pandoc.pdf
 ```
 
 For the designed 182-page book and editable InDesign layouts, follow `publishing/book-source/README.md` and `publishing/instructions/INDESIGN_BUILD.md` inside the archive.

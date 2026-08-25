@@ -141,7 +141,7 @@ Expected: all validation and unit tests pass.
 
 **Files:**
 - Regenerate ignored: `dist/releases/v1/manifest.json`
-- Regenerate ignored: `dist/releases/v1/revelations-artwork-v1.zip`
+- Regenerate ignored: `dist/releases/v1/revelation-artwork-v1.zip`
 - Verify ignored derivatives and originals through existing validation.
 
 **Interfaces:**

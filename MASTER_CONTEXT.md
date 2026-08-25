@@ -34,7 +34,7 @@ Three products:
 ## 2. Where everything lives
 
 ```
-~/Desktop/test/revelations/                 the Next.js repo — CANONICAL DATA
+~/Desktop/test/Revelation/                 the Next.js repo — CANONICAL DATA
   content/tapestries.json                   90 scenes, movements, resolved passages
   content/scene-metadata.json               titles + anchors      ← canonical
   content/source-map.json                   slot -> vault file + SHA-256
@@ -210,7 +210,7 @@ Losses · colophon.
 Everything generates from `content/*.json` plus `prose.py`. Nothing is hand-placed.
 
 ```bash
-cd ~/Desktop/test/revelations/book
+cd ~/Desktop/test/Revelation/book
 
 python3 measure.py                 # re-measure how prose flows at the current trim
 python3 build_idml.py              # -> indesign/REVELATION_13x11.idml
@@ -308,7 +308,7 @@ proposition.
 
 > I'm building REVELATION, an illuminated art book reconstructing the Apocalypse Tapestry of
 > Angers — 90 plates plus the complete text of Revelation. The repo is at
-> `~/Desktop/test/revelations`, the art archive is in my Obsidian vault under
+> `~/Desktop/test/Revelation`, the art archive is in my Obsidian vault under
 > `Apocalypse Tapestry`. The book generates from `content/*.json` via the scripts in `book/`.
 > Attached is the master context. [this file]
 >

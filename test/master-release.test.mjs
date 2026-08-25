@@ -5,6 +5,7 @@ import {
   assertSafeMasterPath,
   masterArchiveName,
   masterEntryPaths,
+  officialEditions,
 } from "../scripts/lib/master-release.mjs";
 import {
   assertPlateStatuses,
@@ -13,6 +14,10 @@ import {
 
 test("master archive uses the immutable release version", () => {
   assert.equal(masterArchiveName("v1"), "REVELATION-master-v1.zip");
+});
+
+test("master archive uses the singular editable edition name", () => {
+  assert.equal(officialEditions["revelation.docx"], "revelation.docx");
 });
 
 test("master inventory names only the official editions", () => {

@@ -1,14 +1,22 @@
 import Link from "next/link";
 
 import { ArtworkImage } from "@/components/ArtworkImage";
+import { HomeHeroCarousel } from "@/components/HomeHeroCarousel";
 import {
   allTapestries,
-  blurbPreviewUrl,
   getScene,
-  masterArchiveUrl,
   type Scene,
 } from "@/lib/content";
 import styles from "./page.module.css";
+
+const homeHeroSceneIds = [
+  "T1-B04",
+  "T2-B03",
+  "T3-T07",
+  "T4-B04",
+  "T5-B02",
+  "T6-B03",
+] as const;
 
 function requiredScene(id: string): Scene {
   const scene = getScene(id);
@@ -17,7 +25,7 @@ function requiredScene(id: string): Scene {
 }
 
 export default function HomePage() {
-  const feature = requiredScene("T6-B03");
+  const features = homeHeroSceneIds.map(requiredScene);
   const movements = allTapestries.map((tapestry) => ({
     tapestry,
     lead: requiredScene(tapestry.leadSceneId),
@@ -25,8 +33,8 @@ export default function HomePage() {
 
   return (
     <div className={styles.page}>
-      <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.heroCopy}>
+      <section className={styles.hero} aria-labelledby="home-title" data-home-hero>
+        <div className={styles.heroCopy} data-home-hero-copy>
           <p className="eyebrow">The Revelation to John</p>
           <h1 id="home-title">A prophecy in six movements</h1>
           <p className={styles.intro}>Ninety illuminations follow John from Patmos through throne, judgment, dragon, Babylon, and the radiant city at the end of the world.</p>
@@ -40,10 +48,7 @@ export default function HomePage() {
             <div><dt>Illuminations</dt><dd>90</dd></div>
           </dl>
         </div>
-        <figure className={styles.feature}>
-          <div className={styles.featureFrame}><ArtworkImage scene={feature} size="reader" eager /></div>
-          <figcaption><span>Movement VI · {feature.id}</span><strong>{feature.title}</strong><small>{feature.displayReference}</small></figcaption>
-        </figure>
+        <HomeHeroCarousel scenes={features} />
       </section>
 
       <section className={styles.movements} aria-labelledby="six-movements">
@@ -63,33 +68,6 @@ export default function HomePage() {
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className={styles.archive} aria-labelledby="archive-title">
-        <div className={styles.archiveGrid}>
-          <div className={styles.archiveCopy}>
-            <p className="eyebrow">Complete archive · Edition v1</p>
-            <h2 id="archive-title">The whole prophecy, in your hands.</h2>
-            <p className={styles.archiveIntro}>One self-contained download brings together the official 182-page book, both EPUB editions, editable DOCX, all ninety artworks, canonical content, portable InDesign sources, fonts, and rebuild instructions.</p>
-            <div className={`${styles.actions} ${styles.archiveActions}`}>
-              <a className="button button-primary" href={masterArchiveUrl}>Download the master archive</a>
-              <a className="button" href={blurbPreviewUrl}>Preview / buy the print edition</a>
-              <a className="button" href="https://github.com/Divergent-World/revelations">View the source on GitHub</a>
-            </div>
-            <p className={styles.exportNote}>1.6 GB · 182-page PDF · fixed and reflowable EPUB · editable publishing source</p>
-            <p className={styles.compatibilityNote}>Need only the scripture manuscript? The standalone <a href="/export.md" download>export.md</a> remains available for compatibility.</p>
-          </div>
-          <div className={styles.blurbFrame}>
-            <p>Collector&apos;s print edition</p>
-            <iframe
-              className={styles.blurbPreview}
-              title="Preview Revelation on Blurb"
-              src={blurbPreviewUrl}
-              loading="lazy"
-              allowFullScreen
-            />
-          </div>
-        </div>
       </section>
     </div>
   );

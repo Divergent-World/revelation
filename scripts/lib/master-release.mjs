@@ -14,7 +14,7 @@ export const officialEditions = Object.freeze({
   "REVELATION_web.pdf": "REVELATION_web.pdf",
   "REVELATION_iPad_fixed.epub": "REVELATION_iPad_fixed_web.epub",
   "REVELATION_reflowable.epub": "REVELATION_reflowable.epub",
-  "revelations.docx": "revelations.docx",
+  "revelation.docx": "revelation.docx",
 });
 
 const contentFiles = Object.freeze([

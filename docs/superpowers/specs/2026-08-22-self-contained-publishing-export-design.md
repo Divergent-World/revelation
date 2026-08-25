@@ -115,7 +115,7 @@ REVELATION-master-v1/
 │   ├── REVELATION_web.pdf
 │   ├── REVELATION_iPad_fixed.epub
 │   ├── REVELATION_reflowable.epub
-│   └── revelations.docx
+│   └── revelation.docx
 ├── publishing/
 │   ├── instructions/
 │   ├── reference/
@@ -129,7 +129,7 @@ REVELATION-master-v1/
 
 The fixed-layout EPUB is normalized to `REVELATION_iPad_fixed.epub`, matching the EPUB build rules, even when the incoming staging file is named `REVELATION_iPad_fixed_web.epub`.
 
-The archive does not contain the older `revelations-artwork-v1.zip` or itself. Wrapper ZIPs are excluded to prevent recursive archives and a second 1.4 GB copy of the originals.
+The archive does not contain the older `revelation-artwork-v1.zip` or itself. Wrapper ZIPs are excluded to prevent recursive archives and a second 1.4 GB copy of the originals.
 
 ## Portable path contract
 
@@ -156,7 +156,7 @@ Bundle mode rejects absolute filesystem paths, URL schemes, query strings, fragm
 
 Book generators resolve canonical JSON, artwork, fonts, cover inputs, and outputs relative to the archive root. A narrowly scoped environment override may support repository development, but the extracted archive works with no path configuration.
 
-The InDesign generators emit portable link URIs targeting artwork within the archive. Shipped IDML must not preserve the current absolute links into `/Users/alirahman/Desktop/test/revelations/book/indesign/Links_png`.
+The InDesign generators emit portable link URIs targeting artwork within the archive. Shipped IDML must not preserve the current absolute links into `/Users/alirahman/Desktop/test/Revelation/book/indesign/Links_png`.
 
 ## `export.md` and Pandoc workflow
 
@@ -173,12 +173,12 @@ pandoc export.md \
   --toc \
   --resource-path=. \
   --reference-doc=publishing/reference/red-letter-reference.docx \
-  -o build/revelations.docx
+  -o build/revelation.docx
 ```
 
 Equivalent EPUB and PDF commands use the same relative resources. PDF generation through Pandoc uses the documented WeasyPrint HTML path so red lettering and proportional image guards survive.
 
-The finished `editions/revelations.docx` is included for immediate use. The command demonstrates that a new editable DOCX can be created with all 90 JPEGs and the `Words of Jesus` character style using only archive contents.
+The finished `editions/revelation.docx` is included for immediate use. The command demonstrates that a new editable DOCX can be created with all 90 JPEGs and the `Words of Jesus` character style using only archive contents.
 
 ## Designed book and EPUB workflow
 
@@ -270,7 +270,7 @@ The release is valid only when all of these checks pass:
 
 ### Rebuilds
 
-- Pandoc rebuilds `build/revelations.docx` with 90 embedded JPEGs and the red-letter character style.
+- Pandoc rebuilds `build/revelation.docx` with 90 embedded JPEGs and the red-letter character style.
 - Pandoc rebuilds a portable EPUB and PDF without network access.
 - The designed-book workflow regenerates a 182-page PDF.
 - The fixed-layout EPUB has page images, required spread properties, valid XML, and resolvable manifest and spine entries.

@@ -1,48 +1,370 @@
 import { expect, test } from "@playwright/test";
 
-test("offers the master archive, Blurb edition, and source", async ({ page }) => {
+test("moves archive and source access to Remix", async ({ page }) => {
   await page.goto("/");
-  const master = page.getByRole("link", { name: "Download the master archive" });
-  await expect(master).toHaveAttribute(
+  await expect(
+    page.getByRole("link", { name: "Download Master Archive" }),
+  ).toHaveCount(0);
+  await expect(page.getByTitle("Preview Revelation on Blurb")).toHaveCount(0);
+  await expect(
+    page.locator("section[aria-labelledby='archive-title']"),
+  ).toHaveCount(0);
+
+  await page.getByRole("link", { name: "Remix" }).click();
+  await expect(page).toHaveURL(/\/remix\/$/);
+  await expect(
+    page.getByRole("link", { name: "Download Master Archive" }),
+  ).toHaveAttribute(
     "href",
     /releases\/v1\/REVELATION-master-v1\.zip$/,
   );
+  await expect(
+    page.getByRole("link", { name: "View Source on GitHub" }),
+  ).toHaveAttribute("href", "https://github.com/Divergent-World/Revelation");
+  await expect(
+    page.getByRole("link", { name: "Download the scripture manuscript" }),
+  ).toHaveAttribute("href", "/export.md");
+});
+
+test("keeps Remix actions aligned without overflow", async ({ page }) => {
+  await page.goto("/remix/");
+  const actions = page.locator("[data-remix-actions]");
+  const geometry = await actions.evaluate((node) => {
+    const buttons = [...node.querySelectorAll<HTMLElement>("a.button")].map(
+      (button) => {
+        const { width, height } = button.getBoundingClientRect();
+        return { width, height };
+      },
+    );
+    return {
+      buttons,
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
+    };
+  });
+
+  expect(geometry.buttons).toHaveLength(2);
+  expect(
+    Math.max(...geometry.buttons.map(({ height }) => height)) -
+      Math.min(...geometry.buttons.map(({ height }) => height)),
+  ).toBeLessThanOrEqual(1);
+  expect(geometry.overflow).toBeLessThanOrEqual(1);
+});
+
+test("presents the 182-page Print Edition as the primary collector object", async ({ page }) => {
+  await page.goto("/print-edition/");
+  await expect(
+    page.getByRole("heading", { name: "Revelation: An Illuminated Prophecy" }),
+  ).toBeVisible();
+  await expect(page.getByText("By Ali Rahman", { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole("region", { name: "Revelation: An Illuminated Prophecy" })
+      .getByText("182 pages", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "Ninety illuminated compartments · six movements · twenty-two chapters",
+      { exact: true },
+    ),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "View on Blurb" }).first(),
+  ).toHaveAttribute("href", "https://www.blurb.com/b/12978394-revelation");
   await expect(page.getByTitle("Preview Revelation on Blurb")).toHaveAttribute(
     "src",
     "https://www.blurb.com/bookshare/app/index.html?bookId=12978394",
   );
-  await expect(
-    page.getByRole("link", { name: "View the source on GitHub" }),
-  ).toHaveAttribute("href", "https://github.com/Divergent-World/revelations");
+  await expect(page.getByText("$310", { exact: true })).toBeVisible();
+  await expect(page.getByText("Hardcover ImageWrap", { exact: true })).toBeVisible();
+  await expect(page.locator("[data-edition-cover] img")).toHaveAttribute(
+    "src",
+    /cover_bg/,
+  );
+  await expect(page.locator("[data-edition-artwork]")).toHaveCount(4);
 });
 
-test("keeps archive actions uniform and the Blurb preview compact", async ({ page }, testInfo) => {
-  await page.goto("/");
-  const archive = page.locator("section[aria-labelledby='archive-title']");
-  const geometry = await archive.evaluate((section) => {
-    const buttons = [...section.querySelectorAll<HTMLElement>("a.button")]
-      .map((button) => {
-        const { x, y, width, height, bottom } = button.getBoundingClientRect();
-        return { x, y, width, height, bottom };
-      });
-    const preview = section.querySelector("iframe")!.getBoundingClientRect();
+test("keeps the Print Edition preview proportional and on-screen", async ({ page }) => {
+  await page.goto("/print-edition/");
+  const geometry = await page.locator("[data-blurb-frame]").evaluate((frame) => {
+    const preview = frame.querySelector("iframe")!.getBoundingClientRect();
     return {
-      buttons,
-      overflow: section.scrollWidth - section.clientWidth,
-      previewWidth: preview.width,
-      previewRatio: preview.width / preview.height,
+      overflow: document.documentElement.scrollWidth - window.innerWidth,
+      width: preview.width,
+      ratio: preview.width / preview.height,
     };
   });
-
-  expect(geometry.buttons).toHaveLength(3);
-  expect(Math.max(...geometry.buttons.map(({ width }) => width)) - Math.min(...geometry.buttons.map(({ width }) => width))).toBeLessThanOrEqual(1);
-  expect(Math.max(...geometry.buttons.map(({ width }) => width))).toBeLessThanOrEqual(448);
-  expect(Math.max(...geometry.buttons.map(({ x }) => x)) - Math.min(...geometry.buttons.map(({ x }) => x))).toBeLessThanOrEqual(1);
-  expect(geometry.buttons.every((button, index) => index === 0 || button.y > geometry.buttons[index - 1].bottom)).toBe(true);
   expect(geometry.overflow).toBeLessThanOrEqual(1);
-  expect(geometry.previewWidth).toBeLessThanOrEqual(480);
-  if (testInfo.project.name === "chromium") expect(geometry.previewWidth).toBeGreaterThanOrEqual(400);
-  expect(geometry.previewRatio).toBeCloseTo(4 / 3, 1);
+  expect(geometry.width).toBeLessThanOrEqual(800);
+  expect(geometry.ratio).toBeCloseTo(16 / 9, 1);
+});
+
+test("uses restrained editorial scale on Print Edition and Remix", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+
+  await page.goto("/print-edition/");
+  const print = await page.locator("h1").evaluate((heading) => ({
+    fontSize: Number.parseFloat(getComputedStyle(heading).fontSize),
+    sectionTitleSize: Number.parseFloat(
+      getComputedStyle(document.querySelector("h2")!).fontSize,
+    ),
+    detailsBackground: getComputedStyle(
+      document.querySelector<HTMLElement>("[data-edition-details]")!,
+    ).backgroundColor,
+  }));
+  expect(print.fontSize).toBeLessThanOrEqual(61);
+  expect(print.sectionTitleSize).toBeLessThanOrEqual(48);
+  expect(print.detailsBackground).not.toBe("rgb(238, 231, 216)");
+
+  await page.goto("/remix/");
+  const remix = await page.locator("h1").evaluate((heading) => ({
+    fontSize: Number.parseFloat(getComputedStyle(heading).fontSize),
+    sectionTitleSize: Number.parseFloat(
+      getComputedStyle(document.querySelector("h2")!).fontSize,
+    ),
+  }));
+  expect(remix.fontSize).toBeLessThanOrEqual(61);
+  expect(remix.sectionTitleSize).toBeLessThanOrEqual(48);
+});
+
+test("uses one descending editorial heading scale across every route", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+
+  const routes = [
+    "/",
+    "/revelation/",
+    "/revelation/1/",
+    "/tapestries/1/",
+    "/print-edition/",
+    "/remix/",
+  ];
+  const heroSizes: number[] = [];
+
+  for (const route of routes) {
+    await page.goto(route);
+    const hierarchy = await page.locator("h1").evaluate((heading) => {
+      const heroSize = Number.parseFloat(getComputedStyle(heading).fontSize);
+      const descendants = [...document.querySelectorAll<HTMLElement>("h2, h3")]
+        .filter((candidate) => candidate.getBoundingClientRect().width > 0)
+        .map((candidate) => Number.parseFloat(getComputedStyle(candidate).fontSize));
+      return { heroSize, descendants };
+    });
+    heroSizes.push(hierarchy.heroSize);
+    expect(
+      hierarchy.descendants.every((size) => size < hierarchy.heroSize),
+      `${route}: ${JSON.stringify(hierarchy)}`,
+    ).toBe(true);
+  }
+
+  expect(Math.max(...heroSizes) - Math.min(...heroSizes)).toBeLessThanOrEqual(1);
+  expect(heroSizes[0]).toBeGreaterThanOrEqual(55);
+  expect(heroSizes[0]).toBeLessThanOrEqual(61);
+});
+
+test("keeps the complete Print Edition title inside the front cover", async ({ page }) => {
+  await page.goto("/print-edition/");
+  const geometry = await page.locator("[data-edition-cover]").evaluate((cover) => {
+    const face = cover.firstElementChild!.getBoundingClientRect();
+    const title = cover.querySelector("strong")!.getBoundingClientRect();
+    return {
+      face: { left: face.left, right: face.right },
+      title: { left: title.left, right: title.right },
+      inset: face.width * .06,
+    };
+  });
+  expect(geometry.title.left).toBeGreaterThanOrEqual(geometry.face.left + geometry.inset);
+  expect(geometry.title.right).toBeLessThanOrEqual(geometry.face.right - geometry.inset);
+});
+
+test("places Remix actions beside the archive tree and introduces the remix kit", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+  await page.goto("/remix/");
+
+  const layout = await page.locator("header").last().evaluate((hero) => {
+    const actions = hero.querySelector<HTMLElement>("[data-remix-actions]")!.getBoundingClientRect();
+    const tree = hero.querySelector<HTMLElement>("[aria-label='Master Archive contents']")!.getBoundingClientRect();
+    return {
+      actionsRight: actions.right,
+      treeLeft: tree.left,
+      actionsTop: actions.top,
+      actionsBottom: actions.bottom,
+      treeTop: tree.top,
+      treeBottom: tree.bottom,
+    };
+  });
+  expect(layout.actionsRight).toBeLessThan(layout.treeLeft);
+  expect(layout.actionsTop).toBeLessThan(layout.treeBottom);
+  expect(layout.actionsBottom).toBeGreaterThan(layout.treeTop);
+  await expect(page.getByText(/GPT or Nano Banana/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Begin with the canon" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Build a new interpretation" })).toBeVisible();
+});
+
+test("keeps the Remix archive tree inside an intermediate tablet viewport", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+  await page.setViewportSize({ width: 820, height: 1000 });
+  await page.goto("/remix/");
+
+  const geometry = await page
+    .getByRole("region", { name: "Master Archive contents" })
+    .evaluate((tree) => {
+      const bounds = tree.getBoundingClientRect();
+      return {
+        left: bounds.left,
+        right: bounds.right,
+        viewportWidth: window.innerWidth,
+      };
+    });
+  expect(geometry.left).toBeGreaterThanOrEqual(0);
+  expect(geometry.right).toBeLessThanOrEqual(geometry.viewportWidth);
+});
+
+test("keeps the homepage title compact without obscuring carousel controls", async ({ page }, testInfo) => {
+  await page.goto("/");
+  const controls = page.locator("[data-carousel-controls]");
+  await expect(controls).toBeVisible();
+  const geometry = await page.locator("[data-home-hero]").evaluate((hero) => {
+    const title = hero.querySelector("h1")!;
+    const controls = hero.querySelector<HTMLElement>("[data-carousel-controls]")!;
+    const heroBox = hero.getBoundingClientRect();
+    const controlsBox = controls.getBoundingClientRect();
+    return {
+      fontSize: Number.parseFloat(getComputedStyle(title).fontSize),
+      controlsBox: {
+        top: controlsBox.top,
+        right: controlsBox.right,
+        bottom: controlsBox.bottom,
+        left: controlsBox.left,
+      },
+      heroBox: { top: heroBox.top, bottom: heroBox.bottom },
+      viewport: { width: window.innerWidth, height: window.innerHeight },
+      controlsVisible:
+        controlsBox.top >= heroBox.top &&
+        controlsBox.bottom <= Math.min(heroBox.bottom, window.innerHeight) &&
+        controlsBox.left >= 0 &&
+        controlsBox.right <= window.innerWidth,
+    };
+  });
+  if (testInfo.project.name === "mobile") {
+    expect(geometry.fontSize).toBeGreaterThanOrEqual(33);
+    expect(geometry.fontSize).toBeLessThanOrEqual(37);
+  } else {
+    expect(geometry.fontSize).toBeGreaterThanOrEqual(55);
+    expect(geometry.fontSize).toBeLessThanOrEqual(61);
+  }
+  expect(geometry.controlsVisible, JSON.stringify(geometry)).toBe(true);
+});
+
+test("orders the primary journey from movements through reading", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link")).toHaveText([
+    "Movements",
+    "Print Edition",
+    "Remix",
+    "Read",
+  ]);
+});
+
+test("frames Remix as a companion and maps the Master Archive", async ({ page }) => {
+  await page.goto("/remix/");
+  await expect(page.getByText("A companion to the Print Edition", { exact: true })).toBeVisible();
+  const tree = page.getByRole("region", { name: "Master Archive contents" });
+  await expect(tree.locator("code")).toHaveText(`REVELATION-master-v1/
+├── README.md
+├── export.md
+├── manifest.json
+├── SHA256SUMS.txt
+├── artwork/
+│   ├── originals/
+│   ├── book-images/
+│   └── web/
+│       ├── 640/
+│       └── 1920/
+├── content/
+│   ├── revelation.web.json
+│   ├── scene-metadata.json
+│   ├── source-map.json
+│   └── tapestries.json
+├── editions/
+│   ├── REVELATION_web.pdf
+│   ├── REVELATION_iPad_fixed.epub
+│   ├── REVELATION_reflowable.epub
+│   └── revelation.docx
+└── publishing/
+    ├── README.md
+    ├── book-source/
+    ├── editions/
+    ├── historical-book-build/
+    ├── indesign/
+    ├── instructions/
+    └── reference/`);
+  await expect(page.getByText(/generative AI/i)).toBeVisible();
+});
+
+test("rotates the six-scene homepage carousel every eight seconds", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Featured Revelation artwork" });
+  await expect(carousel.locator("[data-scene-id]")).toHaveCount(6);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+  await page.clock.fastForward(8_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T2-B03");
+  await page.getByRole("button", { name: "Previous artwork" }).click();
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+});
+
+test("uses the homepage carousel as a full-bleed hero backdrop", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+  await page.goto("/");
+  const geometry = await page
+    .getByRole("region", { name: "Featured Revelation artwork" })
+    .evaluate((carousel) => {
+      const hero = carousel.closest<HTMLElement>("[data-home-hero]")!;
+      const copy = hero.querySelector<HTMLElement>("[data-home-hero-copy]")!;
+      const image = carousel.querySelector<HTMLElement>("[data-active='true'] img")!;
+      const carouselBox = carousel.getBoundingClientRect();
+      const copyBox = copy.getBoundingClientRect();
+      return {
+        width: carouselBox.width,
+        viewportWidth: window.innerWidth,
+        copyOverlapsArtwork:
+          copyBox.left < carouselBox.right &&
+          copyBox.right > carouselBox.left &&
+          copyBox.top < carouselBox.bottom &&
+          copyBox.bottom > carouselBox.top,
+        objectFit: getComputedStyle(image).objectFit,
+        overflow: document.documentElement.scrollWidth - window.innerWidth,
+      };
+    });
+  expect(geometry.width).toBeGreaterThanOrEqual(geometry.viewportWidth * .95);
+  expect(geometry.copyOverlapsArtwork).toBe(true);
+  expect(geometry.objectFit).toBe("cover");
+  expect(geometry.overflow).toBeLessThanOrEqual(1);
+});
+
+test("pauses carousel rotation during hover and focus interaction", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Featured Revelation artwork" });
+  await carousel.getByRole("button", { name: "Previous artwork" }).hover();
+  await page.clock.fastForward(16_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+  await page.getByRole("banner").hover();
+  await page.clock.fastForward(8_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T2-B03");
+  await carousel.getByRole("button", { name: "Previous artwork" }).focus();
+  await page.clock.fastForward(16_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T2-B03");
+});
+
+test("disables automatic carousel motion for reduced motion", async ({ page }) => {
+  await page.clock.install();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const carousel = page.getByRole("region", { name: "Featured Revelation artwork" });
+  await page.clock.fastForward(16_000);
+  await expect(carousel).toHaveAttribute("data-active-scene", "T1-B04");
+  await page.getByRole("button", { name: /Show artwork 6:/ }).click();
+  await expect(carousel).toHaveAttribute("data-active-scene", "T6-B03");
 });
 
 test("keeps the standalone Markdown export available", async ({ page }) => {
@@ -731,7 +1053,7 @@ test("homepage opens as an illuminated movement ledger", async ({ page }, testIn
   await page.goto("/");
   const hero = page.getByRole("region", { name: "A prophecy in six movements" });
   const feature = hero.locator("figure");
-  await expect(feature.getByRole("img", { name: /New Jerusalem/ })).toBeVisible();
+  await expect(feature.getByRole("img", { name: /Fourth Horseman/ })).toBeVisible();
   await expect(hero.locator("dl dd")).toHaveText(["06", "22", "90"]);
 
   const movementIndex = page.getByRole("region", { name: "The six movements" });
@@ -740,15 +1062,10 @@ test("homepage opens as an illuminated movement ledger", async ({ page }, testIn
   await expect(entries.locator("img")).toHaveCount(6);
   await expect(entries.first().getByRole("link", { name: /Movement I.*The Scroll Opens/ })).toHaveAttribute("href", "/tapestries/1/");
 
-  const headingBox = await hero.getByRole("heading", { level: 1 }).boundingBox();
-  const featureBox = await feature.boundingBox();
-  expect(headingBox).not.toBeNull();
-  expect(featureBox).not.toBeNull();
-  expect(featureBox!.x).toBeGreaterThan(headingBox!.x + headingBox!.width);
-  await expect(feature.locator("img")).toHaveCSS("object-fit", "contain");
+  await expect(feature.locator('[data-active="true"] img')).toHaveCSS("object-fit", "cover");
 });
 
-test("homepage illuminated ledger stacks cleanly on mobile", async ({ page }, testInfo) => {
+test("homepage artwork remains a full-bleed backdrop on mobile", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "mobile");
   await page.goto("/");
   const hero = page.getByRole("region", { name: "A prophecy in six movements" });
@@ -756,7 +1073,11 @@ test("homepage illuminated ledger stacks cleanly on mobile", async ({ page }, te
   const featureBox = await hero.locator("figure").boundingBox();
   expect(headingBox).not.toBeNull();
   expect(featureBox).not.toBeNull();
-  expect(featureBox!.y).toBeGreaterThan(headingBox!.y + headingBox!.height);
+  expect(featureBox!.y).toBeLessThanOrEqual(headingBox!.y);
+  expect(featureBox!.y + featureBox!.height).toBeGreaterThanOrEqual(
+    headingBox!.y + headingBox!.height,
+  );
+  expect(featureBox!.width).toBeGreaterThanOrEqual(390);
   await expect(page.getByRole("region", { name: "The six movements" }).locator("ol > li")).toHaveCount(6);
 });
 

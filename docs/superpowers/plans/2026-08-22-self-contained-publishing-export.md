@@ -76,7 +76,7 @@ scripts/validate-master-release.mjs
 publishing/editions/REVELATION_web.pdf
 publishing/editions/REVELATION_iPad_fixed_web.epub
 publishing/editions/REVELATION_reflowable.epub
-publishing/editions/revelations.docx
+publishing/editions/revelation.docx
 publishing/indesign/REVELATION_13x11.indd
 publishing/indesign/REVELATION_cover.indd
 publishing/indesign/REVELATION_cover.pdf
@@ -194,7 +194,7 @@ Do not copy `_book-build/*.pdf`, `_book-build/plates/`, `_book-build/preview/`, 
 rtk cp "/Users/alirahman/Desktop/test/new info/versions/REVELATION_web.pdf" publishing/editions/
 rtk cp "/Users/alirahman/Desktop/test/new info/versions/REVELATION_iPad_fixed_web.epub" publishing/editions/
 rtk cp "/Users/alirahman/Desktop/test/new info/versions/REVELATION_reflowable.epub" publishing/editions/
-rtk cp "/Users/alirahman/Desktop/test/new info/versions/revelations.docx" publishing/editions/
+rtk cp "/Users/alirahman/Desktop/test/new info/versions/revelation.docx" publishing/editions/
 rtk cp "/Users/alirahman/Desktop/test/new info/REVELATION_InDesign/REVELATION_13x11.indd" publishing/indesign/
 rtk cp "/Users/alirahman/Desktop/test/new info/REVELATION_InDesign/REVELATION_cover.indd" publishing/indesign/
 rtk cp "/Users/alirahman/Desktop/test/new info/REVELATION_InDesign/REVELATION_cover.pdf" publishing/indesign/
@@ -769,7 +769,7 @@ export const officialEditions = Object.freeze({
   "REVELATION_web.pdf": "REVELATION_web.pdf",
   "REVELATION_iPad_fixed.epub": "REVELATION_iPad_fixed_web.epub",
   "REVELATION_reflowable.epub": "REVELATION_reflowable.epub",
-  "revelations.docx": "revelations.docx",
+  "revelation.docx": "revelation.docx",
 });
 
 export function masterArchiveName(version) {
@@ -980,7 +980,7 @@ test("offers the master archive, Blurb edition, and source", async ({ page }) =>
   );
   await expect(page.getByRole("link", { name: "View the source on GitHub" })).toHaveAttribute(
     "href",
-    "https://github.com/Divergent-World/revelations",
+    "https://github.com/Divergent-World/Revelation",
   );
 });
 ```
@@ -1013,7 +1013,7 @@ Render these controls in order:
 ```tsx
 <a className="button button-primary" href={masterArchiveUrl}>Download the master archive</a>
 <a className="button" href={blurbPreviewUrl}>Preview / buy the print edition</a>
-<a className="button" href="https://github.com/Divergent-World/revelations">View the source on GitHub</a>
+<a className="button" href="https://github.com/Divergent-World/Revelation">View the source on GitHub</a>
 ```
 
 Add the supplied embed with an accessible title and lazy loading:

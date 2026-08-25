@@ -4,7 +4,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import sharp from "sharp";
 
-import { releasePaths } from "./lib/release.mjs";
+import { artworkArchiveName, releasePaths } from "./lib/release.mjs";
 import { stageMasterRelease } from "./lib/master-release.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -57,7 +57,7 @@ for (const source of sources) {
 }
 
 const license = `Apocalypse Tapestry Artwork License\n\nArtwork © Ali Rahman / Divergent World.\nLicensed under Creative Commons Attribution-ShareAlike 4.0 International.\nhttps://creativecommons.org/licenses/by-sa/4.0/\n`;
-const readme = `Revelations Artwork v1\n\nThis archive contains the 90 canonical high-resolution images for Tapestries I–VI.\nScene IDs and order are defined in manifest.json. Verify files with SHA256SUMS.txt.\n`;
+const readme = `Revelation Artwork v1\n\nThis archive contains the 90 canonical high-resolution images for Tapestries I–VI.\nScene IDs and order are defined in manifest.json. Verify files with SHA256SUMS.txt.\n`;
 await Promise.all([
   writeFile(path.join(archiveStage, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`),
   writeFile(path.join(archiveStage, "ATTRIBUTION.txt"), "Artwork: Ali Rahman / Divergent World\n"),
@@ -68,7 +68,7 @@ await Promise.all([
   writeFile(path.join(releaseRoot, "SHA256SUMS.txt"), `${sums.join("\n")}\n`),
 ]);
 
-await run("zip", ["-q", "-r", path.join(releaseRoot, "revelations-artwork-v1.zip"), "."], archiveStage);
+await run("zip", ["-q", "-r", path.join(releaseRoot, artworkArchiveName("v1")), "."], archiveStage);
 await rm(archiveStage, { recursive: true, force: true });
 await stageMasterRelease({
   root,

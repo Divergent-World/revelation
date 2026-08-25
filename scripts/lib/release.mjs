@@ -1,5 +1,9 @@
 import path from "node:path";
 
+export function artworkArchiveName(version) {
+  return `revelation-artwork-${version}.zip`;
+}
+
 export function releasePaths(sceneId, extension) {
   const ext = extension.toLowerCase();
   return {
