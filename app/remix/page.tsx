@@ -13,48 +13,25 @@ export default function RemixPage() {
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
-        <p className="eyebrow">A companion to the Print Edition</p>
-        <h1>Open the making of Revelation.</h1>
-        <p>
-          Follow the project from scripture and image prompts to finished
-          artwork and book files. The companion is an invitation to learn
-          Revelation, understand a generative AI publishing practice, and make
-          a new interpretation of your own.
-        </p>
-      </header>
-
-      <section className={styles.archive} aria-labelledby="remix-archive">
-        <div>
-          <p className="eyebrow">Master archive</p>
-          <h2 id="remix-archive">The complete project, in one place.</h2>
+        <div className={styles.heroCopy}>
+          <p className="eyebrow">A companion to the Print Edition</p>
+          <h1>Open the making of Revelation.</h1>
           <p>
-            The self-contained archive includes the official 182-page book,
-            fixed and reflowable EPUB editions, editable DOCX, all ninety
-            artworks, canonical content, portable InDesign sources, fonts, and
-            rebuild instructions.
+            Follow the project from scripture and source imagery to finished
+            artwork and book files. This companion is an invitation to study
+            the work, understand a generative AI publishing practice, and make
+            a new interpretation of your own.
           </p>
+          <div className={styles.actions} data-remix-actions>
+            <a className="button button-primary" href={masterArchiveUrl}>
+              Download Master Archive
+            </a>
+            <a className="button" href={repositoryUrl}>
+              View Source on GitHub
+            </a>
+          </div>
           <p className={styles.note}>
-            1.6 GB · 182-page PDF · fixed and reflowable EPUB · editable
-            publishing source
-          </p>
-        </div>
-        <div className={styles.actions} data-remix-actions>
-          <a className="button button-primary" href={masterArchiveUrl}>
-            Download Master Archive
-          </a>
-          <a className="button" href={repositoryUrl}>
-            View Source on GitHub
-          </a>
-        </div>
-      </section>
-
-      <section className={styles.contents} aria-labelledby="archive-contents">
-        <div>
-          <p className="eyebrow">Inside the archive</p>
-          <h2 id="archive-contents">The work, its editions, and how it was made.</h2>
-          <p>
-            Begin with the finished book or trace any image back through the
-            canonical content and editable publishing sources used to create it.
+            1.6 GB · 182-page PDF · EPUB editions · editable publishing source
           </p>
         </div>
         <div className={styles.tree} role="region" aria-label="Master Archive contents">
@@ -87,6 +64,63 @@ export default function RemixPage() {
     ├── indesign/
     ├── instructions/
     └── reference/`}</code></pre>
+        </div>
+      </header>
+
+      <section className={styles.archive} aria-labelledby="remix-archive">
+        <div>
+          <p className="eyebrow">Master archive</p>
+          <h2 id="remix-archive">The complete project, in one place.</h2>
+          <p>
+            The self-contained archive includes the official 182-page book,
+            fixed and reflowable EPUB editions, editable DOCX, all ninety
+            artworks, canonical content, portable InDesign sources, fonts, and
+            rebuild instructions.
+          </p>
+        </div>
+        <p className={styles.archiveAside}>
+          Start with a finished edition, or move backward through its sources
+          until you reach the image, passage, or production decision you want
+          to reconsider.
+        </p>
+      </section>
+
+      <section className={styles.contents} aria-labelledby="archive-contents">
+        <div className={styles.contentsIntro}>
+          <p className="eyebrow">Inside the archive</p>
+          <h2 id="archive-contents">A working kit for study and reinterpretation.</h2>
+          <p>
+            The archive keeps the canon, imagery, metadata, and bookmaking
+            sources together so the path from a biblical passage to a finished
+            page remains visible—and open to another reading.
+          </p>
+        </div>
+        <div className={styles.workflow}>
+          <article>
+            <span>01</span>
+            <h3>Begin with the canon</h3>
+            <p>
+              Use the scripture, scene metadata, and source map to see which
+              verses animate each of the ninety illuminated compartments.
+            </p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Study the construction</h3>
+            <p>
+              Compare the artwork, publication files, and finished editions to
+              understand how a long visual sequence becomes a physical book.
+            </p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Build a new interpretation</h3>
+            <p>
+              Bring a selected source image and passage into GPT or Nano Banana,
+              develop a new prompt language, and assemble the results into a
+              personal visual reading of Revelation.
+            </p>
+          </article>
         </div>
       </section>
 

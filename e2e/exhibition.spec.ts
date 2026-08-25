@@ -111,7 +111,7 @@ test("uses restrained editorial scale on Print Edition and Remix", async ({ page
       document.querySelector<HTMLElement>("[data-edition-details]")!,
     ).backgroundColor,
   }));
-  expect(print.fontSize).toBeLessThanOrEqual(58);
+  expect(print.fontSize).toBeLessThanOrEqual(61);
   expect(print.sectionTitleSize).toBeLessThanOrEqual(48);
   expect(print.detailsBackground).not.toBe("rgb(238, 231, 216)");
 
@@ -122,8 +122,100 @@ test("uses restrained editorial scale on Print Edition and Remix", async ({ page
       getComputedStyle(document.querySelector("h2")!).fontSize,
     ),
   }));
-  expect(remix.fontSize).toBeLessThanOrEqual(58);
+  expect(remix.fontSize).toBeLessThanOrEqual(61);
   expect(remix.sectionTitleSize).toBeLessThanOrEqual(48);
+});
+
+test("uses one descending editorial heading scale across every route", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+
+  const routes = [
+    "/",
+    "/revelation/",
+    "/revelation/1/",
+    "/tapestries/1/",
+    "/print-edition/",
+    "/remix/",
+  ];
+  const heroSizes: number[] = [];
+
+  for (const route of routes) {
+    await page.goto(route);
+    const hierarchy = await page.locator("h1").evaluate((heading) => {
+      const heroSize = Number.parseFloat(getComputedStyle(heading).fontSize);
+      const descendants = [...document.querySelectorAll<HTMLElement>("h2, h3")]
+        .filter((candidate) => candidate.getBoundingClientRect().width > 0)
+        .map((candidate) => Number.parseFloat(getComputedStyle(candidate).fontSize));
+      return { heroSize, descendants };
+    });
+    heroSizes.push(hierarchy.heroSize);
+    expect(
+      hierarchy.descendants.every((size) => size < hierarchy.heroSize),
+      `${route}: ${JSON.stringify(hierarchy)}`,
+    ).toBe(true);
+  }
+
+  expect(Math.max(...heroSizes) - Math.min(...heroSizes)).toBeLessThanOrEqual(1);
+  expect(heroSizes[0]).toBeGreaterThanOrEqual(55);
+  expect(heroSizes[0]).toBeLessThanOrEqual(61);
+});
+
+test("keeps the complete Print Edition title inside the front cover", async ({ page }) => {
+  await page.goto("/print-edition/");
+  const geometry = await page.locator("[data-edition-cover]").evaluate((cover) => {
+    const face = cover.firstElementChild!.getBoundingClientRect();
+    const title = cover.querySelector("strong")!.getBoundingClientRect();
+    return {
+      face: { left: face.left, right: face.right },
+      title: { left: title.left, right: title.right },
+      inset: face.width * .06,
+    };
+  });
+  expect(geometry.title.left).toBeGreaterThanOrEqual(geometry.face.left + geometry.inset);
+  expect(geometry.title.right).toBeLessThanOrEqual(geometry.face.right - geometry.inset);
+});
+
+test("places Remix actions beside the archive tree and introduces the remix kit", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+  await page.goto("/remix/");
+
+  const layout = await page.locator("header").last().evaluate((hero) => {
+    const actions = hero.querySelector<HTMLElement>("[data-remix-actions]")!.getBoundingClientRect();
+    const tree = hero.querySelector<HTMLElement>("[aria-label='Master Archive contents']")!.getBoundingClientRect();
+    return {
+      actionsRight: actions.right,
+      treeLeft: tree.left,
+      actionsTop: actions.top,
+      actionsBottom: actions.bottom,
+      treeTop: tree.top,
+      treeBottom: tree.bottom,
+    };
+  });
+  expect(layout.actionsRight).toBeLessThan(layout.treeLeft);
+  expect(layout.actionsTop).toBeLessThan(layout.treeBottom);
+  expect(layout.actionsBottom).toBeGreaterThan(layout.treeTop);
+  await expect(page.getByText(/GPT or Nano Banana/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Begin with the canon" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Build a new interpretation" })).toBeVisible();
+});
+
+test("keeps the Remix archive tree inside an intermediate tablet viewport", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === "mobile");
+  await page.setViewportSize({ width: 820, height: 1000 });
+  await page.goto("/remix/");
+
+  const geometry = await page
+    .getByRole("region", { name: "Master Archive contents" })
+    .evaluate((tree) => {
+      const bounds = tree.getBoundingClientRect();
+      return {
+        left: bounds.left,
+        right: bounds.right,
+        viewportWidth: window.innerWidth,
+      };
+    });
+  expect(geometry.left).toBeGreaterThanOrEqual(0);
+  expect(geometry.right).toBeLessThanOrEqual(geometry.viewportWidth);
 });
 
 test("keeps the homepage title compact without obscuring carousel controls", async ({ page }, testInfo) => {

@@ -4,7 +4,7 @@
   margin: auto;
   padding-inline: clamp(1rem, 7vw, 8rem);
 }
-.page h2 { font-size: clamp(1.9rem, 3vw, 3rem); line-height: 1; }
+.page h2 { font-size: var(--type-section); }
 .hero {
   display: grid;
   grid-template-columns: minmax(18rem, 1fr) minmax(18rem, .78fr);
@@ -12,7 +12,7 @@
   align-items: center;
   padding-block: clamp(5rem, 8vw, 7.5rem);
 }
-.heroCopy h1 { max-width: 13ch; margin-bottom: 1.25rem; font-size: clamp(2.45rem, 3.8vw, 3.6rem); line-height: .96; }
+.heroCopy h1 { max-width: 13ch; margin-bottom: 1.25rem; }
 .heroCopy > p:not(.eyebrow), .story > p:last-child, .preview p {
   max-width: 42rem;
   color: var(--muted);
@@ -42,6 +42,7 @@
 .coverFace {
   position: relative;
   aspect-ratio: 900 / 765;
+  container-type: inline-size;
   overflow: hidden;
   background: #080a0d;
   border: 1px solid rgba(214, 187, 120, .6);
@@ -62,9 +63,9 @@
   text-align: center;
   text-shadow: 0 2px 1.5rem #000;
 }
-.coverType strong { align-self: end; font-size: clamp(2rem, 4vw, 3.6rem); font-weight: 600; line-height: 1; letter-spacing: .145em; text-transform: uppercase; }
-.coverType span { margin-top: .85rem; font-size: clamp(.4rem, .68vw, .62rem); font-weight: 400; letter-spacing: .44em; text-transform: uppercase; }
-.coverType i { margin-top: 2rem; color: #c0a777; font-size: clamp(.65rem, 1vw, .9rem); line-height: 1.4; }
+.coverType strong { align-self: end; max-width: 100%; font-size: 8.7cqw; font-weight: 600; line-height: 1; letter-spacing: .145em; text-transform: uppercase; white-space: nowrap; }
+.coverType span { margin-top: .85rem; font-size: 1.35cqw; font-weight: 400; letter-spacing: .44em; text-transform: uppercase; }
+.coverType i { margin-top: 2rem; color: #c0a777; font-size: 2cqw; line-height: 1.4; }
 .coverType small { align-self: end; font-size: .48rem; font-weight: 500; letter-spacing: .4em; text-transform: uppercase; }
 .cover figcaption { padding-top: .75rem; color: var(--muted); font-size: .62rem; letter-spacing: .14em; text-align: center; text-transform: uppercase; }
 .artwork { margin: 0; min-width: 0; }
@@ -141,7 +142,6 @@
 .blurbFrame iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #0b0e12; }
 @media (max-width: 760px) {
   .hero, .details, .preview { grid-template-columns: 1fr; min-height: auto; }
-  .heroCopy h1 { font-size: clamp(2.5rem, 10vw, 3.25rem); }
   .cover { width: min(82vw, 27rem); }
   .productMeta { grid-template-columns: 1fr; }
   .productMeta div + div { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
