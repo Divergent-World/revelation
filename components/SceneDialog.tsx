@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import { assetUrl, type Scene } from "@/lib/content";
+import type { Scene } from "@/lib/content";
 import { VerseText } from "./VerseText";
 import { ZoomableArtwork } from "./ZoomableArtwork";
 
@@ -61,7 +61,6 @@ export function SceneDialog({ scene, previous, next, onClose, onNavigate }: {
         <div className="scene-meta">
           <p>{scene.attribution} · <a href="https://creativecommons.org/licenses/by-sa/4.0/">{scene.license}</a></p>
           <button type="button" onClick={copyLink}>{copied ? "Link copied" : "Copy scene link"}</button>
-          <a href={assetUrl(scene.images.original)} download>Download high-resolution original</a>
           <Link href={`/revelation/${scene.scriptureSpans[0].startChapter}/#verse-${scene.scriptureSpans[0].startVerse}`}>Read in full chapter</Link>
         </div>
         <nav className="dialog-nav" aria-label="Scene navigation">

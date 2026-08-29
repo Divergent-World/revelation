@@ -920,6 +920,16 @@ test("scene deep links open, navigate, and follow browser history", async ({ pag
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
 
+test("scene dialogs do not link to originals omitted from the lean public release", async ({ page }) => {
+  await page.goto("/tapestries/1/?scene=T1-T01");
+  const dialog = page.getByRole("dialog");
+
+  await expect(dialog).toBeVisible();
+  await expect(
+    dialog.getByRole("link", { name: "Download high-resolution original" }),
+  ).toHaveCount(0);
+});
+
 test("scene links can be copied and closing returns focus to the opener", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/tapestries/1/");

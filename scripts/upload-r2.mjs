@@ -3,12 +3,13 @@ import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
-import { contentDispositionFor, contentTypeFor } from "./lib/release.mjs";
+import { contentDispositionFor, contentTypeFor, publicReleaseFiles } from "./lib/release.mjs";
 
 const required = ["R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET"];
 for (const key of required) if (!process.env[key]) throw new Error(`${key} is required`);
 
 const root = path.resolve(import.meta.dirname, "..", "dist", "releases", "v1");
+const releaseBase = path.dirname(path.dirname(root));
 const client = new S3Client({
   region: "auto",
   endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -20,9 +21,11 @@ async function files(directory) {
   return (await Promise.all(entries.map((entry) => entry.isDirectory() ? files(path.join(directory, entry.name)) : [path.join(directory, entry.name)]))).flat();
 }
 
-const releaseFiles = await files(root);
-for (const file of releaseFiles) {
-  const relative = path.relative(path.dirname(path.dirname(root)), file).split(path.sep).join("/");
+const releaseFiles = publicReleaseFiles(
+  (await files(root)).map((file) => path.relative(releaseBase, file).split(path.sep).join("/")),
+);
+for (const relative of releaseFiles) {
+  const file = path.join(releaseBase, relative);
   const body = await readFile(file);
   const checksum = createHash("sha256").update(body).digest("hex");
   try {

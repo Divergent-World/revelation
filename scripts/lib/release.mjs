@@ -14,6 +14,18 @@ export function releasePaths(sceneId, extension) {
   };
 }
 
+export function publicReleaseFiles(files) {
+  return files.filter((file) =>
+    [
+      "releases/v1/REVELATION-master-v1.zip",
+      "releases/v1/SHA256SUMS.txt",
+      "releases/v1/manifest.json",
+    ].includes(file) ||
+    /^releases\/v1\/web\/(?:640|1920)\/[^/]+\.webp$/.test(file) ||
+    /^releases\/v1\/book\/images\/[^/]+\.jpg$/.test(file),
+  );
+}
+
 export function contentTypeFor(filePath) {
   return ({
     ".avif": "image/avif",

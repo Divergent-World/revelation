@@ -18,6 +18,23 @@ test("releasePaths uses stable scene IDs and preserves original extension", () =
   });
 });
 
+test("publicReleaseFiles keeps only assets required by the lean public release", async () => {
+  const release = await import("../scripts/lib/release.mjs");
+  const files = [
+    "releases/v1/REVELATION-master-v1.zip",
+    "releases/v1/SHA256SUMS.txt",
+    "releases/v1/manifest.json",
+    "releases/v1/web/640/T1-T01.webp",
+    "releases/v1/web/1920/T1-T01.webp",
+    "releases/v1/book/images/T1-T01.jpg",
+    "releases/v1/web/.DS_Store",
+    "releases/v1/originals/T1-T01.png",
+    "releases/v1/revelation-artwork-v1.zip",
+  ];
+
+  assert.deepEqual(release.publicReleaseFiles?.(files), files.slice(0, 6));
+});
+
 test("contentTypeFor covers published release formats", () => {
   assert.equal(contentTypeFor("scene.webp"), "image/webp");
   assert.equal(contentTypeFor("scene.jpg"), "image/jpeg");

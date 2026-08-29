@@ -85,9 +85,6 @@ export function assetUrl(key: string) {
   return `${base}/${key}`;
 }
 
-export const archiveUrl = assetUrl(
-  `releases/${contentVersion}/revelation-artwork-${contentVersion}.zip`,
-);
 export const masterArchiveUrl = assetUrl(
   `releases/${contentVersion}/REVELATION-master-${contentVersion}.zip`,
 );
